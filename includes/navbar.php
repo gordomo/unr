@@ -25,7 +25,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link link text-secondary display-4" href="apunteca.php">
+            <a class="nav-link link text-secondary display-4" href="categorias.php">
               <span class="mbri-edit mbr-iconfont mbr-iconfont-btn"></span>&nbsp;Apuntes
             </a>
           </li>
