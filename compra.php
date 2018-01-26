@@ -19,9 +19,7 @@ if(is_numeric($idApunte))
     $categoria = getCategoria($mysqli, $apunte['cat_id']);
     
     $subCategoria = getSubCategoria($mysqli, $apunte['sub_cat_id']);
-    
-    
-    
+        
     $configuracion = getPrecios($mysqli);
     $precios = $configuracion->fetch_assoc();
       
