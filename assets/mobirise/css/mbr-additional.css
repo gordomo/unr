@@ -1362,6 +1362,7 @@ html,
 body {
   height: auto;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .cid-qwfntnWL41 .navbar {
   padding: .5rem 0;
