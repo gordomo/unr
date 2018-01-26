@@ -73,19 +73,15 @@ else
             </div><!-- Gallery -->
             <div class="mbr-gallery-row">
                 <div class="mbr-gallery-layout-default">
-                    <div>
-                        <div>
-                         <?php while ($apunte = $apuntes->fetch_array(MYSQLI_ASSOC)) { ?>     
+                    <?php while ($apunte = $apuntes->fetch_array(MYSQLI_ASSOC)) { ?>     
                             <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="<?= $subCatArray[$apunte['sub_cat_id']] ?>">
-                                <div href="#lb-gallery2-4m">
+                                <div onclick="location.href='compra.html';">
                                     <span class="mbr-gallery-title mbr-fonts-style display-7">
-                                        <a href="compra.html"><?= $apunte['name'] ?></a>
+                                        <?= $apunte['name'] ?>
                                     </span>
                                 </div>
                             </div>
                          <?php } ?>                                         
-                        </div>
-                    </div>
                     <div class="clearfix"></div>            
                 </div>                    
             </div><!-- Lightbox -->
