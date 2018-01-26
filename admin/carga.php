@@ -16,7 +16,7 @@ if(!$logged) {
 }
 
 $saldos = getSaldos($mysqli);
-$usuarios = getUsuarios($mysqli);
+$usuarios = getUsuariosNoAdmin($mysqli);
 
 ?>
 <!DOCTYPE html>

@@ -238,6 +238,15 @@ function getUsuarios($mysqli) {
       
 }
 
+function getUsuariosNoAdmin($mysqli) {
+  $query = "SELECT * FROM usuarios WHERE grup = 0";
+  
+  $resultado = $mysqli->query($query); 
+  
+  return $resultado;
+      
+}
+
 function getSaldos($mysqli) {
   $query = "SELECT * FROM saldos";
 
@@ -260,4 +269,21 @@ function getHistorial($mysqli) {
   $resultado = $mysqli->query($query);
   
   return $resultado;
+}
+
+function getHistorialForUser($mysqli, $id) {
+  $query = "SELECT * FROM historial WHERE id_usuario = $id";
+
+  $resultado = $mysqli->query($query);
+  
+  return $resultado;
+}
+
+function getUsuarioByEmail($mysqli, $email)
+{
+  $query = "SELECT * FROM usuarios WHERE email = '$email'";
+  
+  $resultado = $mysqli->query($query);
+
+  return $resultado->fetch_assoc();
 }

@@ -84,10 +84,10 @@ if (login_check($mysqli) == true) {
 
               <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-img pb-3">
-                  <a href="historialcarga.html"><span class="mbr-iconfont mbri-chat" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
+                  <a href="historialcarga.php"><span class="mbr-iconfont mbri-chat" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
                 </div>
                 <div class="card-box">
-                  <h4 class="card-title py-3 mbr-fonts-style display-5"><a href="historialcarga.html" class="text-secondary">Historial de Carga</a></h4>
+                  <h4 class="card-title py-3 mbr-fonts-style display-5"><a href="historialcarga.php" class="text-secondary">Historial de Carga</a></h4>
 
                 </div>
               </div>

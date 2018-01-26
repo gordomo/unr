@@ -11,7 +11,7 @@
       <div class="menu-logo">
         <div class="navbar-brand">
           <span class="navbar-logo">
-            <a href="index.html">
+            <a href="index.php">
               <img src="assets/images/logo2-1630x1629.png" alt="" title="" media-simple="true" style="height: 3.8rem;">
             </a>
           </span>
@@ -43,7 +43,7 @@
           <?php } ?>
           <?php if($logged) { ?>
           <li class="nav-item">
-            <a class="nav-link link text-secondary display-4" href="mispedidos.html">
+            <a class="nav-link link text-secondary display-4" href="mispedidos.php">
               <span class="mbri-print mbr-iconfont mbr-iconfont-btn"></span>Mis Pedidos&nbsp;<br>
             </a>
           </li>
