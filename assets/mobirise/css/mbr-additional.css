@@ -554,9 +554,8 @@ a.text-black:focus {
 .btn-form:hover {
   cursor: pointer;
 }
-a,
-a:hover {
-  color: #55b4d4;
+a {
+  color: #fff;
 }
 .mbr-plan-header.bg-primary .mbr-plan-subtitle,
 .mbr-plan-header.bg-primary .mbr-plan-price-desc {
@@ -1362,6 +1361,7 @@ html,
 body {
   height: auto;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 .cid-qwfntnWL41 .navbar {
   padding: .5rem 0;
@@ -2193,13 +2193,12 @@ body {
 }
 .cid-qFM44TTfBE .mbr-gallery-title {
   font-size: .9em;
-  position: absolute;
   display: block;
   width: 100%;
   bottom: 0;
   padding: 1rem;
   color: #fff;
-  background: linear-gradient(to left, rgba(85, 67, 70, 0.85), rgba(69, 80, 91, 0.85)) !important;
+  /*background: linear-gradient(to left, rgba(85, 67, 70, 0.85), rgba(69, 80, 91, 0.85)) !important;*/
   -webkit-transition: 0.2s background ease-in-out;
   transition: 0.2s background ease-in-out;
 }
