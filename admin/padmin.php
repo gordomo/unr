@@ -35,11 +35,11 @@ if (login_check($mysqli) == true) {
           <div class="icons-media-container mbr-white">
             <div class="card col-12 col-md-6 col-lg-3">
               <div class="icon-block">
-                <a href="pedidos.html#table1-4r">
+                <a href="pedidos.php">
                   <span class="mbr-iconfont mbri-layers" media-simple="true"></span>
                 </a>
               </div>
-              <h5 class="mbr-fonts-style display-5"><a href="pedidos.html#table1-4r" class="text-secondary">Pedidos</a></h5>
+              <h5 class="mbr-fonts-style display-5"><a href="pedidos.php" class="text-secondary">Pedidos</a></h5>
             </div>
 
             <div class="card col-12 col-md-6 col-lg-3">

@@ -271,6 +271,14 @@ function getHistorial($mysqli) {
   return $resultado;
 }
 
+function getPedidos($mysqli) {
+  $query = "SELECT * FROM pedidos";
+
+  $resultado = $mysqli->query($query);
+  
+  return $resultado;
+}
+
 function getHistorialForUser($mysqli, $id) {
   $query = "SELECT * FROM historial WHERE id_usuario = $id";
 
