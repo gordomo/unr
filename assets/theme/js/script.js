@@ -1213,3 +1213,13 @@ $(".selectCategorias").change(function(){
     });
 
 });
+
+$('#sumar').on("input", function() {
+    var saldoActual = parseFloat($("#saldoActual").html().replace("$", ""));
+    var agregado = ($(this).val()) ? parseFloat($(this).val()) : 0;
+    $("#total").val(saldoActual+agregado);
+
+    if(agregado === 0) {
+        $(this).val(0);
+    }
+});

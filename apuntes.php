@@ -10,7 +10,7 @@ if (login_check($mysqli) == true) {
   $user = $_SESSION['user'];
 }
 
-$idCategoria = $_GET['id'];
+$idCategoria = (isset($_GET['id'])) ? $_GET['id'] : 'no-id';
 
 if(is_numeric($idCategoria)) 
 {
