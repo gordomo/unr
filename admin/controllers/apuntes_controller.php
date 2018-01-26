@@ -125,6 +125,14 @@ switch ($_REQUEST["action"]) {
 
 	case "getSubCategoriasFromCat":
 		$idCat = $_POST['idCat'];
-		echo json_encode(getSubCategoriasFromCat($mysqli, $idCat));
+                $resultado = getSubCategoriasFromCat($mysqli, $idCat);
+                $subcategorias = array();
+                while ($respuesta = $resultado->fetch_assoc()) {
+                  $subcategorias[] = $respuesta;
+                }
+                if ($resultado) {
+                  $resultado->free();
+                }
+		echo json_encode($subcategorias);
 	exit();
 }
