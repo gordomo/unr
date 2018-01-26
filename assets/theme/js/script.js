@@ -1147,6 +1147,24 @@ $(".editar-apunte").click(function(){
 
 });
 
+$(".editar-admin").on("click", function(){
+    if($(this).data("do") == "e") {
+        $(this).html('<i class="fa fa-check" aria-hidden="true"></i>');
+        $(this).data("do", "s");
+        $("#email-"+$(this).data("usr-id")).attr("disabled", false);
+        $("#pass-"+$(this).data("usr-id")).attr("disabled", false);
+        $("#tipo-"+$(this).data("usr-id")).attr("disabled", false);
+    } else {
+        var id = $(this).data("usr-id");
+        var name = $("#email-"+$(this).data("usr-id")).val();
+        var pass = $("#pass-"+$(this).data("usr-id")).val();
+        var tipo = $("#tipo-"+$(this).data("usr-id")+" option:selected").val();
+        
+        location.href = "../admin/controllers/admin_controller.php?action=editarAdmin&id="+id+"&name="+name+"&pass="+pass+"&tipo="+tipo;
+    }
+
+});
+
 $(".borrar").on("click", function(){
     var id = $(this).data("cat-id");
     location.href = "../admin/controllers/categorias_controller.php?action=borrarCategoria&id="+id;

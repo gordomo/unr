@@ -210,3 +210,12 @@ function uploadFile($file, $cat, $subcat) {
 
   return array("message"=>"ok", "ok"=>true, "ruta"=>$ruta);
 }
+
+function getUsuariosAdministradores($mysqli) {
+  $query = "SELECT * FROM usuarios where grup <> 0 ORDER BY id desc";
+  
+  $resultado = $mysqli->query($query); 
+  
+  return $resultado;  
+      
+}
