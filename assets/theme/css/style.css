@@ -523,4 +523,6 @@ nav .mbr-section-btn {
   button {
     cursor: pointer;
   }
-  
+  .header12.cid-qFMckFKfWf.mbr-parallax-background {
+    min-height: 87vh;
+  }

@@ -219,3 +219,37 @@ function getUsuariosAdministradores($mysqli) {
   return $resultado;  
       
 }
+
+function getUsuario($mysqli, $id) {
+  $query = "SELECT * FROM usuarios WHERE id = $id";
+  
+  $resultado = $mysqli->query($query); 
+  
+  return $resultado->fetch_assoc();
+      
+}
+
+function getUsuarios($mysqli) {
+  $query = "SELECT * FROM usuarios";
+  
+  $resultado = $mysqli->query($query); 
+  
+  return $resultado;
+      
+}
+
+function getSaldos($mysqli) {
+  $query = "SELECT * FROM saldos";
+
+  $resultado = $mysqli->query($query);
+
+  return $resultado;
+}
+
+function getSaldo($mysqli, $id) {
+  $query = "SELECT * FROM saldos WHERE id_usuario = $id";
+
+  $resultado = $mysqli->query($query);
+  $saldo = $resultado->fetch_assoc();
+  return ($saldo['saldo']) ? $saldo['saldo'] : 0;
+}
