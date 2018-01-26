@@ -24,7 +24,6 @@ if (login_check($mysqli) == true) {
 
   <section class="header12 cid-qFMckFKfWf mbr-parallax-background" id="header12-4o" data-rv-view="3275">
     <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(15, 118, 153);"></div>
-
     <div class="container  ">
       <div class="media-container">
         <div class="col-md-12 align-center">

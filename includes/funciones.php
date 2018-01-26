@@ -34,14 +34,13 @@ function getCategoria($mysqli, $id) {
 function getSubCategoria($mysqli, $id) {
   $query = "SELECT * FROM subcategorias WHERE id =".$id;
   $resultado = $mysqli->query($query);
-  $subcategorias = array();
-  while ($respuesta = $resultado->fetch_assoc()) {
-    $subcategorias[] = $respuesta;
-  }
+  
+  $row = $resultado->fetch_assoc();
+  
   if ($resultado) {
     $resultado->free();
   }
-  return $subcategorias;
+  return $row;
 }
 
 function getSubCategorias($mysqli, $todas = true) {
@@ -72,19 +71,15 @@ function getSubCategoriasFromCat($mysqli, $cat) {
 
 function getApunte($mysqli, $id)
 {
-  $query = "SELECT * FROM apuntes ";
+  $query = "SELECT * FROM apuntes WHERE id = $id";
 
-  if (is_numeric($id)) {
-    $query .= "WHERE id = $id ";
-  } else {
-    return array();
-  }
-  $query .= " and habilitada = 1";
   $resultado = $mysqli->query($query);
-
+  
   $respuesta = $resultado->fetch_assoc();
-
-  if($resultado)$resultado->free();
+  
+  if ($resultado) {
+    $resultado->free();
+  }
 
   return $respuesta;
 }
@@ -113,6 +108,15 @@ function getApuntesFromCategoria($mysqli, $id)
   $resultado = $mysqli->query($query);
 
   return $resultado;
+}
+
+function getPrecios($mysqli) {
+  $query = "SELECT * FROM configuracion;";
+  
+  $resultado = $mysqli->query($query); 
+  
+  return $resultado;  
+      
 }
 
 function sec_session_start() {

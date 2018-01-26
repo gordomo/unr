@@ -1100,6 +1100,40 @@ $(".editar").on("click", function(){
 
 });
 
+$(".editar-precio").on("click", function(){
+
+    if($(this).data("do") == "e") {
+        var precioPaginaAeditar = document.createElement("input");     
+        var td = $("#price-page");
+        var txt = td.html();
+        td.html('');
+        precioPaginaAeditar.value = $.trim(txt);
+        precioPaginaAeditar.type = 'number';
+        precioPaginaAeditar.id = "price-page-edited";
+        td.append(precioPaginaAeditar);
+        
+        var anilladoAeditar = document.createElement("input");
+        var td = $("#ringed");
+        var txt = td.html();
+        td.html('');
+        anilladoAeditar.value = $.trim(txt);
+        anilladoAeditar.type = 'number';
+        anilladoAeditar.id = "ringed-edited";
+        td.append(anilladoAeditar);
+
+        $(this).html('<i class="fa fa-check" aria-hidden="true"></i>');
+        $(this).data("do", "s");
+
+    } else {
+       
+            var pricePage = $("#price-page-edited").val();
+            var ringed = $("#ringed-edited").val();
+            location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&ringed="+ringed;
+      
+    }
+
+});
+
 
 $(".editar-apunte").click(function(){
     var id_form = $(this).data("id-form");
@@ -1115,7 +1149,8 @@ $(".editar-apunte").click(function(){
         var cat_name = $("#categoria-"+id + " option:selected").text();
 
         var sub_cat_id = $("#sub-categoria-"+id).val();
-        var sub_cat_name = $("#sub-categoria-"+id + " option:selected").text();
+        var sub_cat_name = $("#sub-categoria-"+id + " option:selected").text();       
+        var pages = $("#pages-"+id).val();
         
         var file_data = $("#file-apunte-"+id).prop("files")[0]; // Getting the properties of file from file field
         var form_data = new FormData(); // Creating object of FormData class
@@ -1127,6 +1162,7 @@ $(".editar-apunte").click(function(){
         form_data.append("action", "editarApunte") // Adding extra parameters to form_data
         form_data.append("cat_name", cat_name) // Adding extra parameters to form_data
         form_data.append("sub_cat_name", sub_cat_name) // Adding extra parameters to form_data
+        form_data.append("pages", pages) // Adding extra parameters to pages
 
 
         $.ajax({
@@ -1180,6 +1216,10 @@ $(".borrarSub").on("click", function(){
     location.href = "../admin/controllers/categorias_controller.php?action=borrarSubCategoria&id="+id;
 });
 
+$(".borrar-precio").on("click", function(){
+    location.href = "controllers/configuracion_controller.php?action=borrarPrecios";
+});
+
 $("#categoria").change(function(){
     $.ajax({
       method: "POST",
@@ -1212,6 +1252,46 @@ $(".selectCategorias").change(function(){
         });
     });
 
+});
+
+$("#doble-faz").change(function(){
+    
+    if ($('#doble-faz').is(':checked')) {
+        
+        var precio = $('#precio-final').html();
+        
+        var precioCalculado = Number(precio) / 2;
+        
+        $('#precio-final').html(precioCalculado);
+    }
+    else{
+        var precio = $('#precio-final').html();
+        
+        var precioCalculado = Number(precio) * 2;
+        
+        $('#precio-final').html(precioCalculado);
+    }    
+});
+
+$("#anillado").change(function(){
+    
+    if ($('#anillado').is(':checked')) {
+        var anillado = $('#anillado').val();
+        var precio = $('#precio-final').html();
+        
+        var precioCalculado = Number(precio) + Number(anillado);
+        
+        $('#precio-final').html(precioCalculado);
+    }
+    else
+    {
+        var anillado = $('#anillado').val();
+        var precio = $('#precio-final').html();
+        
+        var precioCalculado = Number(precio) - Number(anillado);
+        
+        $('#precio-final').html(precioCalculado);
+    }    
 });
 
 $('#sumar').on("input", function() {
