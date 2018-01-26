@@ -1223,3 +1223,21 @@ $('#sumar').on("input", function() {
         $(this).val(0);
     }
 });
+
+$(".estado").change(function(){
+    var nuevoEstado = $(this).val();
+    var pedidoId = $(this).data("id-pedido");
+    var usrId = $(this).data("id-usuario");
+    var user = $(this).data("user");
+
+    $.ajax({
+      method: "POST",
+      url: "controllers/pedidos_controller.php",
+      data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, action: "cambiarEstado" },
+      dataType: "json"
+    })
+    .done(function( msg ) {
+        console.log(msg);
+    });
+
+});
