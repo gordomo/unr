@@ -95,7 +95,7 @@ if (login_check($mysqli) == true) {
 
 
 
-          <div class="card p-3 col-12 col-md-6 col-lg-4">
+          <div class="card col-12 col-md-6 col-lg-3">
             <div class="card-img pb-3">
               <a href="sub.php"><span class="mbr-iconfont mbri-numbered-list" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
             </div>
@@ -104,8 +104,18 @@ if (login_check($mysqli) == true) {
               
             </div>
           </div>
+            
+          <div class="card col-12 col-md-6 col-lg-3">
+            <div class="card-img pb-3">
+              <a href="configuracion.php"><span class="mbr-iconfont mbri-chat" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
+            </div>
+            <div class="card-box">
+              <h4 class="card-title py-3 mbr-fonts-style display-5"><a href="configuracion.php" class="text-secondary">Configuración de precios</a></h4>
+              
+            </div>
+          </div>  
 
-          <div class="card p-3 col-12 col-md-6 col-lg-4">
+          <div class="card col-12 col-md-6 col-lg-3">
             <div class="card-img pb-3">
               <a href="historialcarga.html"><span class="mbr-iconfont mbri-chat" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
             </div>
@@ -115,7 +125,7 @@ if (login_check($mysqli) == true) {
             </div>
           </div>
 
-          <div class="card p-3 col-12 col-md-6 col-lg-4">
+          <div class="card col-12 col-md-6 col-lg-3">
             <div class="card-img pb-3">
               <a href="admin.html"><span class="mbr-iconfont mbri-responsive" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
             </div>

@@ -7,14 +7,15 @@ switch ($_REQUEST["action"]) {
 	$name = $_POST['name'];
 	$cat_id = $_POST['categoria'];
 	$sub_cat_id = $_POST['subcat'];
+        $pages = $_POST['pages'];
 	$file = $_FILES['fileToUpload'];
-	$cat_name = getCategoria($mysqli, $cat_id)[0]["name"];
-	$sub_cat_name = getSubCategoria($mysqli, $cat_id)[0]["name"];
+	$cat_name = getCategoria($mysqli, $cat_id)["name"];
+	$sub_cat_name = getSubCategoria($mysqli, $sub_cat_id)["name"];     
 
 	$uploadStatus = uploadFile($file, $cat_name, $sub_cat_name);
 	if(isset($uploadStatus['ok']) && $uploadStatus['ok']) {
-		if ($stmt = $mysqli->prepare("INSERT INTO apuntes (`name`, `cat_id`, `sub_cat_id`, `file`) VALUES (?, ?, ?, ?)")) {
-			$stmt->bind_param('siis', $name, $cat_id, $sub_cat_id, $uploadStatus['ruta']);
+		if ($stmt = $mysqli->prepare("INSERT INTO apuntes (`name`, `cat_id`, `sub_cat_id`, `file`, `pages` ) VALUES (?, ?, ?, ?, ?)")) {
+			$stmt->bind_param('siisi', $name, $cat_id, $sub_cat_id, $uploadStatus['ruta'], $pages);
 			if (!$stmt->execute()) {
 				header('Location: ../apuntes.php?status=2');        	
 			}
@@ -36,6 +37,7 @@ switch ($_REQUEST["action"]) {
 		$id = $_POST['id'];
 		$cat_name = $_POST['cat_name'];
 		$sub_cat_name = $_POST['sub_cat_name'];
+                $pages = $_POST['pages'];
 
 		if (!empty($_FILES) && $stmt = $mysqli->prepare("SELECT file FROM apuntes WHERE id=?")) {
 			/* ligar parámetros para marcadores */
@@ -57,18 +59,18 @@ switch ($_REQUEST["action"]) {
 		}
 		
 		if(empty($_FILES)) {
-			$query = "UPDATE apuntes set `name` = ?, `cat_id` = ?, `sub_cat_id` = ? WHERE `id` = ?";
+			$query = "UPDATE apuntes set `name` = ?, `cat_id` = ?, `sub_cat_id` = ? , `pages` = ? WHERE `id` = ?";
 		} else {
-			$query = "UPDATE apuntes set `name` = ?, `cat_id` = ?, `sub_cat_id` = ?, `file` = ? WHERE `id` = ?";
+			$query = "UPDATE apuntes set `name` = ?, `cat_id` = ?, `sub_cat_id` = ?, `sub_cat_id` = ?, `file` = ? WHERE `id` = ?";
 		}
 		
 		if ($stmt = $mysqli->prepare($query)) {
 			if(empty($_FILES)) {
-				$stmt->bind_param('siii', $name, $cat_id, $sub_cat_id, $id);
+				$stmt->bind_param('siiii', $name, $cat_id, $sub_cat_id, $pages, $id);
 			} else {
 				$uploadStatus = uploadFile($_FILES['file'], $cat_name, $sub_cat_name);
 				if(isset($uploadStatus['ok']) && $uploadStatus['ok']) {
-					$stmt->bind_param('siisi', $name, $cat_id, $sub_cat_id, $uploadStatus['ruta'], $id);
+					$stmt->bind_param('siiisi', $name, $cat_id, $sub_cat_id, $pages, $uploadStatus['ruta'], $id);
 				} else {
 					echo json_encode (array("result"=>"ko", "status"=>4));
 				}

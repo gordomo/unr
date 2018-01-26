@@ -79,7 +79,7 @@ else
                             <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="<?= $subCatArray[$apunte['sub_cat_id']] ?>">
                                 <div href="#lb-gallery2-4m">
                                     <span class="mbr-gallery-title mbr-fonts-style display-7">
-                                        <a href="compra.html"><?= $apunte['name'] ?></a>
+                                        <a href="compra.php?id=<?= $apunte['id'] ?>"><?= $apunte['name'] ?></a>
                                     </span>
                                 </div>
                             </div>

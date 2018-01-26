@@ -93,6 +93,12 @@ $apuntes = getApuntes($mysqli, true);
                   </select>
                 </div>
               </div>
+              <div class="col-md-4 multi-horizontal" data-for="pages">
+                <div class="form-group">
+                  <label class="form-control-label mbr-fonts-style display-7" for="pages">Cantidad de Páginas</label>
+                  <input type="number" class="form-control" name="pages" required="" id="pages">
+                </div>
+              </div>  
             </div>
             <div class="form-group" data-for="message">
               <label class="form-control-label mbr-fonts-style display-7" for="message-form1-5m">Apunte .PDF</label>
@@ -126,8 +132,8 @@ $apuntes = getApuntes($mysqli, true);
                     </th>
                     <th class="head-item mbr-fonts-style display-4">Categoría</th>
                     <th class="head-item mbr-fonts-style display-4">Sub-Categoría</th>
+                    <th class="head-item mbr-fonts-style display-4">Cant. Páginas</th>
                     <th class="head-item mbr-fonts-style display-4">Archivo</th>
-                    <th class="head-item mbr-fonts-style display-4"></th>
                   </tr>
                   </thead>
                   <tbody>
@@ -153,6 +159,9 @@ $apuntes = getApuntes($mysqli, true);
                         </select>
                       </td>
                       <td class="body-item mbr-fonts-style display-7" >
+                        <input type="number" name="pages" id="pages-<?=$apunte['id']?>" value="<?= $apunte['pages'] ?>" class="ab" disabled="true">
+                      </td>
+                      <td class="body-item mbr-fonts-style display-7" >
                         <input type="file" name="fileToUpload" required="true" id="file-apunte-<?=$apunte['id']?>" value="" class="ab" disabled="true">
                       </td>
                       <td class="body-item mbr-fonts-style display-7">
@@ -173,15 +182,6 @@ $apuntes = getApuntes($mysqli, true);
 
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section once="" class="cid-qGqK6Ooxfc" id="footer6-64" data-rv-view="3380">
-      <div class="container">
-        <div class="media-container-row align-center mbr-white">
-          <div class="col-12">
-            <p class="mbr-text mb-0 mbr-fonts-style display-7">© Copyright 2018 Team Builder - contacto@teambuilder.com.ar</p>
           </div>
         </div>
       </div>
