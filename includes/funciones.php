@@ -253,3 +253,11 @@ function getSaldo($mysqli, $id) {
   $saldo = $resultado->fetch_assoc();
   return ($saldo['saldo']) ? $saldo['saldo'] : 0;
 }
+
+function getHistorial($mysqli) {
+  $query = "SELECT * FROM historial";
+
+  $resultado = $mysqli->query($query);
+  
+  return $resultado;
+}
