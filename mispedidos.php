@@ -12,6 +12,28 @@ if (login_check($mysqli) == true) {
   $saldo = getSaldo($mysqli, $user['id']);
   $historial = getHistorialForUser($mysqli,$user['id']);
 }
+
+$mensaje = '';
+if(isset($_GET['status'])) {
+  switch ($_GET['status']) {
+    case '0':
+    $mensaje = 'pedido agregada/editada correctamente';
+    break;
+    case '1':
+    $mensaje = 'Error preparando la carga. Intente de nuevo';
+    break;
+    case '2':
+    $mensaje = 'Error ejecuntando la consulta. Intente de nuevo';
+    break; 
+    case '3':
+    $mensaje = 'Apunte borrada correctamente';
+    break;  
+    default:
+
+    break;
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html >
@@ -44,6 +66,7 @@ if (login_check($mysqli) == true) {
       <div class="media-container-row align-center">
         <div class="col-12 col-md-12">
           <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">Mis Pedidos</h2>
+          <p><?=$mensaje?></p>
           <div class="underline align-center pb-3">
             <div class="line"></div>
           </div>
