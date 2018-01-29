@@ -74,7 +74,7 @@ else
             <div class="mbr-gallery-row">
                 <div class="mbr-gallery-layout-default">
                     <?php while ($apunte = $apuntes->fetch_array(MYSQLI_ASSOC)) { ?>     
-                            <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="<?= $subCatArray[$apunte['sub_cat_id']] ?>">
+                            <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="<?= (isset($subCatArray[$apunte['sub_cat_id']])) ? $subCatArray[$apunte['sub_cat_id']] : 'sin subcategoria' ?>">
                                 <div onclick="location.href='compra.php?id=<?= $apunte['id'] ?>'">
                                     <span class="mbr-gallery-title mbr-fonts-style display-7">
                                         <?= $apunte['name'] ?>
