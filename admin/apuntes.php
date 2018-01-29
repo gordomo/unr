@@ -121,12 +121,27 @@ $apuntes = getApuntes($mysqli, true);
             <div class="line"></div>
           </div>
 
+
+          <div class="table-wrapper pt-5" style="width: 88%;">
+            <div class="container-fluid">
+              <div class="row search">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                  <div class="dataTables_filter">
+                    <label class="searchInfo mbr-fonts-style display-7">Search:</label>
+                    <input class="form-control input-sm" disabled="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
           <div class="">
           
             <div class="scroll">
-              <table class="table table-striped" cellspacing="0">
+              <table class="table table-striped isSearch" cellspacing="0">
                 <thead>
                   <tr class="table-heads">
+                    <th class="head-item mbr-fonts-style display-4" hidden="true"></th>
                     <th class="head-item mbr-fonts-style display-4">
                       <strong>NOMBRE</strong>
                     </th>
@@ -140,6 +155,7 @@ $apuntes = getApuntes($mysqli, true);
                   <tbody>
                   <?php foreach ($apuntes as $apunte) { ?>
                     <tr id="form-apunte-<?=$apunte['id']?>">
+                      <td class="body-item mbr-fonts-style display-7" hidden="true"><?= $apunte['name'] ?></td>
                       <td class="body-item mbr-fonts-style display-7">
                         <input type="text" name="name" id="name-<?=$apunte['id']?>" value="<?= $apunte['name'] ?>" class="ab" disabled="true">
                       </td>
@@ -180,7 +196,16 @@ $apuntes = getApuntes($mysqli, true);
                 </table>
               </div>
               <div class="container-fluid table-info-container">
-
+                <div class="row info mbr-fonts-style display-7">
+                <div class="dataTables_info">
+                  <span class="infoBefore">Mostrando</span>
+                  <span class="inactive infoRows"></span>
+                  <span class="infoAfter">entradas</span>
+                  <span class="infoFilteredBefore">(filtradas de un total de:</span>
+                  <span class="inactive infoRows"></span>
+                  <span class="infoFilteredAfter">)</span>
+                </div>
+              </div>
               </div>
             </div>
           </div>

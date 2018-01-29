@@ -275,6 +275,14 @@ function getHistorial($mysqli) {
   return $resultado;
 }
 
+function getHistorialDeCarga($mysqli) {
+  $query = "SELECT * FROM historial WHERE id_pedido = 0 order by id desc";
+
+  $resultado = $mysqli->query($query);
+  
+  return $resultado;
+}
+
 function getPedidos($mysqli) {
   $query = "SELECT * FROM pedidos";
 
@@ -282,6 +290,14 @@ function getPedidos($mysqli) {
   
   return $resultado;
 }
+function getPedido($mysqli, $id) {
+  $query = "SELECT * FROM pedidos WHERE id=$id";
+
+  $resultado = $mysqli->query($query);
+  
+  return $resultado->fetch_assoc();
+}
+
 
 function getHistorialForUser($mysqli, $id) {
   $query = "SELECT * FROM historial WHERE id_usuario = $id";

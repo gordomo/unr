@@ -30,7 +30,14 @@ else
 {
     header('Location: apuntes.php'); 
 }    
-
+$mensaje = '';
+if(isset($_GET['status'])) {
+  switch ($_GET['status']) {
+    case '5':
+        $mensaje = 'no cuentas con saldo suficiente para realizar este pedido';
+    break;
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -48,29 +55,28 @@ else
         <div class="container">
             <div class="media-container-row">
                 <div class="mbr-figure" style="width: 85%; text-align: center;">
+                    <p class="mbr-section-title mbr-white pb-3 mbr-fonts-style display-5"><?=$mensaje?></p>
                     <span class="mbr-iconfont mbri-print" media-simple="true" style="font-size: 14rem;color: #fff;"></span>
                 </div>
                 <div class="media-content">
                     <form class="mbr-form" action="admin/controllers/pedidos_controller.php" method="post">
                         <input type="hidden" value="nuevoPedido" name="action">
-                        <input type="hidden" value="0" name="doble-faz">
-                        <input type="hidden" value="0" name="anillado">
                         <input type="hidden" value="<?= $apunte['id'] ?>" name="apunte">
                         <h1 class="mbr-section-title mbr-white pb-3 mbr-fonts-style display-2"><?= $categoria['name'] ?></h1>
-
+                    
                         <div class="mbr-section-text mbr-white pb-3 ">
                             <p class="mbr-text mbr-fonts-style display-5">
                                 <strong>Nombre</strong>: <?= $subCategoria['name'] ?><br>
                                 <strong>Apunte </strong>: &nbsp;<?= $apunte['name'] ?><br>
                             </p>    
                             <p class="mbr-text mbr-fonts-style display-5">
-                                <div><strong>Cantidad:</strong> <input type="number" value="1" style="height: 20px;width: 65px;" id="cantidad"><br></div>
+                                <div><strong>Cantidad:</strong> <input type="number" value="1" style="height: 20px;width: 65px;" name="cantidad" id="cantidad"><br></div>
                                 <div><strong>Precio</strong>:&nbsp;$<span id="precio-final"><?= $precioFinal ?></span><div>
                             </p>
                             <p class="mbr-text display-7">
-                                <label class="checkbox-inline"><input type="checkbox" id="doble-faz">Doble faz</label>
+                                <label class="checkbox-inline"><input type="checkbox" name="dobleFaz" id="doble-faz">Doble faz</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox-inline"><input type="checkbox" id="anillado">Anillado</label>
+                                <label class="checkbox-inline"><input type="checkbox" name="anillado" id="anillado">Anillado</label>
                             </p>
                         </div>
                         <div class="mbr-section-btn"><button href="" type="submit" class="btn btn-md btn-primary display-4" >Agregar a la cola de impresión</button> <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>">voler atras&nbsp;</a></div>

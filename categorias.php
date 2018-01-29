@@ -11,7 +11,14 @@ if (login_check($mysqli) == true) {
 }
 
 $categorias = getCategorias($mysqli, false);
-
+$mensaje = '';
+if(isset($_GET['status'])) {
+  switch ($_GET['status']) {
+    case '3':
+        $mensaje = 'pedido agregado correctamente <br> <a href="mispedidos.php" class="btn btn-primary display-4">ver pedido</a>';
+    break;
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -35,8 +42,10 @@ $categorias = getCategorias($mysqli, false);
             <div class="title col-12 col-md-8">
                 <h2 class="align-center mbr-bold mbr-white pb-3 mbr-fonts-style display-1">APUNTES<br></h2>
                 
-                
-                <div class="mbr-section-btn align-center"><a class="btn btn-black display-4" href="index.html">volver</a></div>
+                <p class="align-center mbr-bold mbr-white pb-3 mbr-fonts-style display-4">
+                    <?=$mensaje?>
+                </p>
+                <div class="mbr-section-btn align-center"><a class="btn btn-black display-4" href="index.php">volver</a></div>
             </div>
         </div>
     </div>
