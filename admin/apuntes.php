@@ -128,12 +128,13 @@ $apuntes = getApuntes($mysqli, true);
                 <thead>
                   <tr class="table-heads">
                     <th class="head-item mbr-fonts-style display-4">
-                      <strong>NOMBRE DEL APUNTE</strong>
+                      <strong>NOMBRE</strong>
                     </th>
-                    <th class="head-item mbr-fonts-style display-4">Categoría</th>
-                    <th class="head-item mbr-fonts-style display-4">Sub-Categoría</th>
-                    <th class="head-item mbr-fonts-style display-4">Cant. Páginas</th>
-                    <th class="head-item mbr-fonts-style display-4">Archivo</th>
+                    <th class="head-item mbr-fonts-style display-4">Cat</th>
+                    <th class="head-item mbr-fonts-style display-4">Sub-Cat</th>
+                    <th class="head-item mbr-fonts-style display-4">Páginas</th>
+                    <th class="head-item mbr-fonts-style display-4">File</th>
+                    <th class="head-item mbr-fonts-style display-4"></th>
                   </tr>
                   </thead>
                   <tbody>

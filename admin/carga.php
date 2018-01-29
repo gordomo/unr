@@ -62,7 +62,7 @@ $usuarios = getUsuariosNoAdmin($mysqli);
                       <td class="body-item mbr-fonts-style display-7"><?=$usr['email']?></td>
                       <td class="body-item mbr-fonts-style display-7">$<?=getSaldo($mysqli, $usr['id'])?></td>
                       <td class="body-item mbr-fonts-style display-7">
-                        <a href="acreditacion.php?id=<?=$usr['id']?>">Agregar Saldo</a>
+                        <a class="table-link" href="acreditacion.php?id=<?=$usr['id']?>">Agregar Saldo</a>
                       </td>
                     </tr>
                     <?php } ?>

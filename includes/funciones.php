@@ -268,7 +268,7 @@ function getSaldo($mysqli, $id) {
 }
 
 function getHistorial($mysqli) {
-  $query = "SELECT * FROM historial";
+  $query = "SELECT * FROM historial order by id desc";
 
   $resultado = $mysqli->query($query);
   
