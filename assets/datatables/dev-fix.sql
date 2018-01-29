@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2018 a las 18:06:11
+-- Tiempo de generación: 29-01-2018 a las 20:28:10
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -72,7 +72,7 @@ CREATE TABLE `historial` (
   `mov` text NOT NULL,
   `amount` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `estado` text NOT NULL,
+  `estado` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `id_pedido` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -85,15 +85,15 @@ CREATE TABLE `historial` (
 
 CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL,
-  `pedido` text NOT NULL,
+  `nombre` text NOT NULL,
   `archivo` text NOT NULL,
   `cantidad` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `estado` int(11) NOT NULL DEFAULT '1',
   `date` datetime NOT NULL,
   `usr_id` int(11) NOT NULL,
-  `anillado` int(11) NOT NULL,
-  `doblefaz` int(11) NOT NULL
+  `anillado` int(1) NOT NULL,
+  `doblefaz` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -204,12 +204,12 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `historial`
 --
 ALTER TABLE `historial`
-  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT de la tabla `subcategorias`
 --
