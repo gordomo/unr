@@ -1263,6 +1263,7 @@ $("#doble-faz").change(function(){
         var precioCalculado = Number(precio) / 2;
         
         $('#precio-final').html(precioCalculado);
+        $("input[name='doble-faz']").val(1);
     }
     else{
         var precio = $('#precio-final').html();
@@ -1270,6 +1271,7 @@ $("#doble-faz").change(function(){
         var precioCalculado = Number(precio) * 2;
         
         $('#precio-final').html(precioCalculado);
+        $("input[name='doble-faz']").val(0);
     }    
 });
 
@@ -1282,15 +1284,16 @@ $("#anillado").change(function(){
         var precioCalculado = Number(precio) + Number(anillado);
         
         $('#precio-final').html(precioCalculado);
+        $("input[name='anillado']").val(1);
     }
-    else
-    {
+    else{
         var anillado = $('#anillado').val();
         var precio = $('#precio-final').html();
         
         var precioCalculado = Number(precio) - Number(anillado);
         
         $('#precio-final').html(precioCalculado);
+        $("input[name='anillado']").val(0);
     }    
 });
 

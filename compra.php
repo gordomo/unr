@@ -24,8 +24,6 @@ if(is_numeric($idApunte))
     $precios = $configuracion->fetch_assoc();
       
     $precioFinal = $apunte['pages'] * $precios['price_pages'];
-    
-    //die(var_dump( $subCategoria));
  
 }
 else
@@ -54,14 +52,20 @@ else
                 <img src="assets/images/1622801-10203308569574458-90356929-n-1-960x638.jpg" alt="Mobirise" title="" media-simple="true">
             </div>
             <div class="media-content">
-                <h1 class="mbr-section-title mbr-white pb-3 mbr-fonts-style display-2"><?= $categoria['name'] ?></h1>
-                
-                <div class="mbr-section-text mbr-white pb-3 ">
-                    <p class="mbr-text mbr-fonts-style display-5"><strong>Nombre</strong>: <?= $subCategoria['name'] ?><strong><br>Apunte </strong>: &nbsp;<?= $apunte['name'] ?>&nbsp;<br><strong>Cantidad: 1</strong><br><strong>Precio</strong>:<span id="precio-final"> <?= $precioFinal ?></span></p>
-                <label class="checkbox-inline"><input type="checkbox" value="" id="doble-faz">Doble faz</label>
-                <label class="checkbox-inline"><input type="checkbox" value="<?= $precios['ringed'] ?>" id="anillado">Anillado</label>
-                </div>
-                <div class="mbr-section-btn"><a class="btn btn-md btn-primary display-4" href="mispedidos.html">Agregar a la cola de impresión</a> <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>">voler atras&nbsp;</a></div>
+                <form class="mbr-form" action="admin/controllers/pedidos_controller.php" method="post">
+                    <input type="hidden" value="nuevoPedido" name="action">
+                    <input type="hidden" value="0" name="doble-faz">
+                    <input type="hidden" value="0" name="anillado">
+                    <input type="hidden" value="<?= $apunte['id'] ?>" name="apunte">
+                    <h1 class="mbr-section-title mbr-white pb-3 mbr-fonts-style display-2"><?= $categoria['name'] ?></h1>
+
+                    <div class="mbr-section-text mbr-white pb-3 ">
+                        <p class="mbr-text mbr-fonts-style display-5"><strong>Nombre</strong>: <?= $subCategoria['name'] ?><strong><br>Apunte </strong>: &nbsp;<?= $apunte['name'] ?>&nbsp;<br><strong>Cantidad: 1</strong><br><strong>Precio</strong>:<span id="precio-final"> <?= $precioFinal ?></span></p>
+                    <label class="checkbox-inline"><input type="checkbox" value="" id="doble-faz">Doble faz</label>
+                    <label class="checkbox-inline"><input type="checkbox" value="<?= $precios['ringed'] ?>" id="anillado">Anillado</label>
+                    </div>
+                    <div class="mbr-section-btn"><button href="" type="submit" class="btn btn-md btn-primary display-4" >Agregar a la cola de impresión</button> <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>">voler atras&nbsp;</a></div>
+                </form>    
             </div>   
         </div>
     </div>
