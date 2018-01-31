@@ -17,17 +17,14 @@ $mensaje = '';
 if(isset($_GET['status'])) {
   switch ($_GET['status']) {
     case '0':
-    $mensaje = 'pedido agregada/editada correctamente';
+    $mensaje = 'pedido agregado correctamente';
     break;
     case '1':
     $mensaje = 'Error preparando la carga. Intente de nuevo';
     break;
     case '2':
     $mensaje = 'Error ejecuntando la consulta. Intente de nuevo';
-    break; 
-    case '3':
-    $mensaje = 'Apunte borrada correctamente';
-    break;  
+    break;   
     default:
 
     break;
@@ -100,6 +97,9 @@ if(isset($_GET['status'])) {
                       <strong>FECHA</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
+                      <strong>NOMBRE</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
                       <strong>ESTADO</strong>
                     </th>
                   </tr>
@@ -111,6 +111,7 @@ if(isset($_GET['status'])) {
                     <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['amount']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
+                    <td class="body-item mbr-fonts-style display-7"><?=($row['id_pedido']) ? getPedido($mysqli, $row['id_pedido'])['nombre'] : ''?></td>
                     <td class="body-item mbr-fonts-style display-7">
                       <?php switch ($row['estado']) {
                         case '1':
@@ -136,12 +137,12 @@ if(isset($_GET['status'])) {
             <div class="container-fluid table-info-container">
               <div class="row info mbr-fonts-style display-7">
                 <div class="dataTables_info">
-                  <span class="infoBefore">Showing</span>
+                  <span class="infoBefore">Mostrando</span>
                   <span class="inactive infoRows"></span>
-                  <span class="infoAfter">entries</span>
-                  <span class="infoFilteredBefore">(filtered from</span>
+                  <span class="infoAfter">entradas</span>
+                  <span class="infoFilteredBefore">(Filtradas por:</span>
                   <span class="inactive infoRows"></span>
-                  <span class="infoFilteredAfter">total entries)</span>
+                  <span class="infoFilteredAfter">total)</span>
                 </div>
               </div>
             </div>

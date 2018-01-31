@@ -79,7 +79,7 @@ $pedidos = getPedidos($mysqli);
                 <tbody>
                   <?php foreach ($pedidos as $row) { ?>
                     <tr> 
-                      <td class="body-item mbr-fonts-style display-7"><a href="<?=str_replace("../", "", $row['archivo'])?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+                      <td class="body-item mbr-fonts-style display-7"><a href="<?=str_replace("../", "", $row['archivo'])?>" class="table-link"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
                       <td class="body-item mbr-fonts-style display-7"><?=getUsuario($mysqli, $row['usr_id'])['email']?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=($row['anillado']) ? 'SI' : 'NO'?></td>
@@ -103,12 +103,12 @@ $pedidos = getPedidos($mysqli);
                   <div class="table-info-container">
                     <div class="row info mbr-fonts-style display-7">
                       <div class="dataTables_info">
-                        <span class="infoBefore">Showing</span>
+                        <span class="infoBefore">Mostrando</span>
                         <span class="inactive infoRows"></span>
-                        <span class="infoAfter">entries</span>
-                        <span class="infoFilteredBefore">(filtered from</span>
+                        <span class="infoAfter">entradas</span>
+                        <span class="infoFilteredBefore">(filtradas de un total de:</span>
                         <span class="inactive infoRows"></span>
-                        <span class="infoFilteredAfter">total entries)</span>
+                        <span class="infoFilteredAfter">)</span>
                       </div>
                     </div>
                   </div>

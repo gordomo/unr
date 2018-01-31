@@ -83,10 +83,6 @@ $categorias = getCategorias($mysqli, true);
   </section>
 
   <section class="table1 section-table cid-qGqI5WXIg4" id="table1-62" data-rv-view="3388">
-
-
-
-
     <div class="container-fluid">
       <div class="media-container-row align-center">
         <div class="col-12 col-md-12">
@@ -144,12 +140,12 @@ $categorias = getCategorias($mysqli, true);
             <div class="container-fluid table-info-container">
               <div class="row info mbr-fonts-style display-7">
                 <div class="dataTables_info">
-                  <span class="infoBefore">Showing</span>
+                  <span class="infoBefore">Mostrando</span>
                   <span class="inactive infoRows"></span>
-                  <span class="infoAfter">entries</span>
-                  <span class="infoFilteredBefore">(filtered from</span>
+                  <span class="infoAfter">entradas</span>
+                  <span class="infoFilteredBefore">(filtradas de un total de:</span>
                   <span class="inactive infoRows"></span>
-                  <span class="infoFilteredAfter">total entries)</span>
+                  <span class="infoFilteredAfter">)</span>
                 </div>
               </div>
             </div>

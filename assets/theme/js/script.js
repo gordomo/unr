@@ -1253,48 +1253,37 @@ $(".selectCategorias").change(function(){
     });
 
 });
+$("#cantidad").on("input", function(){
 
-$("#doble-faz").change(function(){
+    var cantidad = $("#cantidad").val();
+    var precioAnillado = cantidad * precioAnillados;
+    var precioFinal = precioHoja * cantidadHojas * cantidad;
     
     if ($('#doble-faz').is(':checked')) {
-        
-        var precio = $('#precio-final').html();
-        
-        var precioCalculado = Number(precio) / 2;
-        
-        $('#precio-final').html(precioCalculado);
-        $("input[name='doble-faz']").val(1);
+        precioFinal = precioFinal / 2;
     }
-    else{
-        var precio = $('#precio-final').html();
-        
-        var precioCalculado = Number(precio) * 2;
-        
-        $('#precio-final').html(precioCalculado);
-        $("input[name='doble-faz']").val(0);
-    }    
+
+    if ($('#anillado').is(':checked')) {
+        precioFinal = precioFinal + precioAnillado;
+    }
+    
+    $('#precio-final').html(precioFinal);
 });
 
-$("#anillado").change(function(){
+$("#doble-faz, #anillado").change(function() {
+    var cantidad = $("#cantidad").val();
+    var precioAnillado = cantidad * precioAnillados;
+    var precioFinal = precioHoja * cantidadHojas * cantidad;
     
-    if ($('#anillado').is(':checked')) {
-        var anillado = $('#anillado').val();
-        var precio = $('#precio-final').html();
-        
-        var precioCalculado = Number(precio) + Number(anillado);
-        
-        $('#precio-final').html(precioCalculado);
-        $("input[name='anillado']").val(1);
+    if ($('#doble-faz').is(':checked')) {
+        precioFinal = precioFinal / 2;
     }
-    else{
-        var anillado = $('#anillado').val();
-        var precio = $('#precio-final').html();
-        
-        var precioCalculado = Number(precio) - Number(anillado);
-        
-        $('#precio-final').html(precioCalculado);
-        $("input[name='anillado']").val(0);
-    }    
+
+    if ($('#anillado').is(':checked')) {
+        precioFinal = precioFinal + precioAnillado;
+    }
+    
+    $('#precio-final').html(precioFinal);
 });
 
 $('#sumar').on("input", function() {

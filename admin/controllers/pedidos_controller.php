@@ -3,96 +3,123 @@ include_once '../../includes/db_connect.php';
 include_once '../../includes/funciones.php';
 
 switch ($_REQUEST["action"]) {
-        case 'nuevoPedido':
+    case 'nuevoPedido':
+        sec_session_start();
+        if (login_check($mysqli) == true) {
+            $idApunte = $_POST['apunte'];
+
+            if (is_numeric($idApunte)) {
+                $doblefaz = (isset($_POST['dobleFaz'])) ? "1" : "0";
+                $anillado = (isset($_POST['anillado'])) ? "1" : "0";
                 
-            sec_session_start();
-            if (login_check($mysqli) == true) {
 
-                $dobleFaz = $_POST['doble-faz'];
-                $anillado = $_POST['anillado'];
-                $idApunte = $_POST['apunte'];
+                $user_mail = $_SESSION['user'];
+                $user = getUsuarioByEmail($mysqli, $user_mail)['id'];
+                $saldo = getSaldo($mysqli, $user);
 
-                if(is_numeric($dobleFaz) && is_numeric($anillado) && is_numeric($idApunte)){
-                    
-                    $user_mail = $_SESSION['user'];
-                    $user = getUsuarioByEmail($mysqli, $user_mail)['id'];
+                $apunte = getApunte($mysqli, $idApunte);
+                $configuracion = getPrecios($mysqli);
+                $precios = $configuracion->fetch_assoc();
+                
+                $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : 1;
+                $precio = $apunte['pages'] * $precios['price_pages'] * $cantidad;
 
-                    $apunte = getApunte($mysqli, $idApunte);
+                $precioAnilladoTotal = 0;
+                if ($anillado) {
+                    $precioAnilladoTotal = $cantidad * $precios['ringed'];
+                }
+                if ($doblefaz) {
+                    $precio = $precio / 2;
+                }
 
-                    $configuracion = getPrecios($mysqli);
-                    $precios = $configuracion->fetch_assoc();
+                $precioFinal = $precio + $precioAnilladoTotal;
 
-                    $precioFinal = $apunte['pages'] * $precios['price_pages'];
-
-                    if($dobleFaz == 1 && $anillado == 1){
-                        $precioFinal = ($precioFinal / 2) + $precios['ringed'] ;
-                    }
-                    elseif($anillado == 1){
-                        $precioFinal = $precioFinal + $precios['ringed'];                      
-                    }
-                    elseif($dobleFaz == 1){
-                        $precioFinal = $precioFinal / 2;
-                    }
- 
+                if($saldo < $precioFinal) {
+                    header('Location: ../../compra.php?id='.$apunte['id'] . "&status=5");
+                }
+                else {
                     $file = $apunte['file'];
-                    
-                    if ($stmt = $mysqli->prepare("INSERT INTO pedidos (`pedido`, `archivo`, `cantidad`, `total`, `estado`, `date`, `usr_id`, `anillado`, `doblefaz`) VALUES (?,'$file',1,$precioFinal,1,NOW(),$user,?,?)")) {
-                            $stmt->bind_param('iii', $idApunte,$anillado, $dobleFaz);
-                            if (!$stmt->execute()) {
-                                    header('Location: ../../mispedidos.php?status=2');        	
+                    $estado = 1;
+                    $date = date('Y-m-d H:i:s');
+                    $admin = 'root';
+                    $mov = 'pedido';
+
+                    if ($stmt = $mysqli->prepare("INSERT INTO pedidos (`nombre`, `archivo`, `cantidad`, `total`, `estado`, `date`, `usr_id`, `anillado`, `doblefaz`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                        $stmt->bind_param('ssiiisiii', $apunte['name'], $file, $cantidad, $precioFinal, $estado, $date, $user, $anillado, $doblefaz);
+                        if (!$stmt->execute()) {
+                            header('Location: ../../mispedidos.php?status=2');
+                        } else {
+                            //insert en historico si sale bien la primer operacion
+                            $pedido_id = $stmt->insert_id;
+                            if ($stmt2 = $mysqli->prepare("INSERT INTO `historial` (`id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`, `id_pedido`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+                                $stmt2->bind_param('issisiii', $user, $admin, $mov, $precioFinal, $date, $estado, $cantidad, $pedido_id);
+                                if (!$stmt2->execute()) {
+                                    header('Location: ../../mispedidos.php?status=2');
+                                } else {
+                                    if ($stmt3 = $mysqli->prepare("UPDATE `saldos` SET `saldo` = `saldo` - ? WHERE `saldos`.`id_usuario` = ?")) {
+                                        $stmt3->bind_param('ii', $precioFinal, $user);
+                                        if (!$stmt3->execute()) {
+                                            die(var_dump($stmt3));
+                                            header('Location: ../../mispedidos.php?status=2');
+                                        } else {
+                                            $stmt->close();
+                                            $stmt2->close();
+                                            $stmt3->close();
+                                            header("Location: ../../categorias.php?id=".$apunte['cat_id']."&status=3");
+                                        }
+                                    }
+                                }
+                            } else {
+                                $stmt->close();
+                                $stmt2->close();
+                                header("Location: ../../categorias.php?id=".$apunte['cat_id']."&status=2");
                             }
-                            $stmt->close();
-                            header('Location: ../../mispedidos.php?status=0');
+                        }
                     } else {
-                            header('Location: ../../mispedidos.php?status=1');
+                        header('Location: ../../mispedidos.php?status=1');
                     }
-
-  
                 }
-                else{
-                    header('Location: ../../compra.php?id=$idApunte');
-                }
-
+            } else {
+                header('Location: ../../categorias.php');
             }
-            else{
-                header('Location: ../../mispedidos.php');
-            }    
+        } else {
+            header('Location: ../../mispedidos.php');
+        }
+    break;
+    case 'cambiarEstado':
 
-	break;
-	case 'cambiarEstado':
+        $nuevoEstado = $_POST['nuevoEstado'];
+        $pedidoId  = $_POST['pedidoId'];
+        $usrId = $_POST['usrId'];
+        $date = date('Y-m-d H:i:s');
+        $admin = $_POST['admin'];
+        $mov = "estado-pedido";
+        $amount = 0;
+        $cant = 0;
 
-	$nuevoEstado = $_POST['nuevoEstado'];
-	$pedidoId  = $_POST['pedidoId'];
-	$usrId = $_POST['usrId'];
-	$date = date('Y-m-d H:i:s');
-	$admin = $_POST['admin'];
-	$mov = "estado-pedido";
-	$amount = 0;
-	$cant = 0;
-
-	if ($stmt = $mysqli->prepare("UPDATE pedidos set `estado` = ?, `date` = ? WHERE id = ?")) {
-		$stmt->bind_param('isi', $nuevoEstado, $date, $pedidoId);
-		if (!$stmt->execute()) {
-			echo json_encode(array("status"=>2, "mensaje"=>"fallo la ejecucion"));
-			exit();
-		} else {
-			if ($stmt = $mysqli->prepare("UPDATE historial set `estado` = ?, `date` = ? WHERE id_pedido = ?")) {
-				$stmt->bind_param('isi', $nuevoEstado, $date, $pedidoId);
-				if (!$stmt->execute()) {
-					echo json_encode(array("status"=>2, "mensaje"=>"fallo la ejecucion"));
-					exit();
-				} else {
-					echo json_encode(array("status"=>0, "mensaje"=>""));
-					exit();
-				}
-			} else {
-				echo json_encode(array("status"=>1, "mensaje"=>"fallo la preparacion"));
-				exit();
-			}
-		}
-	} else {
-		echo json_encode(array("status"=>1, "mensaje"=>"fallo la preparacion"));
-		exit();
-	}
-	break;
+        if ($stmt = $mysqli->prepare("UPDATE pedidos set `estado` = ?, `date` = ? WHERE id = ?")) {
+          $stmt->bind_param('isi', $nuevoEstado, $date, $pedidoId);
+          if (!$stmt->execute()) {
+             echo json_encode(array("status"=>2, "mensaje"=>"fallo la ejecucion"));
+             exit();
+         } else {
+             if ($stmt = $mysqli->prepare("UPDATE historial set `estado` = ?, `date` = ? WHERE id_pedido = ?")) {
+                $stmt->bind_param('isi', $nuevoEstado, $date, $pedidoId);
+                if (!$stmt->execute()) {
+                   echo json_encode(array("status"=>2, "mensaje"=>"fallo la ejecucion"));
+                   exit();
+               } else {
+                   echo json_encode(array("status"=>0, "mensaje"=>""));
+                   exit();
+               }
+           } else {
+                echo json_encode(array("status"=>1, "mensaje"=>"fallo la preparacion"));
+                exit();
+            }
+        }
+    } else {
+      echo json_encode(array("status"=>1, "mensaje"=>"fallo la preparacion"));
+      exit();
+    }
+break;
 }

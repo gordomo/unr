@@ -115,6 +115,7 @@ $precios = getPrecios($mysqli);
                     </th>
                     <th class="head-item mbr-fonts-style display-4">Anillado</th>
                     <th class="head-item mbr-fonts-style display-4"></th>
+                    <th class="head-item mbr-fonts-style display-4"></th>
                   </tr>
                 </thead>
                 <tbody>

@@ -61,9 +61,9 @@ switch ($_REQUEST["action"]) {
                     $mail->CharSet = "utf-8";
                     //TODO cambiar esto
                     // Datos de la cuenta de correo utilizada para enviar vía SMTP
-                    $smtpHost = "c1030069.ferozo.com";  // Dominio alternativo brindado en el email de alta 
-                    $smtpUsuario = "soloparaformulario@muchasiesta.com.ar";  // Mi cuenta de correo
-                    $smtpClave = "42S*s9X4nN";  // Mi contraseña
+                    $smtpHost = "c1100302.ferozo.com";  // Dominio alternativo brindado en el email de alta 
+                    $smtpUsuario = "no-reply@c1100302.ferozo.com";  // Mi cuenta de correo
+                    $smtpClave = "vQQWwl*p8J";  // Mi contraseña
 
                     // VALORES A MODIFICAR //
                     $mail->Host = $smtpHost;
