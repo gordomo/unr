@@ -5,12 +5,13 @@ include_once '../../includes/funciones.php';
 switch ($_REQUEST["action"]) {
 	case 'nuevosPrecios':
 
-		$pricePage = $_POST['price-pages'];
+	$pricePage = $_POST['price-pages'];
+        $doubleFas = $_POST['double-fas'];    
         $ringed = $_POST['ringed'];
         $id = 1;
 
-		if ($stmt = $mysqli->prepare("INSERT INTO configuracion (`id`, `price_pages`, `ringed`) VALUES (?,?,?) ON DUPLICATE KEY UPDATE `price_pages` = VALUES(price_pages), `ringed` = VALUES(ringed)")) {
-			$stmt->bind_param('iii', $id, $pricePage, $ringed);
+		if ($stmt = $mysqli->prepare("INSERT INTO configuracion (`id`, `price_pages`, `ringed` , `double_fas`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `price_pages` = VALUES(price_pages), `ringed` = VALUES(ringed)")) {
+			$stmt->bind_param('iiii', $id, $pricePage, $ringed,$doubleFas);
 			if (!$stmt->execute()) {
 				die(var_dump($stmt));
 				header('Location: ../configuracion.php?status=2');        	
@@ -25,11 +26,12 @@ switch ($_REQUEST["action"]) {
 	case "editarPrecios":
 
 		$id = 1;
-        $pricePage = $_GET['pricePage'];           
+        $pricePage = $_GET['pricePage'];
+        $doubleFas = $_GET['doubleFas'];
         $ringed = $_GET['ringed'];
 
-		if ($stmt = $mysqli->prepare("UPDATE configuracion set `price_pages` = ? , `ringed`  = ? WHERE `id` = ?")) {
-			$stmt->bind_param('iii', $pricePage, $ringed, $id);
+		if ($stmt = $mysqli->prepare("UPDATE configuracion set `price_pages` = ? , `ringed`  = ? , `double_fas`  = ? WHERE `id` = ?")) {
+			$stmt->bind_param('iiii', $pricePage, $ringed, $doubleFas, $id);
 			if (!$stmt->execute()) {
 				die(var_dump($stmt));
 				header('Location: ../configuracion.php?status=2');        	

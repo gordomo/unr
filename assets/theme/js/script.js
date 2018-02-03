@@ -1109,8 +1109,19 @@ $(".editar-precio").on("click", function(){
         td.html('');
         precioPaginaAeditar.value = $.trim(txt);
         precioPaginaAeditar.type = 'number';
+        precioPaginaAeditar.min = 0;
         precioPaginaAeditar.id = "price-page-edited";
         td.append(precioPaginaAeditar);
+        
+        var dobleFasAeditar = document.createElement("input");     
+        var td = $("#double-fas");
+        var txt = td.html();
+        td.html('');
+        dobleFasAeditar.value = $.trim(txt);
+        dobleFasAeditar.type = 'number';
+        dobleFasAeditar.min = 0;
+        dobleFasAeditar.id = "double-fas-edited";
+        td.append(dobleFasAeditar);
         
         var anilladoAeditar = document.createElement("input");
         var td = $("#ringed");
@@ -1118,6 +1129,7 @@ $(".editar-precio").on("click", function(){
         td.html('');
         anilladoAeditar.value = $.trim(txt);
         anilladoAeditar.type = 'number';
+        anilladoAeditar.min = 0;
         anilladoAeditar.id = "ringed-edited";
         td.append(anilladoAeditar);
 
@@ -1127,8 +1139,9 @@ $(".editar-precio").on("click", function(){
     } else {
        
             var pricePage = $("#price-page-edited").val();
+            var doubleFas = $("#double-fas-edited").val();
             var ringed = $("#ringed-edited").val();
-            location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&ringed="+ringed;
+            location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&doubleFas="+doubleFas+"&ringed="+ringed;
       
     }
 
@@ -1257,10 +1270,10 @@ $("#cantidad").on("input", function(){
 
     var cantidad = $("#cantidad").val();
     var precioAnillado = cantidad * precioAnillados;
-    var precioFinal = precioHoja * cantidadHojas * cantidad;
+    var precioFinal = ((cantidadHojas * 2) * precioDobleFaz) * cantidad;
     
-    if ($('#doble-faz').is(':checked')) {
-        precioFinal = precioFinal / 2;
+    if ($('#simple-faz').is(':checked')) {
+        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
     }
 
     if ($('#anillado').is(':checked')) {
@@ -1270,13 +1283,13 @@ $("#cantidad").on("input", function(){
     $('#precio-final').html(precioFinal);
 });
 
-$("#doble-faz, #anillado").change(function() {
+$("#simple-faz, #anillado").change(function() {
     var cantidad = $("#cantidad").val();
     var precioAnillado = cantidad * precioAnillados;
-    var precioFinal = precioHoja * cantidadHojas * cantidad;
+    var precioFinal = ((cantidadHojas * 2) * precioDobleFaz) * cantidad;
     
-    if ($('#doble-faz').is(':checked')) {
-        precioFinal = precioFinal / 2;
+    if ($('#simple-faz').is(':checked')) {
+        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
     }
 
     if ($('#anillado').is(':checked')) {

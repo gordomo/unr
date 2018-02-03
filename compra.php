@@ -23,7 +23,7 @@ if(is_numeric($idApunte))
     $configuracion = getPrecios($mysqli);
     $precios = $configuracion->fetch_assoc();
 
-    $precioFinal = $apunte['pages'] * $precios['price_pages'];
+    $precioFinal = ($apunte['pages'] * 2) * $precios['double_fas'];
 
 }
 else
@@ -70,11 +70,11 @@ if(isset($_GET['status'])) {
                                 <strong>Apunte </strong>: &nbsp;<?= $apunte['name'] ?><br>
                             </p>    
                             <p class="mbr-text mbr-fonts-style display-5">
-                                <div><strong>Cantidad:</strong> <input type="number" value="1" style="height: 20px;width: 65px;" name="cantidad" id="cantidad"><br></div>
+                                <div><strong>Cantidad:</strong> <input type="number" value="1"  min="1" style="height: 20px;width: 65px;" name="cantidad" id="cantidad"><br></div>
                                 <div><strong>Precio</strong>:&nbsp;$<span id="precio-final"><?= $precioFinal ?></span><div>
                             </p>
                             <p class="mbr-text display-7">
-                                <label class="checkbox-inline"><input type="checkbox" name="dobleFaz" id="doble-faz">Doble faz</label>
+                                <label class="checkbox-inline"><input type="checkbox" name="simpleFaz" id="simple-faz">Simple Faz</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class="checkbox-inline"><input type="checkbox" name="anillado" id="anillado">Anillado</label>
                             </p>
@@ -100,7 +100,8 @@ if(isset($_GET['status'])) {
 
     <?php include_once("includes/footer.html"); ?>
     <script type="text/javascript">
-        var precioHoja = <?=$precios['price_pages']?>;
+        var precioSimpleFaz = <?=$precios['price_pages']?>;
+        var precioDobleFaz = <?=$precios['double_fas']?>;
         var cantidadHojas = <?=$apunte['pages']?>;
         var precioAnillados = <?=$precios['ringed']?>;
     </script>

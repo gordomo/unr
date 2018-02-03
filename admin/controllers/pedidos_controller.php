@@ -9,9 +9,9 @@ switch ($_REQUEST["action"]) {
             $idApunte = $_POST['apunte'];
 
             if (is_numeric($idApunte)) {
-                $doblefaz = (isset($_POST['dobleFaz'])) ? "1" : "0";
+                $simpleFaz = (isset($_POST['simpleFaz'])) ? "1" : "0";
                 $anillado = (isset($_POST['anillado'])) ? "1" : "0";
-                
+                                
 
                 $user_mail = $_SESSION['user'];
                 $user = getUsuarioByEmail($mysqli, $user_mail)['id'];
@@ -21,18 +21,19 @@ switch ($_REQUEST["action"]) {
                 $configuracion = getPrecios($mysqli);
                 $precios = $configuracion->fetch_assoc();
                 
-                $cantidad = (isset($_POST['cantidad'])) ? $_POST['cantidad'] : 1;
-                $precio = $apunte['pages'] * $precios['price_pages'] * $cantidad;
+                $cantidad = (isset($_POST['cantidad']) && $_POST['cantidad'] >= 1) ? $_POST['cantidad'] : 1;
+                
+                $precio = (($apunte['pages'] * 2) * $precios['double_fas']) * $cantidad;
 
                 $precioAnilladoTotal = 0;
                 if ($anillado) {
                     $precioAnilladoTotal = $cantidad * $precios['ringed'];
                 }
-                if ($doblefaz) {
-                    $precio = $precio / 2;
+                if ($simpleFaz) {
+                    $precio = ($precio / $precios['double_fas']) * $precios['price_pages'];
                 }
 
-                $precioFinal = $precio + $precioAnilladoTotal;
+                $precioFinal = $precio + $precioAnilladoTotal;               
 
                 if($saldo < $precioFinal) {
                     header('Location: ../../compra.php?id='.$apunte['id'] . "&status=5");
