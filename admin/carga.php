@@ -53,16 +53,20 @@ $usuarios = getUsuariosNoAdmin($mysqli);
                 <thead>
                   <tr class="table-heads">
                     <th class="head-item mbr-fonts-style display-4"><strong>USUARIO</strong></th>
+                    <th class="head-item mbr-fonts-style display-4"><strong>CONFIRMADO</strong></th>
                     <th class="head-item mbr-fonts-style display-4"><strong>SALDO</strong></th>
                     <th class="head-item mbr-fonts-style display-4"></th></tr>
                   </thead>
                   <tbody>
                     <?php foreach ($usuarios as $usr) { ?>
                     <tr>
-                      <td class="body-item mbr-fonts-style display-7"><?=$usr['email']?></td>
+                      <td class="body-item mbr-fonts-style display-7"><?=$usr['email']?></td> 
+                      <td class="body-item mbr-fonts-style display-7"><?php $valid = ($usr['valid']) ?  "SI" : "NO"; echo $valid;  ?></td>
                       <td class="body-item mbr-fonts-style display-7">$<?=getSaldo($mysqli, $usr['id'])?></td>
                       <td class="body-item mbr-fonts-style display-7">
+                      <?php if($usr['valid']) { ?>      
                         <a class="table-link" href="acreditacion.php?id=<?=$usr['id']?>">Agregar Saldo</a>
+                      <?php } ?>   
                       </td>
                     </tr>
                     <?php } ?>
