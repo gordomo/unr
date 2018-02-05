@@ -71,14 +71,20 @@ $precios = getPrecios($mysqli);
             <div class="row row-sm-offset">
               <div class="col-md-4 multi-horizontal" data-for="price-pages">
                 <div class="form-group">
-                  <label class="form-control-label mbr-fonts-style display-7" for="name-form1-56">Por Página</label>
-                  <input type="number" class="form-control" name="price-pages" data-form-field="price-pages" required="" id="price-pages">
+                  <label class="form-control-label mbr-fonts-style display-7" for="name-form1-56">Simple Faz</label>
+                  <input type="number" class="form-control" name="price-pages" min="0" data-form-field="price-pages" required="true" id="price-pages">
                 </div>
               </div>
+              <div class="col-md-4 multi-horizontal" data-for="double-fas">
+                <div class="form-group">
+                  <label class="form-control-label mbr-fonts-style display-7" for="name-form1-56">Doble Faz</label>
+                  <input type="number" class="form-control" name="double-fas" min="0" data-form-field="double-fas" required="true" id="double-fas">
+                </div>
+              </div>  
               <div class="col-md-4 multi-horizontal" data-for="ringed">
                 <div class="form-group">
-                  <label class="form-control-label mbr-fonts-style display-7" for="name-form1-56">Anillado</label>
-                  <input type="number" class="form-control" name="ringed" data-form-field="ringed" required="" id="ringed">
+                  <label class="form-control-label mbr-fonts-style display-7" min="0" for="name-form1-56">Anillado</label>
+                  <input type="number" class="form-control" name="ringed" data-form-field="ringed" required="true" id="ringed">
                 </div>
               </div>  
             </div>
@@ -111,8 +117,9 @@ $precios = getPrecios($mysqli);
                 <thead>
                   <tr class="table-heads">
                     <th class="head-item mbr-fonts-style display-4">
-                      <strong>Por Página</strong>
+                      <strong>Simple Faz</strong>
                     </th>
+                    <th class="head-item mbr-fonts-style display-4">Doble Faz</th>
                     <th class="head-item mbr-fonts-style display-4">Anillado</th>
                     <th class="head-item mbr-fonts-style display-4"></th>
                     <th class="head-item mbr-fonts-style display-4"></th>
@@ -123,6 +130,9 @@ $precios = getPrecios($mysqli);
                   <tr>
                     <td class="body-item mbr-fonts-style display-7" id="price-page">
                       <?= $pre['price_pages'] ?>
+                    </td>
+                    <td class="body-item mbr-fonts-style display-7" id="double-fas">
+                      <?= $pre['double_fas'] ?>
                     </td>
                     <td class="body-item mbr-fonts-style display-7" id="ringed">
                       <?= $pre['ringed'] ?>
