@@ -180,6 +180,9 @@ function sec_session_start() {
       case 11:
       $mensaje = "Usuario No encontrado";
       break;
+      case 12:
+      $mensaje = "Bienvenido ". $user ." aún no has validado tu correo. Revisa tu bandeja de span si no lo encuentras en tu bandeja de entrada";
+      break;
       default:
       $mensaje = "Bienvenido...";
       break;

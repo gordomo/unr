@@ -108,7 +108,7 @@ switch ($_REQUEST["action"]) {
             $email = $_POST['emailUsuario'];
             $password = $_POST['passwordUsuario'];
 
-            $stmt = $mysqli->prepare("SELECT pass, grup FROM usuarios WHERE email = ? LIMIT 1");
+            $stmt = $mysqli->prepare("SELECT pass, grup, valid FROM usuarios WHERE email = ? LIMIT 1");
             $stmt->bind_param('s', $email);
 
             $stmt->execute();   // Execute the prepared query.
@@ -116,17 +116,21 @@ switch ($_REQUEST["action"]) {
 
             if ($stmt->num_rows == 1) {
                 //If the user exists get variables from result.
-                $stmt->bind_result($passwordDB, $grup);
+                $stmt->bind_result($passwordDB, $grup, $valid);
                 $stmt->fetch();
                 if ($password == $passwordDB) {
                     //Logged In!!!!
                     $_SESSION['user_login_checked'] = true;
                     $_SESSION['user'] = $email;
-                    $_SESSION['grup'] = $grup;
+                    $_SESSION['grup'] = $grup;                   
 
                     if ($grup != 0) {
                         header('Location: ../admin/padmin.php');
-                    } else {
+                    } 
+                    else {                       
+                        if(!$valid){    
+                        $_SESSION['state'] = 12;                        
+                        }
                         header('Location: ../index.php');
                     }    
                     exit();
