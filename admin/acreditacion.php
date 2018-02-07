@@ -18,8 +18,16 @@ if(!$logged) {
 $id = (isset($_GET['id'])) ? $_GET['id'] : 'no-id';
 
 if (is_numeric($id)) {
-  $saldo = getSaldo($mysqli, $id);
-  $usuario = getUsuario($mysqli, $id);
+    
+    $usuario = getUsuario($mysqli, $id);
+    
+    if($usuario['valid']){
+       $saldo = getSaldo($mysqli, $id); 
+    }
+    else
+    {
+      header('Location: carga.php'); 
+    }      
 }
 else
 {
