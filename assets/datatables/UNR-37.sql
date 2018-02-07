@@ -28,3 +28,7 @@ SET time_zone = "+00:00";
 
 ALTER TABLE `unr`.`configuracion` 
 ADD COLUMN `double_fas` INT NULL DEFAULT NULL AFTER `ringed`;
+
+ALTER TABLE `configuracion` CHANGE `double_fas` `double_fas` FLOAT(11) NULL DEFAULT NULL;
+ALTER TABLE `configuracion` CHANGE `price_pages` `price_pages` FLOAT(11) NULL DEFAULT NULL;
+ALTER TABLE `configuracion` CHANGE `ringed` `ringed` FLOAT(11) NULL DEFAULT NULL;
