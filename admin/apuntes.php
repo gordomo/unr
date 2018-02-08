@@ -19,7 +19,7 @@ $mensaje = '';
 if(isset($_GET['status'])) {
   switch ($_GET['status']) {
     case '0':
-    $mensaje = 'Apunte agregada/editada correctamente';
+    $mensaje = 'Apunte agregado/editado correctamente';
     break;
     case '1':
     $mensaje = 'Error preparando la carga. Intente de nuevo';
@@ -28,7 +28,7 @@ if(isset($_GET['status'])) {
     $mensaje = 'Error ejecuntando la consulta. Intente de nuevo';
     break; 
     case '3':
-    $mensaje = 'Apunte borrada correctamente';
+    $mensaje = 'Apunte borrado correctamente';
     break; 
     case '4':
     $mensaje = 'No se pudo subir el archivo, intente de nuevo más tarde';
@@ -41,6 +41,7 @@ if(isset($_GET['status'])) {
 
 $categorias = getCategorias($mysqli, true);
 $subCategorias = getSubCategorias($mysqli, true);
+$subsubCategorias = getSubSubCategorias($mysqli, true);
 $apuntes = getApuntes($mysqli, true);
 
 ?>
@@ -93,6 +94,14 @@ $apuntes = getApuntes($mysqli, true);
                   </select>
                 </div>
               </div>
+              <div class="col-md-4 multi-horizontal" data-for="subsubcat">
+                <div class="form-group">
+                  <label class="form-control-label mbr-fonts-style display-7" for="subsubcat">Sub-Sub-Categoría</label>
+                  <select class="form-control" name="subsubcat" required="true" id="subsubcat">
+                    <option value="">Sub-Sub-Categorías</option>
+                  </select>
+                </div>
+              </div>  
               <div class="col-md-4 multi-horizontal" data-for="pages">
                 <div class="form-group">
                   <label class="form-control-label mbr-fonts-style display-7" for="pages">Cantidad de Páginas</label>
@@ -147,6 +156,7 @@ $apuntes = getApuntes($mysqli, true);
                     </th>
                     <th class="head-item mbr-fonts-style display-4">Cat</th>
                     <th class="head-item mbr-fonts-style display-4">Sub-Cat</th>
+                    <th class="head-item mbr-fonts-style display-4">Sub-Sub-Cat</th>
                     <th class="head-item mbr-fonts-style display-4">Páginas</th>
                     <th class="head-item mbr-fonts-style display-4">File</th>
                     <th class="head-item mbr-fonts-style display-4"></th>
@@ -168,17 +178,25 @@ $apuntes = getApuntes($mysqli, true);
                         </select>
                       </td>
                       <td class="body-item mbr-fonts-style display-7">
-                        <select id="sub-categoria-<?=$apunte['id'] ?>" class="ab" disabled="true">
+                        <select id="sub-categoria-<?=$apunte['id'] ?>" class="ab selectSubCategorias" disabled="true" data-apunte-id="<?=$apunte['id']?>">
                           <option value="0">sin sub categoria</option>
                           <?php foreach (getSubCategoriasFromCat($mysqli, $apunte['cat_id']) as $subcat) { ?>
                             <option value="<?=$subcat['id']?>" <?=($subcat['id'] == $apunte['sub_cat_id']) ? 'selected' : ''?>><?=$subcat['name']?></option>
                           <?php } ?>
                         </select>
                       </td>
+                      <td class="body-item mbr-fonts-style display-7">
+                        <select id="sub-sub-categoria-<?=$apunte['id'] ?>" class="ab" disabled="true">
+                          <option value="0">sin sub sub categoria</option>
+                          <?php foreach (getSubSubCategoriasFromSubCat($mysqli, $apunte['sub_cat_id']) as $subsubcat) { ?>
+                            <option value="<?=$subsubcat['id']?>" <?=($subsubcat['id'] == $apunte['subsub_cat_id']) ? 'selected' : ''?>><?=$subsubcat['name']?></option>
+                          <?php } ?>
+                        </select>
+                      </td>
                       <td class="body-item mbr-fonts-style display-7" >
                         <input type="number" name="pages" id="pages-<?=$apunte['id']?>" value="<?= $apunte['pages'] ?>" class="ab" disabled="true">
                       </td>
-                      <td class="body-item mbr-fonts-style display-7" >
+                      <td class="body-item mbr-fonts-style display-9" >
                         <input type="file" name="fileToUpload" required="true" id="file-apunte-<?=$apunte['id']?>" value="" class="ab" disabled="true">
                       </td>
                       <td class="body-item mbr-fonts-style display-7">
