@@ -139,9 +139,27 @@ function getApuntes($mysqli, $todas = true) {
   return $apuntes;
 }
 
+function getSubSubFromSubCategoria($mysqli, $id)
+{
+  $query = "SELECT * FROM subsubcategorias WHERE sub_cat_id = $id";
+
+  $resultado = $mysqli->query($query);
+
+  return $resultado;
+}
+
 function getApuntesFromCategoria($mysqli, $id)
 {
   $query = "SELECT * FROM apuntes WHERE cat_id = $id";
+
+  $resultado = $mysqli->query($query);
+
+  return $resultado;
+}
+
+function getApuntesFromSubSubCategoria($mysqli, $id)
+{
+  $query = "SELECT * FROM apuntes WHERE subsub_cat_id = $id";
 
   $resultado = $mysqli->query($query);
 
