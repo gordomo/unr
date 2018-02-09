@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-02-2018 a las 17:51:08
+-- Tiempo de generación: 09-02-2018 a las 17:57:22
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 5.6.25
 
@@ -20,86 +20,119 @@ SET time_zone = "+00:00";
 -- Base de datos: `unr`
 --
 
---
--- Volcado de datos para la tabla `apuntes`
---
-
-INSERT INTO `apuntes` (`id`, `name`, `cat_id`, `sub_cat_id`, `file`, `pages`, `subsub_cat_id`) VALUES
-(13, 'otra', 2, 2, '../uploads/Categoria 2/SubCategoria 2/Presupuesto Megasorteo.pdf', 1000, 0),
-(12, 'mucha', 2, 2, '../uploads/Categoria 4/sdad123123123/afip_vep_cuit_27340875309_nrovep_238144146.pdf', 250, 0),
-(14, 'test', 2, 2, '../uploads/Categoria 2/SubCategoria 2/1.pdf', 321, 2),
-(15, 'test2', 2, 2, '../uploads/Categoria 2/SubCategoria 2/1.pdf', 322, 2),
-(16, 'nvarg.com', 2, 2, '../uploads/Categoria 2/SubCategoria 2/1.pdf', 31232, 3),
-(17, 'Apunte 1', 2, 2, '../uploads/Admin de Empresas/2do Año/Matemáticas 2/1.pdf', 500, 3);
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `categorias`
+-- Estructura de tabla para la tabla `apuntes`
 --
 
-INSERT INTO `categorias` (`id`, `name`, `habilitada`) VALUES
-(1, 'Categoria 1', 1),
-(2, 'Admin de Empresas', 1),
-(4, 'Categoria 3', 1),
-(5, 'Categoria 4', 1),
-(7, 'Categoria 5', 1);
+CREATE TABLE `apuntes` (
+  `id` int(8) NOT NULL,
+  `name` text NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `sub_cat_id` int(11) NOT NULL,
+  `file` text NOT NULL,
+  `pages` int(11) NOT NULL,
+  `subsub_cat_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `configuracion`
+-- Estructura de tabla para la tabla `categorias`
 --
 
-INSERT INTO `configuracion` (`id`, `price_pages`, `ringed`, `double_fas`) VALUES
-(1, 0.5, 150, 0.48);
+CREATE TABLE `categorias` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `habilitada` int(11) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `historial`
+-- Estructura de tabla para la tabla `configuracion`
 --
 
-INSERT INTO `historial` (`id`, `id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`, `id_pedido`) VALUES
-(22, 6, 'admin', 'acreditacion', 500, '2018-01-29 20:03:50', 2, 1, 0),
-(23, 6, 'root', 'pedido', 275, '2018-01-29 20:19:49', 1, 1, 28),
-(24, 6, 'root', 'pedido', 250, '2018-01-29 20:21:07', 1, 1, 29),
-(25, 6, 'root', 'pedido', 250, '2018-01-29 20:21:56', 1, 1, 30),
-(26, 6, 'root', 'pedido', 250, '2018-01-29 20:26:28', 1, 1, 31);
+CREATE TABLE `configuracion` (
+  `id` int(11) NOT NULL,
+  `price_pages` double DEFAULT NULL,
+  `ringed` double DEFAULT NULL,
+  `double_fas` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `pedidos`
+-- Estructura de tabla para la tabla `historial`
 --
 
-INSERT INTO `pedidos` (`id`, `nombre`, `archivo`, `cantidad`, `total`, `estado`, `date`, `usr_id`, `anillado`, `doblefaz`) VALUES
-(31, 'mucha', '../uploads/Categoria 4/sdad123123123/afip_vep_cuit_27340875309_nrovep_238144146.pdf', 1, 250, 1, '2018-01-29 20:26:28', 6, 0, 0),
-(30, 'mucha', '../uploads/Categoria 4/sdad123123123/afip_vep_cuit_27340875309_nrovep_238144146.pdf', 1, 250, 1, '2018-01-29 20:21:56', 6, 0, 0),
-(29, 'mucha', '../uploads/Categoria 4/sdad123123123/afip_vep_cuit_27340875309_nrovep_238144146.pdf', 1, 250, 1, '2018-01-29 20:21:07', 6, 0, 0),
-(28, 'mucha', '../uploads/Categoria 4/sdad123123123/afip_vep_cuit_27340875309_nrovep_238144146.pdf', 1, 275, 1, '2018-01-29 20:19:49', 6, 1, 1);
+CREATE TABLE `historial` (
+  `id` int(8) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `admin` text NOT NULL,
+  `mov` text NOT NULL,
+  `amount` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `estado` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `id_pedido` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `saldos`
+-- Estructura de tabla para la tabla `pedidos`
 --
 
-INSERT INTO `saldos` (`id_usuario`, `saldo`) VALUES
-(6, 200);
+CREATE TABLE `pedidos` (
+  `id` int(11) NOT NULL,
+  `nombre` text NOT NULL,
+  `archivo` text NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT '1',
+  `date` datetime NOT NULL,
+  `usr_id` int(11) NOT NULL,
+  `anillado` int(1) NOT NULL,
+  `doblefaz` int(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `subcategorias`
+-- Estructura de tabla para la tabla `saldos`
 --
 
-INSERT INTO `subcategorias` (`id`, `name`, `cat_id`) VALUES
-(1, '5to Año', 2),
-(2, '2do Año', 2),
-(4, '3er Año', 2),
-(5, '4to Año', 2);
+CREATE TABLE `saldos` (
+  `id_usuario` int(8) NOT NULL,
+  `saldo` int(8) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `subsubcategorias`
+-- Estructura de tabla para la tabla `subcategorias`
 --
 
-INSERT INTO `subsubcategorias` (`id`, `name`, `cat_id`, `sub_cat_id`) VALUES
-(1, 'Matemáticas 5', 2, 1),
-(2, 'Materia 2', 2, 2),
-(3, 'Matemáticas 2', 2, 2),
-(4, 'otra', 2, 2),
-(5, 'otra2', 2, 2),
-(6, 'otra3', 2, 2),
-(7, 'otra4', 2, 2);
+CREATE TABLE `subcategorias` (
+  `id` int(8) NOT NULL,
+  `name` text NOT NULL,
+  `cat_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `subsubcategorias`
+--
+
+CREATE TABLE `subsubcategorias` (
+  `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `sub_cat_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -121,16 +154,61 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `email`, `pass`, `valid`, `grup`, `code`) VALUES
-(1, 'admin@iga-la.com', 'Demo001', 0, 0, ''),
-(8, 'mucha2', 'adsdds', 1, 2, '1'),
-(3, 'flor@goaoiads.com', 'hola1234', 0, 0, ''),
-(6, 'user', 'user', 1, 0, 'e5y5qV9ZgF'),
-(9, 'nuevo', 'nuevo', 1, 1, '1'),
-(7, 'admin', 'admin', 1, 2, 'admin');
+(1, 'user', 'user', 1, 0, 'e5y5qV9ZgF'),
+(2, 'user2', 'user2', 0, 0, ''),
+(3, 'admin', 'admin', 1, 2, 'admin');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `apuntes`
+--
+ALTER TABLE `apuntes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `configuracion`
+--
+ALTER TABLE `configuracion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `historial`
+--
+ALTER TABLE `historial`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `saldos`
+--
+ALTER TABLE `saldos`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- Indices de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `subsubcategorias`
+--
+ALTER TABLE `subsubcategorias`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -142,6 +220,36 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+--
+-- AUTO_INCREMENT de la tabla `apuntes`
+--
+ALTER TABLE `apuntes`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `historial`
+--
+ALTER TABLE `historial`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+--
+-- AUTO_INCREMENT de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT de la tabla `subcategorias`
+--
+ALTER TABLE `subcategorias`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `subsubcategorias`
+--
+ALTER TABLE `subsubcategorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
