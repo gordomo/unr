@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<html >
+<head>
+  <title>apuntes</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.5.1, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="description" content="Web Site Builder Description">
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/animatecss/animate.min.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/gallery/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <style type="text/css">
+  .subsubcategorias:hover{
+    background-color: #4d88a5 !important;
+    color: #fff !important;
+    border: 1px solid #4d88a5 !important;
+  }
+  .subsubcategorias{
+    background-color: #4d88a5 !important;
+    color: #fff !important;
+    border: 1px solid #537a8e !important;
+    z-index: 999;
+  }
+  </style>
+</head>
+<body>
+
+ <section class="menu cid-qwfntnWL41" once="menu" id="menu1-g" data-rv-view="2594">
+  <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+    <div class="menu-logo">
+      <div class="navbar-brand">
+        <span class="navbar-logo">
+          <a href="index.php">
+            <img src="assets/images/logo2-1630x1629.png" alt="" title="" media-simple="true" style="height: 3.8rem;">
+          </a>
+        </span>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+        <li class="nav-item">
+          <a class="nav-link link text-secondary display-4" href="index.php">
+            <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>&nbsp;Inicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link text-secondary display-4" href="categorias.php">
+            <span class="mbri-edit mbr-iconfont mbr-iconfont-btn"></span>&nbsp;Apuntes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link text-secondary display-4" href="mispedidos.php">
+            <span class="mbri-print mbr-iconfont mbr-iconfont-btn"></span>Mis Pedidos&nbsp;<br>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link text-secondary display-4" href="includes/process_login.php?action=logout">
+            <span class="mbri-login mbr-iconfont mbr-iconfont-btn"></span>Salir&nbsp;<br>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Acceso / Registrarme</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="panel panel-login">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <a href="#" class="active" id="login-form-link">Iniciar sesión</a>
+                      </div>
+                      <div class="col-md-6">
+                        <a href="#" id="register-form-link">Regístrate ahora</a>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <form id="login-form" action="includes/process_login.php" method="post" role="form" style="display: block;">
+                          <input type="hidden" name="action" value="login">
+                          <div class="form-group">
+                            <input type="text" name="emailUsuario" id="emailUsuario" tabindex="1" class="form-control" placeholder="Email" value="">
+                          </div>
+                          <div class="form-group">
+                            <input type="password" name="passwordUsuario" id="passwordUsuario" tabindex="2" class="form-control" placeholder="Contraseña">
+                          </div>
+                          <div class="form-group">
+                            <div class="row">
+
+                              <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Iniciar sesión">
+
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <div class="text-center">
+                                  <a href="javascript:olvideMiContraseña();" tabindex="5" class="forgot-password">¿Has olvidado tu contraseña?</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                        <form id="register-form" action="includes/process_login.php" method="post" role="form" style="display: none;">
+                          <input type="hidden" name="action" value="register">
+                          <div class="form-group">
+                            <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo electronico" value="" required="true">
+                          </div>
+                          <div class="form-group">
+                            <input type="password" name="password" id="password" tabindex="2" class="form-control pass" placeholder="Contraseña" required="true">
+                          </div>
+                          <div class="form-group">
+                            <a href="javascript:verPass();" id="verPass" class="link">ver contraseña</a>
+                          </div> 
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Crear cuenta">
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>    
+
+<section class="mbr-section content5 cid-qCodzBq9XL mbr-parallax-background" id="content5-28" data-rv-view="2607">
+
+
+  <div class="mbr-overlay" style="opacity: 0.4; background-color: rgb(35, 35, 35);">
+  </div>
+
+  <div class="container">
+    <div class="media-container-row">
+      <div class="title col-12 col-md-8">
+        <h2 class="align-center mbr-bold mbr-white pb-3 mbr-fonts-style display-1">Categoria 2<br></h2>
+
+
+        <div class="mbr-section-btn align-center"><a class="btn btn-black display-4" href="categorias.php">volver</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mbr-gallery mbr-slider-carousel cid-qFM44TTfBE" id="gallery2-4m" data-rv-view="2610">
+
+
+
+  <div class="container">
+    <div><!-- Filter -->
+      <div class="mbr-gallery-filter container gallery-filter-active">
+        <ul buttons="0">
+          <li class="mbr-gallery-filter-all">
+            <a class="btn btn-md btn-info active display-4" href="">Todos</a>
+          </li>
+        </ul>
+      </div><!-- Gallery -->
+      <div class="mbr-gallery-row">
+        <div class="mbr-gallery-layout-default">
+
+          <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="SubCategoria 2">
+            <div onclick="openSubSubDiv(1)">
+              <span class="mbr-gallery-title mbr-fonts-style display-7">otra</span>
+            </div>
+            <div class="subsubcategorias" id="subsubcategoria-1" style="display: none;">
+            <ul>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+            </ul>    
+          </div>
+          </div>
+          <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="SubCategoria 2">
+            <div onclick="openSubSubDiv(2)">
+              <span class="mbr-gallery-title mbr-fonts-style display-7">mucha</span>
+            </div>
+            <div class="subsubcategorias" id="subsubcategoria-2" style="display: none;">
+            <ul>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+            </ul>    
+          </div>
+          </div>
+          
+
+          <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="SubCategoria 2">
+            <div onclick="openSubSubDiv(3)">
+              <span class="mbr-gallery-title mbr-fonts-style display-7">test</span>
+            </div>
+            <div class="subsubcategorias" id="subsubcategoria-3" style="display: none;">
+            <ul>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+            </ul>    
+          </div>
+          </div>
+          
+
+          <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="SubCategoria 2">
+            <div onclick="openSubSubDiv(4)">
+              <span class="mbr-gallery-title mbr-fonts-style display-7">test2</span>
+            </div>
+            <div class="subsubcategorias" id="subsubcategoria-4" style="display: none;">
+            <ul>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+            </ul>    
+          </div>
+          </div>
+          
+
+          <div class="mbr-gallery-item mbr-gallery-item--p1" data-video-url="false" data-tags="SubCategoria 2">
+            <div onclick="openSubSubDiv(5)">
+              <span class="mbr-gallery-title mbr-fonts-style display-7">nvarg.com</span>
+            </div>
+            <div class="subsubcategorias" id="subsubcategoria-5" style="display: none;">
+            <ul>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+              <li>
+                <a href="#">sub sub 1</a>
+              </li>
+            </ul>    
+          </div>
+          </div>
+          
+
+          <div class="clearfix"></div>            
+        </div>                    
+      </div><!-- Lightbox -->
+
+    </div>
+
+  </section>
+
+  <section once="" class="cid-qDOjjfAhP7" id="footer6-33" data-rv-view="2641">
+
+
+
+
+
+    <div class="container">
+      <div class="media-container-row align-center mbr-white">
+        <div class="col-12">
+          <p class="mbr-text mb-0 mbr-fonts-style display-7">© Copyright 2018 Team Builder - contacto@teambuilder.com.ar</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/dropdown/js/script.min.js"></script>
+  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+  <script src="assets/vimeoplayer/jquery.mb.vimeo_player.js"></script>
+  <script src="assets/parallax/jarallax.min.js"></script>
+  <script src="assets/masonry/masonry.pkgd.min.js"></script>
+  <script src="assets/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js"></script>
+  <script src="assets/viewportchecker/jquery.viewportchecker.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  <script src="assets/gallery/player.min.js"></script>
+  <script src="assets/gallery/script.js"></script>
+  <script src="assets/slidervideo/script.js"></script>   
+  <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i></i></a></div>
+  <input name="animation" type="hidden">
+  <script type="text/javascript">
+    function openSubSubDiv(number) {
+      $(".subsubcategorias").hide();
+      // alert("#subsubcategoria-"+number);
+      $("#subsubcategoria-"+number).show();
+    }
+  </script>
+</body>
+</html>

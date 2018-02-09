@@ -62,7 +62,7 @@ if(isset($_GET['status'])) {
                         <h4 class="card-title mbr-fonts-style display-7"><?= $fila['name'] ?></h4>
                     </div>
                     <div class="mbr-section-btn text-center">
-                        <a href="apuntes.php?id=<?= $fila['id'] ?>" class="btn btn-primary display-4">ver apuntes</a>
+                        <a href="apuntes.php?id=<?= $fila['id'] ?>" class="btn btn-primary display-4">ingresar</a>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,8 @@ if(is_numeric($idApunte))
     
     $subCategoria = getSubCategoria($mysqli, $apunte['sub_cat_id']);
 
+    $subSubCategoria = getSubSubCategoria($mysqli, $apunte['subsub_cat_id']);
+
     $configuracion = getPrecios($mysqli);
     $precios = $configuracion->fetch_assoc();
 
@@ -66,12 +68,21 @@ if(isset($_GET['status'])) {
                     
                         <div class="mbr-section-text mbr-white pb-3 ">
                             <p class="mbr-text mbr-fonts-style display-5">
-                                <strong>Nombre</strong>: <?= $subCategoria['name'] ?><br>
-                                <strong>Apunte </strong>: &nbsp;<?= $apunte['name'] ?><br>
+                                <strong><?= $subCategoria['name'] ?></strong> - <strong><?= $subSubCategoria['name'] ?></strong><br>
+                                <strong>Nombre</strong>: &nbsp;<?= $apunte['name'] ?><br>
                             </p>    
                             <p class="mbr-text mbr-fonts-style display-5">
-                                <div><strong>Cantidad:</strong> <input type="number" value="1"  min="1" style="height: 20px;width: 65px;" name="cantidad" id="cantidad"><br></div>
-                                <div><strong>Precio</strong>:&nbsp;$<span id="precio-final"><?= $precioFinal ?></span><div>
+                                <div style="font-size: 25px;">
+                                    <strong>Copias:</strong> 
+                                    <input type="number" value="1"  min="1" style="height: 35px;width: 65px;" name="cantidad" id="cantidad"> --->
+                                    <strong>Precio</strong>:&nbsp;$
+                                    <span id="precio-final"><?= $precioFinal ?></span>
+                                </div>
+                                
+                                <div style="font-size: 25px;">
+                                    <strong>Paginas:</strong> 
+                                    <span><?= $apunte['pages'] ?></span>
+                                </div>
                             </p>
                             <p class="mbr-text display-7">
                                 <label class="checkbox-inline"><input type="checkbox" name="simpleFaz" id="simple-faz">Simple Faz</label>
