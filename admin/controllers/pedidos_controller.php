@@ -33,7 +33,7 @@ switch ($_REQUEST["action"]) {
                     $precio = ($precio / $precios['double_fas']) * $precios['price_pages'];
                 }
 
-                $precioFinal = $precio + $precioAnilladoTotal;               
+                $precioFinal = round($precio + $precioAnilladoTotal, 2);
 
                 if($saldo < $precioFinal) {
                     header('Location: ../../compra.php?id='.$apunte['id'] . "&status=5");
@@ -44,21 +44,22 @@ switch ($_REQUEST["action"]) {
                     $date = date('Y-m-d H:i:s');
                     $admin = 'root';
                     $mov = 'pedido';
+                    $doblefaz = ($simpleFaz) ? 0 : 1;
 
                     if ($stmt = $mysqli->prepare("INSERT INTO pedidos (`nombre`, `archivo`, `cantidad`, `total`, `estado`, `date`, `usr_id`, `anillado`, `doblefaz`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-                        $stmt->bind_param('ssiiisiii', $apunte['name'], $file, $cantidad, $precioFinal, $estado, $date, $user, $anillado, $doblefaz);
+                        $stmt->bind_param('ssdiisiii', $apunte['name'], $file, $cantidad, $precioFinal, $estado, $date, $user, $anillado, $doblefaz);
                         if (!$stmt->execute()) {
                             header('Location: ../../mispedidos.php?status=2');
                         } else {
                             //insert en historico si sale bien la primer operacion
                             $pedido_id = $stmt->insert_id;
                             if ($stmt2 = $mysqli->prepare("INSERT INTO `historial` (`id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`, `id_pedido`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
-                                $stmt2->bind_param('issisiii', $user, $admin, $mov, $precioFinal, $date, $estado, $cantidad, $pedido_id);
+                                $stmt2->bind_param('issdsiii', $user, $admin, $mov, $precioFinal, $date, $estado, $cantidad, $pedido_id);
                                 if (!$stmt2->execute()) {
                                     header('Location: ../../mispedidos.php?status=2');
                                 } else {
                                     if ($stmt3 = $mysqli->prepare("UPDATE `saldos` SET `saldo` = `saldo` - ? WHERE `saldos`.`id_usuario` = ?")) {
-                                        $stmt3->bind_param('ii', $precioFinal, $user);
+                                        $stmt3->bind_param('di', $precioFinal, $user);
                                         if (!$stmt3->execute()) {
                                             die(var_dump($stmt3));
                                             header('Location: ../../mispedidos.php?status=2');

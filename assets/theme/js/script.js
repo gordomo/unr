@@ -1368,7 +1368,7 @@ $("#cantidad").on("input", function(){
         precioFinal = precioFinal + precioAnillado;
     }
     
-    $('#precio-final').html(precioFinal);
+    $('#precio-final').html(precioFinal.toFixed(2));
 });
 
 $("#simple-faz, #anillado").change(function() {
@@ -1384,7 +1384,7 @@ $("#simple-faz, #anillado").change(function() {
         precioFinal = precioFinal + precioAnillado;
     }
     
-    $('#precio-final').html(precioFinal);
+    $('#precio-final').html(precioFinal.toFixed(2));
 });
 
 $('#sumar').on("input", function() {

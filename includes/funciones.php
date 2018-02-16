@@ -360,7 +360,7 @@ function getPedido($mysqli, $id) {
 
 
 function getHistorialForUser($mysqli, $id) {
-  $query = "SELECT * FROM historial WHERE id_usuario = $id";
+  $query = "SELECT * FROM historial WHERE id_usuario = $id order by id desc";
 
   $resultado = $mysqli->query($query);
   
