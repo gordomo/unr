@@ -10,9 +10,9 @@ $mail->IsHTML(true);
 $mail->CharSet = "utf-8";
 
 // Datos de la cuenta de correo utilizada para enviar vía SMTP
-$smtpHost = "c1030069.ferozo.com";  // Dominio alternativo brindado en el email de alta 
-$smtpUsuario = "soloparaformulario@muchasiesta.com.ar";  // Mi cuenta de correo
-$smtpClave = "42S*s9X4nN";  // Mi contraseña
+$smtpHost = "tusapuntes.net";  // Dominio alternativo brindado en el email de alta 
+$smtpUsuario = "confirmation@tusapuntes.net";  // Mi cuenta de correo
+$smtpClave = "Aoi12Jjio92";  // Mi contraseña
 
 // VALORES A MODIFICAR //
 $mail->Host = $smtpHost;

@@ -789,10 +789,10 @@ if (!isBuilder) {
     // Functions from plugins for
     // compatible with old projects 
     function setActiveCarouselItem(card){
-     var $target = $(card).find('.carousel-item:first');
-     $target.addClass('active');
- }
- function initTestimonialsCarousel(card){
+       var $target = $(card).find('.carousel-item:first');
+       $target.addClass('active');
+   }
+   function initTestimonialsCarousel(card){
     var $target = $(card),
     $carouselID = $target.attr('ID') +"-carousel"; 
     $target.find('.carousel').attr('id',$carouselID);
@@ -1100,15 +1100,15 @@ $(".editar").on("click", function(){
             location.href = "../admin/controllers/categorias_controller.php?action=editarCategoria&id="+idCat+"&val="+val;
         }
         else if($(this).data("is-subcat") == "si"){
-           var selectedCatId = $("#selectedCatId-"+idCat).val();
-           location.href = "../admin/controllers/categorias_controller.php?action=editarSubCategoria&id="+idCat+"&name="+val+"&catId="+selectedCatId; 
-        }    
-        else {
-            var selectedCatId = $("#selectedCatId-"+idCat).val();
-            var selectedSubCatId = $("#selectedSubCatId-"+idCat).val();
-            location.href = "../admin/controllers/categorias_controller.php?action=editarSubSubCategoria&id="+idCat+"&name="+val+"&catId="+selectedCatId+"&subcatId="+selectedSubCatId;
-        }
+         var selectedCatId = $("#selectedCatId-"+idCat).val();
+         location.href = "../admin/controllers/categorias_controller.php?action=editarSubCategoria&id="+idCat+"&name="+val+"&catId="+selectedCatId; 
+     }    
+     else {
+        var selectedCatId = $("#selectedCatId-"+idCat).val();
+        var selectedSubCatId = $("#selectedSubCatId-"+idCat).val();
+        location.href = "../admin/controllers/categorias_controller.php?action=editarSubSubCategoria&id="+idCat+"&name="+val+"&catId="+selectedCatId+"&subcatId="+selectedSubCatId;
     }
+}
 
 });
 
@@ -1149,12 +1149,12 @@ $(".editar-precio").on("click", function(){
         $(this).data("do", "s");
 
     } else {
-       
-            var pricePage = $("#price-page-edited").val();
-            var doubleFas = $("#double-fas-edited").val();
-            var ringed = $("#ringed-edited").val();
-            location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&doubleFas="+doubleFas+"&ringed="+ringed;
-      
+
+        var pricePage = $("#price-page-edited").val();
+        var doubleFas = $("#double-fas-edited").val();
+        var ringed = $("#ringed-edited").val();
+        location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&doubleFas="+doubleFas+"&ringed="+ringed;
+
     }
 
 });
@@ -1208,14 +1208,14 @@ $(".editar-apunte").click(function(){
             type: 'post',
             dataType: "json",
             success: function(data) {
-                
+
                 console.log("aca");
-              location.href = "apuntes.php?status=" + data.status + "/#table1-63";
-              location.reload();
+                location.href = "apuntes.php?status=" + data.status + "/#table1-63";
+                location.reload();
             }
-          });
-          
-          
+        });
+
+
     }
 
 });
@@ -1268,7 +1268,7 @@ $("#categoria").change(function(){
       url: "controllers/apuntes_controller.php",
       data: { idCat: $(this).val(), action: "getSubCategoriasFromCat" },
       dataType: "json"
-    })
+  })
     .done(function( msg ) {
         $('#subcat').html('<option value="">Sub-Categorías</option>')
         $(msg).each(function(){
@@ -1283,7 +1283,7 @@ $("#subcat").change(function(){
       url: "controllers/apuntes_controller.php",
       data: { idSubCat: $(this).val(), action: "getSubSubCategoriasFromSubCat" },
       dataType: "json"
-    })
+  })
     .done(function( msg ) {
         $('#subsubcat').html('<option value="">Sub-Sub-Categorías</option>')
         $(msg).each(function(){
@@ -1300,7 +1300,7 @@ $(".selectCategorias").change(function(){
       url: "controllers/apuntes_controller.php",
       data: { idCat: $(this).val(), action: "getSubCategoriasFromCat" },
       dataType: "json"
-    })
+  })
     .done(function( msg ) {
 
         $('#sub-categoria-'+apunteId).html('<option value="0">Sub-Categorías</option>')
@@ -1322,7 +1322,7 @@ $(".selectSubCategorias").change(function(){
       url: "controllers/apuntes_controller.php",
       data: { idSubCat: idSubCat, action: "getSubSubCategoriasFromSubCat" },
       dataType: "json"
-    })
+  })
     .done(function( msg ) {
 
         $('#sub-sub-categoria-'+apunteId).html('<option value="0">Sub-Sub-Categorías</option>')
@@ -1342,7 +1342,7 @@ $(".selectCat").change(function(){
       url: "controllers/apuntes_controller.php",
       data: { idCat: catId, action: "getSubCategoriasFromCat" },
       dataType: "json"
-    })
+  })
     .done(function( msg ) {
 
         $('#selectedSubCatId-cat-'+subsubId).html('<option value="0">Sub-Categorías</option>')
@@ -1398,19 +1398,68 @@ $('#sumar').on("input", function() {
 });
 
 $(".estado").change(function(){
+    var select = $(this);
+    select.prop('disabled', true);
     var nuevoEstado = $(this).val();
     var pedidoId = $(this).data("id-pedido");
     var usrId = $(this).data("id-usuario");
     var user = $(this).data("user");
-
-    $.ajax({
-      method: "POST",
-      url: "controllers/pedidos_controller.php",
-      data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, action: "cambiarEstado" },
-      dataType: "json"
-    })
-    .done(function( msg ) {
-        console.log(msg);
-    });
+    var emailUsuario = $(this).data("email-usuario");
+    
+    if(nuevoEstado == 3) {
+        var r = confirm("Está seguro que desea finalizar este pedido?");
+        if (r == true) {
+          $.ajax({
+              method: "POST",
+              url: "controllers/pedidos_controller.php",
+              data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, emailUsuario: emailUsuario, action: "cambiarEstado" },
+              dataType: "json"
+          })
+          .done(function( msg ) {
+            if(msg.status != 0) {
+                alert("imposible cambiar estado. Error: " + msg.mensaje);
+            }
+            select.prop('disabled', false);
+          });  
+        } else {
+            select.prop('disabled', false);
+        }
+    } else {
+        $.ajax({
+              method: "POST",
+              url: "controllers/pedidos_controller.php",
+              data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, emailUsuario: emailUsuario, action: "cambiarEstado" },
+              dataType: "json"
+          })
+          .done(function( msg ) {
+            if(msg.status != 0) {
+                alert("imposible cambiar estado. Error: " + msg.mensaje);
+            }
+            select.prop('disabled', false);
+          });
+    }    
 
 });
+
+function olvideMiContraseña() {
+    
+    var emailUsuario = $("#emailUsuario").val();
+
+    if(emailUsuario == "") {
+        alert("completa el campo usuario con tu email");
+        return 0;
+    }
+
+    $.ajax({
+            method: "POST",
+            url: "includes/process_login.php",
+            data: { action: "recordarContrasena", user: emailUsuario},
+            dataType: "json"
+        }).done(function( msg ) {
+            if(msg.status != 0) {
+                alert("Usuario no encontrado");
+            } else {
+                alert("Te hemos enviado tu contraseña al correo ingresado.");
+            }
+        });
+}

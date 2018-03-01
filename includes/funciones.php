@@ -239,6 +239,9 @@ function sec_session_start() {
       case 12:
       $mensaje = "Bienvenido ". $user ." aún no has validado tu correo. Revisa tu bandeja de span si no lo encuentras en tu bandeja de entrada";
       break;
+      case 13:
+      $mensaje = "Error";
+      break;
       default:
       $mensaje = "Bienvenido...";
       break;

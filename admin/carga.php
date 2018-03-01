@@ -60,7 +60,7 @@ $usuarios = getUsuariosNoAdmin($mysqli);
                   <tbody>
                     <?php foreach ($usuarios as $usr) { ?>
                     <tr>
-                      <td class="body-item mbr-fonts-style display-7"><?=$usr['email']?></td> 
+                      <td class="body-item mbr-fonts-style display-7"><a style="color:#3f92af" href="usuario.php?id=<?=$usr['id']?>"><?=$usr['email']?></a></td> 
                       <td class="body-item mbr-fonts-style display-7"><?php $valid = ($usr['valid']) ?  "SI" : "NO"; echo $valid;  ?></td>
                       <td class="body-item mbr-fonts-style display-7">$<?=getSaldo($mysqli, $usr['id'])?></td>
                       <td class="body-item mbr-fonts-style display-7">

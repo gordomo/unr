@@ -88,6 +88,9 @@ if(isset($_GET['status'])) {
                       <strong>OPERACIÓN</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
+                      <strong>CÓDIGO</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
                       <strong>CANTIDAD</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
@@ -108,6 +111,7 @@ if(isset($_GET['status'])) {
                   <?php foreach ($historial as $row) { ?>
                   <tr> 
                     <td class="body-item mbr-fonts-style display-7"><?=$row['mov']?></td>
+                    <td class="body-item mbr-fonts-style display-7"><?=($row['mov'] == "pedido") ? $row['id'] : ""?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['amount']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
@@ -115,15 +119,12 @@ if(isset($_GET['status'])) {
                     <td class="body-item mbr-fonts-style display-7">
                       <?php switch ($row['estado']) {
                         case '1':
-                          echo "Pendiente";
-                          break;
-                        case '2':
                           echo "Confirmado";
                           break;
-                        case '3':
+                        case '2':
                           echo "En proceso";
                           break;
-                        case '4':
+                        case '3':
                           echo "Finalizado";
                           break;
                       }  ?>
