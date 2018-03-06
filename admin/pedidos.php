@@ -92,7 +92,7 @@ $pedidos = getPedidos($mysqli);
                       <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
                       <td class="body-item mbr-fonts-style display-7">
                         <select class="estado" data-id-pedido="<?=$row['id']?>" data-id-usuario="<?=$row['usr_id']?>" data-user="<?=$user?>" data-email-usuario="<?=$emailUsuario?>">
-                            <option value="1" <?=($row['estado'] == 1) ? 'selected' : ''?>>Confirmado</option>
+                            <option value="1" <?=($row['estado'] == 1) ? 'selected' : ''?>>Pendiente</option>
                             <option value="2" <?=($row['estado'] == 2) ? 'selected' : ''?>>En proceso</option>
                             <option value="3" <?=($row['estado'] == 3) ? 'selected' : ''?>>Finalizado</option>
                         </select>

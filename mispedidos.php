@@ -119,7 +119,7 @@ if(isset($_GET['status'])) {
                     <td class="body-item mbr-fonts-style display-7">
                       <?php switch ($row['estado']) {
                         case '1':
-                          echo "Confirmado";
+                          echo "Pendiente";
                           break;
                         case '2':
                           echo "En proceso";
