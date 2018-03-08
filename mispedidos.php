@@ -111,7 +111,7 @@ if(isset($_GET['status'])) {
                   <?php foreach ($historial as $row) { ?>
                   <tr> 
                     <td class="body-item mbr-fonts-style display-7"><?=$row['mov']?></td>
-                    <td class="body-item mbr-fonts-style display-7"><?=($row['mov'] == "pedido") ? $row['id'] : ""?></td>
+                    <td class="body-item mbr-fonts-style display-7"><?=($row['mov'] == "pedido") ? $row['id_pedido'] : ""?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['amount']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
