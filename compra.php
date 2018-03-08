@@ -25,7 +25,7 @@ if(is_numeric($idApunte))
     $configuracion = getPrecios($mysqli);
     $precios = $configuracion->fetch_assoc();
 
-    $precioFinal = ($apunte['pages'] * 2) * $precios['double_fas'];
+    $precioFinal = $apunte['pages'] * $precios['double_fas'];
 
 }
 else
@@ -117,7 +117,7 @@ if(isset($_GET['status'])) {
     <script type="text/javascript">
         var precioSimpleFaz = <?=$precios['price_pages']?>;
         var precioDobleFaz = <?=$precios['double_fas']?>;
-        var cantidadHojas = <?=$apunte['pages']?>;
+        var cantidadPaginas = <?=$apunte['pages']?>;
         var precioAnillados = <?=$precios['ringed']?>;
     </script>
 

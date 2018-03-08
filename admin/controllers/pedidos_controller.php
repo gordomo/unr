@@ -24,7 +24,7 @@ switch ($_REQUEST["action"]) {
 
             $cantidad = (isset($_POST['cantidad']) && $_POST['cantidad'] >= 1) ? $_POST['cantidad'] : 1;
 
-            $precio = (($apunte['pages'] * 2) * $precios['double_fas']) * $cantidad;
+            $precio = ($apunte['pages'] * $precios['double_fas']) * $cantidad;
 
             $precioAnilladoTotal = 0;
             if ($anillado) {
@@ -35,7 +35,7 @@ switch ($_REQUEST["action"]) {
             }
 
             $precioFinal = round($precio + $precioAnilladoTotal, 2);
-
+            
             if($saldo < $precioFinal) {
                 header('Location: ../../compra.php?id='.$apunte['id'] . "&status=5");
             }
@@ -48,10 +48,10 @@ switch ($_REQUEST["action"]) {
                 $doblefaz = ($simpleFaz) ? 0 : 1;
 
                 if ($stmt = $mysqli->prepare("INSERT INTO pedidos (`nombre`, `archivo`, `cantidad`, `total`, `estado`, `date`, `usr_id`, `anillado`, `doblefaz`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-                    $stmt->bind_param('ssdiisiii', $apunte['name'], $file, $cantidad, $precioFinal, $estado, $date, $user, $anillado, $doblefaz);
+                    $stmt->bind_param('ssddisiii', $apunte['name'], $file, $cantidad, $precioFinal, $estado, $date, $user, $anillado, $doblefaz);
                     if (!$stmt->execute()) {
                         header('Location: ../../mispedidos.php?status=2');
-                    } else {
+                    } else {                       
                             //insert en historico si sale bien la primer operacion
                         $pedido_id = $stmt->insert_id;
                         if ($stmt2 = $mysqli->prepare("INSERT INTO `historial` (`id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`, `id_pedido`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
