@@ -84,6 +84,7 @@ $subsubCategorias = getSubSubCategorias($mysqli, true);
                 <div class="form-group">
                   <label class="form-control-label mbr-fonts-style display-7" for="email-form1-59">Categoría</label>
                   <select class="form-control" name="catId" required id="categoria">
+                    <option value="0">Categorías</option>
                     <?php foreach ($categorias as $cat) { ?>
                     <option value="<?=$cat['id']?>"><?=$cat['name']?></option>
                     <?php } ?>

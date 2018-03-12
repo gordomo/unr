@@ -1358,7 +1358,7 @@ $("#cantidad").on("input", function(){
 
     var cantidad = $("#cantidad").val();
     var precioAnillado = cantidad * precioAnillados;
-    var precioFinal = ((cantidadHojas * 2) * precioDobleFaz) * cantidad;
+    var precioFinal = (cantidadPaginas  * precioDobleFaz) * cantidad;
     
     if ($('#simple-faz').is(':checked')) {
         precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
@@ -1368,13 +1368,13 @@ $("#cantidad").on("input", function(){
         precioFinal = precioFinal + precioAnillado;
     }
     
-    $('#precio-final').html(precioFinal);
+    $('#precio-final').html(precioFinal.toFixed(2));
 });
 
 $("#simple-faz, #anillado").change(function() {
     var cantidad = $("#cantidad").val();
     var precioAnillado = cantidad * precioAnillados;
-    var precioFinal = ((cantidadHojas * 2) * precioDobleFaz) * cantidad;
+    var precioFinal = (cantidadPaginas * precioDobleFaz) * cantidad;
     
     if ($('#simple-faz').is(':checked')) {
         precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
@@ -1384,7 +1384,7 @@ $("#simple-faz, #anillado").change(function() {
         precioFinal = precioFinal + precioAnillado;
     }
     
-    $('#precio-final').html(precioFinal);
+    $('#precio-final').html(precioFinal.toFixed(2));
 });
 
 $('#sumar').on("input", function() {

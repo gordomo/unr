@@ -10,6 +10,12 @@ switch ($_REQUEST["action"]) {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
+        $dni = $_POST['dni'];
+        $tel = $_POST['tel'];
+        $name = $_POST['name'];
+        $lastName = $_POST['lastName'];
+        $dir = $_POST['dir'];
+
         $stmt = $mysqli->prepare("SELECT pass, grup FROM usuarios WHERE email = ? LIMIT 1");
         $stmt->bind_param('s', $email);
 
@@ -38,11 +44,11 @@ switch ($_REQUEST["action"]) {
             } else {
                 $code = generateRandomString();
 
-                if ($stmt = $mysqli->prepare("INSERT INTO usuarios (`email`, `pass`, `code`) VALUES (?, ?, ?)")) {
-                    $stmt->bind_param('sss', $email, $password, $code);
+                if ($stmt = $mysqli->prepare("INSERT INTO usuarios (`email`, `pass`, `code`, `dni`, `nombre`, `apellido`, `dir`, `tel`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+                    $stmt->bind_param('ssssssss', $email, $password, $code, $dni, $name, $lastName, $dir, $tel);
                     if (!$stmt->execute()) {
                         $message = "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
-                        $_SESSION['state'] = 12;
+                        $_SESSION['state'] = 13;
                         $_SESSION['message'] = $message;
                         header('Location: ../index.php');
                     }
@@ -60,26 +66,25 @@ switch ($_REQUEST["action"]) {
                     $mail->IsHTML(true);
                     $mail->CharSet = "utf-8";
                     //TODO cambiar esto
-                    // Datos de la cuenta de correo utilizada para enviar vía SMTP
-                    $smtpHost = "c1100302.ferozo.com";  // Dominio alternativo brindado en el email de alta 
-                    $smtpUsuario = "no-reply@c1100302.ferozo.com";  // Mi cuenta de correo
-                    $smtpClave = "vQQWwl*p8J";  // Mi contraseña
+                    $smtpHost = "mail.tusapuntes.net";  // Dominio alternativo brindado en el email de alta 
+                    $smtpUsuario = "confirmation@tusapuntes.net";  // Mi cuenta de correo
+                    $smtpClave = "Aoi12Jjio92";  // Mi contraseña
 
                     // VALORES A MODIFICAR //
                     $mail->Host = $smtpHost;
                     $mail->Username = $smtpUsuario;
                     $mail->Password = $smtpClave;
 
-                    $subject = 'Validar Email para TusApuntes.com';
+                    $subject = 'Validar Email para TusApuntes.net';
                     $toemail = $email;
-                    $toname = 'Validar Email'; 
+                    $toname = 'Nuevo Usuario'; 
 
-                    $mail->SetFrom($email, $name);
+                    $mail->SetFrom($smtpUsuario, "tusApuntes.net");
                     $mail->AddAddress($toemail, $toname);
                     $mail->Subject = $subject;
                     $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" . "/includes/process_login.php?action=validarEmail&validationCode=".$code."&email=".$email;
 
-                    $message = "Bienvenido a TusApuntes.com ----- <br><br>Por favor, sigue el siguiente link para validar tu correo o copia y pega la dirección en tu navegador <br><a href='".$link."'>".$link."</a>";
+                    $message = "Bienvenido a TusApuntes.com ----- <br><br>Por favor, sigue el link para validar tu correo o copia y pega la dirección en tu navegador <br><a href='".$link."'>".$link."</a>";
                     $mail->MsgHTML($message);
                     $sendEmail = $mail->Send();
 
@@ -165,7 +170,7 @@ switch ($_REQUEST["action"]) {
         case "validarEmail":
         if (empty($_GET['validationCode']) || empty($_GET['email'])) {
             $_SESSION['state'] = 8;
-            header('Location: ../index.php');
+            header('Location: ../../../index.php');
         } else {
             $code = $_GET['validationCode'];
             $email = $_GET['email'];
@@ -186,7 +191,7 @@ switch ($_REQUEST["action"]) {
                     $_SESSION['user'] = $email;
                     $_SESSION['grup'] = $grup;
                     $_SESSION['state'] = 0;
-                    header('Location: ../index.php');
+                    header('Location: ../../../index.php');
                 } else if ($code == $codeDB) {
                     //codigo correcto!!!!
                     $_SESSION['user_login_checked'] = true;
@@ -199,7 +204,7 @@ switch ($_REQUEST["action"]) {
                             $_SESSION['user_login_checked'] = false;
                             $_SESSION['user'] = "";
                             $_SESSION['state'] = 9;
-                            header('Location: ../index.php');
+                            header('Location: ../../../index.php');
                         }
 
                         $stmt->close();
@@ -207,34 +212,36 @@ switch ($_REQUEST["action"]) {
                         $_SESSION['user'] = $email;
                         $_SESSION['grup'] = $grup;
                         $_SESSION['state'] = 10;
-                        header('Location: ../index.php');
+                        header('Location: ../../../index.php');
                     } else {
                         $message = "Falló la preparación: (" . $mysqli->errno . ") " . $mysqli->error;
                         $stmt->close();
                         $_SESSION['state'] = 12;
                         $_SESSION['message'] = $message;
-                        header('Location: ../index.php');
+                        header('Location: ../../../index.php');
                     }
                 } else {
                     //Not logged in
                     $_SESSION['user_login_checked'] =  false;
                     $_SESSION['state'] = 8;
-                    header("Location: ../index.php");
+                    header("Location: ../../../index.php");
                 }
             } else {
                     //usuario no encontrado
                 $_SESSION['user_login_checked'] =  false;
                 $_SESSION['state'] = 11;
-                header("Location: ../index.php");
+                header("Location: ../../../index.php");
             }
         }
-        
+        break;
+        case "recordarContrasena":
+
         break;
     }
     
 
     function generateRandomString($length = 10) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%&[]';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!$[]';
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {

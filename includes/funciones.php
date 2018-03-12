@@ -239,6 +239,9 @@ function sec_session_start() {
       case 12:
       $mensaje = "Bienvenido ". $user ." aún no has validado tu correo. Revisa tu bandeja de span si no lo encuentras en tu bandeja de entrada";
       break;
+      case 13:
+      $mensaje = "Error";
+      break;
       default:
       $mensaje = "Bienvenido...";
       break;
@@ -344,7 +347,7 @@ function getHistorialDeCarga($mysqli) {
 }
 
 function getPedidos($mysqli) {
-  $query = "SELECT * FROM pedidos";
+  $query = "SELECT * FROM pedidos ORDER BY id DESC";
 
   $resultado = $mysqli->query($query);
   
@@ -360,7 +363,7 @@ function getPedido($mysqli, $id) {
 
 
 function getHistorialForUser($mysqli, $id) {
-  $query = "SELECT * FROM historial WHERE id_usuario = $id";
+  $query = "SELECT * FROM historial WHERE id_usuario = $id order by id desc";
 
   $resultado = $mysqli->query($query);
   

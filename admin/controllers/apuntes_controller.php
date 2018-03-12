@@ -10,9 +10,9 @@ switch ($_REQUEST["action"]) {
         $subsub_cat_id = $_POST['subsubcat'];
         $pages = $_POST['pages'];
 	$file = $_FILES['fileToUpload'];
-	$cat_name = getCategoria($mysqli, $cat_id)["name"];
-	$sub_cat_name = getSubCategoria($mysqli, $sub_cat_id)["name"];
-        $subsub_cat_name = getSubSubCategoria($mysqli, $subsub_cat_id)["name"]; 
+	$cat_name = limpiarString(getCategoria($mysqli, $cat_id)["name"]);
+	$sub_cat_name = limpiarString(getSubCategoria($mysqli, $sub_cat_id)["name"]);
+    $subsub_cat_name = limpiarString(getSubSubCategoria($mysqli, $subsub_cat_id)["name"]); 
         
 	$uploadStatus = uploadFile($file, $cat_name, $sub_cat_name, $subsub_cat_name);
 	if(isset($uploadStatus['ok']) && $uploadStatus['ok']) {
@@ -38,10 +38,10 @@ switch ($_REQUEST["action"]) {
                 $subsub_cat_id = $_POST['subsub_cat_id'];
 		$file = $_FILES;
 		$id = $_POST['id'];
-		$cat_name = $_POST['cat_name'];
-		$sub_cat_name = $_POST['sub_cat_name'];
-                $subsub_cat_name = $_POST['subsub_cat_name'];
-                $pages = $_POST['pages'];
+		$cat_name = limpiarString($_POST['cat_name']);
+		$sub_cat_name = limpiarString($_POST['sub_cat_name']);
+        $subsub_cat_name = limpiarString($_POST['subsub_cat_name']);
+        $pages = $_POST['pages'];
                               
 		if (!empty($_FILES) && $stmt = $mysqli->prepare("SELECT file FROM apuntes WHERE id=?")) {
 			/* ligar parámetros para marcadores */
@@ -155,4 +155,10 @@ switch ($_REQUEST["action"]) {
                 }
 		echo json_encode($subsubcategorias);
 	exit();
+}
+
+function limpiarString($texto)
+{
+      $textoLimpio = preg_replace('([^A-Za-z0-9])', '', $texto);	     					
+      return $textoLimpio;
 }

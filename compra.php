@@ -25,7 +25,7 @@ if(is_numeric($idApunte))
     $configuracion = getPrecios($mysqli);
     $precios = $configuracion->fetch_assoc();
 
-    $precioFinal = ($apunte['pages'] * 2) * $precios['double_fas'];
+    $precioFinal = $apunte['pages'] * $precios['double_fas'];
 
 }
 else
@@ -90,7 +90,11 @@ if(isset($_GET['status'])) {
                                 <label class="checkbox-inline"><input type="checkbox" name="anillado" id="anillado">Anillado</label>
                             </p>
                         </div>
-                        <div class="mbr-section-btn"><button href="" type="submit" class="btn btn-md btn-primary display-4" >Agregar a la cola de impresión</button> <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>">voler atras&nbsp;</a></div>
+                        <div class="mbr-section-btn">
+                            <button href="" type="submit" class="btn btn-md btn-primary display-4" >Agregar a la cola de impresión</button> 
+                            <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>">voler atras&nbsp;</a>
+                            <a class="btn btn-md btn-black display-4" href="<?= str_replace("..", "admin", $apunte['file'])?>" target="_BLANK">ver apunte</a>
+                        </div>
                     </form>    
                 </div>   
             </div>
@@ -113,7 +117,7 @@ if(isset($_GET['status'])) {
     <script type="text/javascript">
         var precioSimpleFaz = <?=$precios['price_pages']?>;
         var precioDobleFaz = <?=$precios['double_fas']?>;
-        var cantidadHojas = <?=$apunte['pages']?>;
+        var cantidadPaginas = <?=$apunte['pages']?>;
         var precioAnillados = <?=$precios['ringed']?>;
     </script>
 

@@ -72,19 +72,19 @@ $precios = getPrecios($mysqli);
               <div class="col-md-4 multi-horizontal" data-for="price-pages">
                 <div class="form-group">
                   <label class="form-control-label mbr-fonts-style display-7" for="name-form1-56">Simple Faz</label>
-                  <input type="number" class="form-control" name="price-pages" min="0" data-form-field="price-pages" required="true" id="price-pages">
+                  <input type="number" class="form-control" name="price-pages" min="0" data-form-field="price-pages" required="true" id="price-pages" step=".01">
                 </div>
               </div>
               <div class="col-md-4 multi-horizontal" data-for="double-fas">
                 <div class="form-group">
                   <label class="form-control-label mbr-fonts-style display-7" for="name-form1-56">Doble Faz</label>
-                  <input type="number" class="form-control" name="double-fas" min="0" data-form-field="double-fas" required="true" id="double-fas">
+                  <input type="number" class="form-control" name="double-fas" min="0" data-form-field="double-fas" required="true" id="double-fas" step=".01">
                 </div>
               </div>  
               <div class="col-md-4 multi-horizontal" data-for="ringed">
                 <div class="form-group">
                   <label class="form-control-label mbr-fonts-style display-7" min="0" for="name-form1-56">Anillado</label>
-                  <input type="number" class="form-control" name="ringed" data-form-field="ringed" required="true" id="ringed">
+                  <input type="number" class="form-control" name="ringed" data-form-field="ringed" required="true" id="ringed" step=".01">
                 </div>
               </div>  
             </div>

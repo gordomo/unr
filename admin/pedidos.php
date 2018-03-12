@@ -51,6 +51,9 @@ $pedidos = getPedidos($mysqli);
                 <thead>
                   <tr class="table-heads">
                     <th class="head-item mbr-fonts-style display-4">
+                      <strong>Code</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
                       <strong>File</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
@@ -77,21 +80,21 @@ $pedidos = getPedidos($mysqli);
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($pedidos as $row) { ?>
+                  <?php foreach ($pedidos as $row) { $emailUsuario = getUsuario($mysqli, $row['usr_id'])['email'];?>
                     <tr> 
+                      <td class="body-item mbr-fonts-style display-7"><?=$row['id']?></td>
                       <td class="body-item mbr-fonts-style display-7"><a href="<?=str_replace("../", "", $row['archivo'])?>" class="table-link"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
-                      <td class="body-item mbr-fonts-style display-7"><?=getUsuario($mysqli, $row['usr_id'])['email']?></td>
+                      <td class="body-item mbr-fonts-style display-7"><?=$emailUsuario?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=($row['anillado']) ? 'SI' : 'NO'?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=($row['doblefaz']) ? 'SI' : 'NO'?></td>
                       <td class="body-item mbr-fonts-style display-7">$<?=$row['total']?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
                       <td class="body-item mbr-fonts-style display-7">
-                        <select class="estado" data-id-pedido="<?=$row['id']?>" data-id-usuario="<?=$row['usr_id']?>" data-user="<?=$user?>">
+                        <select class="estado" data-id-pedido="<?=$row['id']?>" data-id-usuario="<?=$row['usr_id']?>" data-user="<?=$user?>" data-email-usuario="<?=$emailUsuario?>">
                             <option value="1" <?=($row['estado'] == 1) ? 'selected' : ''?>>Pendiente</option>
-                            <option value="2" <?=($row['estado'] == 2) ? 'selected' : ''?>>Confirmado</option>
-                            <option value="3" <?=($row['estado'] == 3) ? 'selected' : ''?>>En proceso</option>
-                            <option value="4" <?=($row['estado'] == 4) ? 'selected' : ''?>>Finalizado</option>
+                            <option value="2" <?=($row['estado'] == 2) ? 'selected' : ''?>>En proceso</option>
+                            <option value="3" <?=($row['estado'] == 3) ? 'selected' : ''?>>Finalizado</option>
                         </select>
                         
                       </td>
