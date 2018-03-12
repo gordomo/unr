@@ -347,7 +347,7 @@ function getHistorialDeCarga($mysqli) {
 }
 
 function getPedidos($mysqli) {
-  $query = "SELECT * FROM pedidos";
+  $query = "SELECT * FROM pedidos ORDER BY id DESC";
 
   $resultado = $mysqli->query($query);
   
