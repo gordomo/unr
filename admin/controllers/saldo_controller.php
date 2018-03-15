@@ -10,7 +10,7 @@ switch ($_REQUEST["action"]) {
 		$user_id = $_POST['user'];
 		$admin = $_POST['admin'];
 		$date = date('Y-m-d H:i:s');
-		$estado = 2;
+		$estado = 1;
 		$cantidad = 1;
 		$nuevoTotal = $saldo + $sumar;
 		$id_pedido = 0;
