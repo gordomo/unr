@@ -1089,13 +1089,72 @@ $(".editar").on("click", function(){
         if($(this).data("is-subcat") == "si") {
             $("#selectedCatId-"+idCat).attr("disabled", false);
         }
+        
+        if($(this).data("is-subcat") == "si2") {
+            $("#selectedCatId-"+idCat).attr("disabled", false);
+            $("#selectedSubCatId-"+idCat).attr("disabled", false);
+        }
+        
     } else {
         if($(this).data("is-subcat") == "no") {
             location.href = "../admin/controllers/categorias_controller.php?action=editarCategoria&id="+idCat+"&val="+val;
-        } else {
-            var selectedCatId = $("#selectedCatId-"+idCat).val();
-            location.href = "../admin/controllers/categorias_controller.php?action=editarSubCategoria&id="+idCat+"&name="+val+"&catId="+selectedCatId;
         }
+        else if($(this).data("is-subcat") == "si"){
+           var selectedCatId = $("#selectedCatId-"+idCat).val();
+           location.href = "../admin/controllers/categorias_controller.php?action=editarSubCategoria&id="+idCat+"&name="+val+"&catId="+selectedCatId; 
+        }    
+        else {
+            var selectedCatId = $("#selectedCatId-"+idCat).val();
+            var selectedSubCatId = $("#selectedSubCatId-"+idCat).val();
+            location.href = "../admin/controllers/categorias_controller.php?action=editarSubSubCategoria&id="+idCat+"&name="+val+"&catId="+selectedCatId+"&subcatId="+selectedSubCatId;
+        }
+    }
+
+});
+
+$(".editar-precio").on("click", function(){
+
+    if($(this).data("do") == "e") {
+        var precioPaginaAeditar = document.createElement("input");     
+        var td = $("#price-page");
+        var txt = td.html();
+        td.html('');
+        precioPaginaAeditar.value = $.trim(txt);
+        precioPaginaAeditar.type = 'number';
+        precioPaginaAeditar.min = 0;
+        precioPaginaAeditar.id = "price-page-edited";
+        td.append(precioPaginaAeditar);
+        
+        var dobleFasAeditar = document.createElement("input");     
+        var td = $("#double-fas");
+        var txt = td.html();
+        td.html('');
+        dobleFasAeditar.value = $.trim(txt);
+        dobleFasAeditar.type = 'number';
+        dobleFasAeditar.min = 0;
+        dobleFasAeditar.id = "double-fas-edited";
+        td.append(dobleFasAeditar);
+        
+        var anilladoAeditar = document.createElement("input");
+        var td = $("#ringed");
+        var txt = td.html();
+        td.html('');
+        anilladoAeditar.value = $.trim(txt);
+        anilladoAeditar.type = 'number';
+        anilladoAeditar.min = 0;
+        anilladoAeditar.id = "ringed-edited";
+        td.append(anilladoAeditar);
+
+        $(this).html('<i class="fa fa-check" aria-hidden="true"></i>');
+        $(this).data("do", "s");
+
+    } else {
+       
+            var pricePage = $("#price-page-edited").val();
+            var doubleFas = $("#double-fas-edited").val();
+            var ringed = $("#ringed-edited").val();
+            location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&doubleFas="+doubleFas+"&ringed="+ringed;
+      
     }
 
 });
@@ -1113,9 +1172,16 @@ $(".editar-apunte").click(function(){
         var name = $("#name-"+id).val();
         var id_cat = $("#categoria-"+id).val();
         var cat_name = $("#categoria-"+id + " option:selected").text();
+        
+        
 
         var sub_cat_id = $("#sub-categoria-"+id).val();
         var sub_cat_name = $("#sub-categoria-"+id + " option:selected").text();
+        var subsub_cat_id = $("#sub-sub-categoria-"+id).val();
+        var subsub_cat_name = $("#sub-sub-categoria-"+id + " option:selected").text();
+        var pages = $("#pages-"+id).val();
+        
+        
         
         var file_data = $("#file-apunte-"+id).prop("files")[0]; // Getting the properties of file from file field
         var form_data = new FormData(); // Creating object of FormData class
@@ -1124,10 +1190,13 @@ $(".editar-apunte").click(function(){
         form_data.append("name", name) // Adding extra parameters to form_data
         form_data.append("id_cat", id_cat) // Adding extra parameters to form_data
         form_data.append("sub_cat_id", sub_cat_id) // Adding extra parameters to form_data
+        form_data.append("subsub_cat_id", subsub_cat_id) // Adding extra parameters to form_data
         form_data.append("action", "editarApunte") // Adding extra parameters to form_data
         form_data.append("cat_name", cat_name) // Adding extra parameters to form_data
         form_data.append("sub_cat_name", sub_cat_name) // Adding extra parameters to form_data
-
+        form_data.append("subsub_cat_name", subsub_cat_name) // Adding extra parameters to form_data
+        form_data.append("pages", pages) // Adding extra parameters to pages
+        
 
         $.ajax({
             url: "controllers/apuntes_controller.php", // Upload Script
@@ -1139,10 +1208,14 @@ $(".editar-apunte").click(function(){
             type: 'post',
             dataType: "json",
             success: function(data) {
+                
+                console.log("aca");
               location.href = "apuntes.php?status=" + data.status + "/#table1-63";
               location.reload();
             }
           });
+          
+          
     }
 
 });
@@ -1180,6 +1253,15 @@ $(".borrarSub").on("click", function(){
     location.href = "../admin/controllers/categorias_controller.php?action=borrarSubCategoria&id="+id;
 });
 
+$(".borrarSubsub").on("click", function(){
+    var id = $(this).data("cat-id");
+    location.href = "../admin/controllers/categorias_controller.php?action=borrarSubSubCategoria&id="+id;
+});
+
+$(".borrar-precio").on("click", function(){
+    location.href = "controllers/configuracion_controller.php?action=borrarPrecios";
+});
+
 $("#categoria").change(function(){
     $.ajax({
       method: "POST",
@@ -1191,6 +1273,21 @@ $("#categoria").change(function(){
         $('#subcat').html('<option value="">Sub-Categorías</option>')
         $(msg).each(function(){
             $('#subcat').append('<option value="'+this.id+'">'+this.name+'</option>');
+        });
+    });
+});
+
+$("#subcat").change(function(){
+    $.ajax({
+      method: "POST",
+      url: "controllers/apuntes_controller.php",
+      data: { idSubCat: $(this).val(), action: "getSubSubCategoriasFromSubCat" },
+      dataType: "json"
+    })
+    .done(function( msg ) {
+        $('#subsubcat').html('<option value="">Sub-Sub-Categorías</option>')
+        $(msg).each(function(){
+            $('#subsubcat').append('<option value="'+this.id+'">'+this.name+'</option>');
         });
     });
 });
@@ -1214,6 +1311,82 @@ $(".selectCategorias").change(function(){
 
 });
 
+$(".selectSubCategorias").change(function(){
+    var apunteId = $(this).data("apunte-id");
+    var idSubCat = $(this).val();
+    
+    console.log(apunteId);
+
+    $.ajax({
+      method: "POST",
+      url: "controllers/apuntes_controller.php",
+      data: { idSubCat: idSubCat, action: "getSubSubCategoriasFromSubCat" },
+      dataType: "json"
+    })
+    .done(function( msg ) {
+
+        $('#sub-sub-categoria-'+apunteId).html('<option value="0">Sub-Sub-Categorías</option>')
+        $(msg).each(function(){
+            $('#sub-sub-categoria-'+apunteId).append('<option value="'+this.id+'">'+this.name+'</option>');
+        });
+    });
+
+});
+
+$(".selectCat").change(function(){
+    var catId = $(this).val();  
+    var subsubId = $(this).data("subsub-id");
+
+    $.ajax({
+      method: "POST",
+      url: "controllers/apuntes_controller.php",
+      data: { idCat: catId, action: "getSubCategoriasFromCat" },
+      dataType: "json"
+    })
+    .done(function( msg ) {
+
+        $('#selectedSubCatId-cat-'+subsubId).html('<option value="0">Sub-Categorías</option>')
+        $(msg).each(function(){
+            $('#selectedSubCatId-cat-'+subsubId).append('<option value="'+this.id+'">'+this.name+'</option>');
+        });
+    });
+
+});
+
+
+$("#cantidad").on("input", function(){
+
+    var cantidad = $("#cantidad").val();
+    var precioAnillado = cantidad * precioAnillados;
+    var precioFinal = (cantidadPaginas  * precioDobleFaz) * cantidad;
+    
+    if ($('#simple-faz').is(':checked')) {
+        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
+    }
+
+    if ($('#anillado').is(':checked')) {
+        precioFinal = precioFinal + precioAnillado;
+    }
+    
+    $('#precio-final').html(precioFinal.toFixed(2));
+});
+
+$("#simple-faz, #anillado").change(function() {
+    var cantidad = $("#cantidad").val();
+    var precioAnillado = cantidad * precioAnillados;
+    var precioFinal = (cantidadPaginas * precioDobleFaz) * cantidad;
+    
+    if ($('#simple-faz').is(':checked')) {
+        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
+    }
+
+    if ($('#anillado').is(':checked')) {
+        precioFinal = precioFinal + precioAnillado;
+    }
+    
+    $('#precio-final').html(precioFinal.toFixed(2));
+});
+
 $('#sumar').on("input", function() {
     var saldoActual = parseFloat($("#saldoActual").html().replace("$", ""));
     var agregado = ($(this).val()) ? parseFloat($(this).val()) : 0;
@@ -1229,11 +1402,12 @@ $(".estado").change(function(){
     var pedidoId = $(this).data("id-pedido");
     var usrId = $(this).data("id-usuario");
     var user = $(this).data("user");
+    var emailUsuario = $(this).data("email-usuario");
 
     $.ajax({
       method: "POST",
       url: "controllers/pedidos_controller.php",
-      data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, action: "cambiarEstado" },
+      data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, emailUsuario: emailUsuario, action: "cambiarEstado" },
       dataType: "json"
     })
     .done(function( msg ) {

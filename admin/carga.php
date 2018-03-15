@@ -53,16 +53,20 @@ $usuarios = getUsuariosNoAdmin($mysqli);
                 <thead>
                   <tr class="table-heads">
                     <th class="head-item mbr-fonts-style display-4"><strong>USUARIO</strong></th>
+                    <th class="head-item mbr-fonts-style display-4"><strong>CONFIRMADO</strong></th>
                     <th class="head-item mbr-fonts-style display-4"><strong>SALDO</strong></th>
                     <th class="head-item mbr-fonts-style display-4"></th></tr>
                   </thead>
                   <tbody>
                     <?php foreach ($usuarios as $usr) { ?>
                     <tr>
-                      <td class="body-item mbr-fonts-style display-7"><?=$usr['email']?></td>
+                      <td class="body-item mbr-fonts-style display-7"><a style="color:#3f92af" href="usuario.php?id=<?=$usr['id']?>"><?=$usr['email']?></a></td> 
+                      <td class="body-item mbr-fonts-style display-7"><?php $valid = ($usr['valid']) ?  "SI" : "NO"; echo $valid;  ?></td>
                       <td class="body-item mbr-fonts-style display-7">$<?=getSaldo($mysqli, $usr['id'])?></td>
                       <td class="body-item mbr-fonts-style display-7">
-                        <a href="acreditacion.php?id=<?=$usr['id']?>">Agregar Saldo</a>
+                      <?php if($usr['valid']) { ?>      
+                        <a class="table-link" href="acreditacion.php?id=<?=$usr['id']?>">Agregar Saldo</a>
+                      <?php } ?>   
                       </td>
                     </tr>
                     <?php } ?>
@@ -72,12 +76,12 @@ $usuarios = getUsuariosNoAdmin($mysqli);
               <div class="container-fluid table-info-container">
                 <div class="row info mbr-fonts-style display-7">
                   <div class="dataTables_info">
-                    <span class="infoBefore">Showing</span>
+                    <span class="infoBefore">Mostrando</span>
                     <span class="inactive infoRows"></span>
-                    <span class="infoAfter">entries</span>
-                    <span class="infoFilteredBefore">(filtered from</span>
+                    <span class="infoAfter">entradas</span>
+                    <span class="infoFilteredBefore">(filtradas de un total de:</span>
                     <span class="inactive infoRows"></span>
-                    <span class="infoFilteredAfter">total entries)</span>
+                    <span class="infoFilteredAfter">)</span>
                   </div>
                 </div>
               </div>

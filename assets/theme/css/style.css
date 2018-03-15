@@ -526,3 +526,10 @@ nav .mbr-section-btn {
   .header12.cid-qFMckFKfWf.mbr-parallax-background {
     min-height: 87vh;
   }
+
+  .table-link {
+    color: #149dcc;
+  }
+  .table-link:hover {
+    color: #437f94!important;
+  }

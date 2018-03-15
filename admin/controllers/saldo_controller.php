@@ -10,13 +10,14 @@ switch ($_REQUEST["action"]) {
 		$user_id = $_POST['user'];
 		$admin = $_POST['admin'];
 		$date = date('Y-m-d H:i:s');
-		$estado = 2;
+		$estado = 1;
 		$cantidad = 1;
 		$nuevoTotal = $saldo + $sumar;
+		$id_pedido = 0;
 
-		if ($stmt = $mysqli->prepare("INSERT INTO historial (`id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+		if ($stmt = $mysqli->prepare("INSERT INTO historial (`id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`, `id_pedido`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
 			$mov = "acreditacion";
-			$stmt->bind_param('issisii', $user_id, $admin, $mov, $sumar, $date, $estado, $cantidad);
+			$stmt->bind_param('issisiii', $user_id, $admin, $mov, $sumar, $date, $estado, $cantidad, $id_pedido);
 			if (!$stmt->execute()) {
 				die(var_dump($stmt));
 				header('Location: ../carga.php?status=2');        	

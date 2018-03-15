@@ -24,7 +24,6 @@ if (login_check($mysqli) == true) {
 
   <section class="header12 cid-qFMckFKfWf mbr-parallax-background" id="header12-4o" data-rv-view="3275">
     <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(15, 118, 153);"></div>
-
     <div class="container  ">
       <div class="media-container">
         <div class="col-md-12 align-center">
@@ -72,7 +71,7 @@ if (login_check($mysqli) == true) {
 
 
 
-              <div class="card p-3 col-12 col-md-6 col-lg-4">
+              <div class="card col-12 col-md-6 col-lg-3">
                 <div class="card-img pb-3">
                   <a href="sub.php"><span class="mbr-iconfont mbri-numbered-list" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
                 </div>
@@ -81,8 +80,18 @@ if (login_check($mysqli) == true) {
 
                 </div>
               </div>
+              
+              <div class="card col-12 col-md-6 col-lg-3">
+                <div class="card-img pb-3">
+                  <a href="subsub.php"><span class="mbr-iconfont mbri-numbered-list" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
+                </div>
+                <div class="card-box">
+                  <h4 class="card-title py-3 mbr-fonts-style display-5"><a href="subsub.php" class="text-success">Sub Sub Categor</a>ías</h4>
 
-              <div class="card p-3 col-12 col-md-6 col-lg-4">
+                </div>
+              </div>
+
+              <div class="card col-12 col-md-6 col-lg-3">
                 <div class="card-img pb-3">
                   <a href="historialcarga.php"><span class="mbr-iconfont mbri-chat" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
                 </div>
@@ -92,12 +101,22 @@ if (login_check($mysqli) == true) {
                 </div>
               </div>
 
-              <div class="card p-3 col-12 col-md-6 col-lg-4">
+              <div class="card col-12 col-md-6 col-lg-3">
                 <div class="card-img pb-3">
                   <a href="admin.php"><span class="mbr-iconfont mbri-responsive" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
                 </div>
                 <div class="card-box">
                   <h4 class="card-title py-3 mbr-fonts-style display-5"><a href="admin.php" class="text-success">Administradores</a></h4>
+
+                </div>
+              </div>
+
+              <div class="card col-12 col-md-6 col-lg-3">
+                <div class="card-img pb-3">
+                  <a href="configuracion.php"><span class="mbr-iconfont mbri-responsive" style="color: rgb(255, 255, 255);" media-simple="true"></span></a>
+                </div>
+                <div class="card-box">
+                  <h4 class="card-title py-3 mbr-fonts-style display-5"><a href="configuracion.php" class="text-success">Configuración</a></h4>
 
                 </div>
               </div>

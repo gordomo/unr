@@ -12,6 +12,25 @@ if (login_check($mysqli) == true) {
   $saldo = getSaldo($mysqli, $user['id']);
   $historial = getHistorialForUser($mysqli,$user['id']);
 }
+
+$mensaje = '';
+if(isset($_GET['status'])) {
+  switch ($_GET['status']) {
+    case '0':
+    $mensaje = 'pedido agregado correctamente';
+    break;
+    case '1':
+    $mensaje = 'Error preparando la carga. Intente de nuevo';
+    break;
+    case '2':
+    $mensaje = 'Error ejecuntando la consulta. Intente de nuevo';
+    break;   
+    default:
+
+    break;
+  }
+}
+
 ?>
 <!DOCTYPE html>
 <html >
@@ -44,6 +63,7 @@ if (login_check($mysqli) == true) {
       <div class="media-container-row align-center">
         <div class="col-12 col-md-12">
           <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">Mis Pedidos</h2>
+          <p><?=$mensaje?></p>
           <div class="underline align-center pb-3">
             <div class="line"></div>
           </div>
@@ -68,6 +88,9 @@ if (login_check($mysqli) == true) {
                       <strong>OPERACIÓN</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
+                      <strong>CÓDIGO</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
                       <strong>CANTIDAD</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
@@ -75,6 +98,9 @@ if (login_check($mysqli) == true) {
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
                       <strong>FECHA</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
+                      <strong>NOMBRE</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
                       <strong>ESTADO</strong>
@@ -85,21 +111,20 @@ if (login_check($mysqli) == true) {
                   <?php foreach ($historial as $row) { ?>
                   <tr> 
                     <td class="body-item mbr-fonts-style display-7"><?=$row['mov']?></td>
+                    <td class="body-item mbr-fonts-style display-7"><?=($row['mov'] == "pedido") ? $row['id_pedido'] : ""?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['amount']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
+                    <td class="body-item mbr-fonts-style display-7"><?=($row['id_pedido']) ? getPedido($mysqli, $row['id_pedido'])['nombre'] : ''?></td>
                     <td class="body-item mbr-fonts-style display-7">
                       <?php switch ($row['estado']) {
                         case '1':
                           echo "Pendiente";
                           break;
                         case '2':
-                          echo "Confirmado";
-                          break;
-                        case '3':
                           echo "En proceso";
                           break;
-                        case '4':
+                        case '3':
                           echo "Finalizado";
                           break;
                       }  ?>
@@ -113,12 +138,12 @@ if (login_check($mysqli) == true) {
             <div class="container-fluid table-info-container">
               <div class="row info mbr-fonts-style display-7">
                 <div class="dataTables_info">
-                  <span class="infoBefore">Showing</span>
+                  <span class="infoBefore">Mostrando</span>
                   <span class="inactive infoRows"></span>
-                  <span class="infoAfter">entries</span>
-                  <span class="infoFilteredBefore">(filtered from</span>
+                  <span class="infoAfter">entradas</span>
+                  <span class="infoFilteredBefore">(Filtradas por:</span>
                   <span class="inactive infoRows"></span>
-                  <span class="infoFilteredAfter">total entries)</span>
+                  <span class="infoFilteredAfter">total)</span>
                 </div>
               </div>
             </div>

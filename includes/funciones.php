@@ -34,14 +34,13 @@ function getCategoria($mysqli, $id) {
 function getSubCategoria($mysqli, $id) {
   $query = "SELECT * FROM subcategorias WHERE id =".$id;
   $resultado = $mysqli->query($query);
-  $subcategorias = array();
-  while ($respuesta = $resultado->fetch_assoc()) {
-    $subcategorias[] = $respuesta;
-  }
+  
+  $row = $resultado->fetch_assoc();
+  
   if ($resultado) {
     $resultado->free();
   }
-  return $subcategorias;
+  return $row;
 }
 
 function getSubCategorias($mysqli, $todas = true) {
@@ -70,21 +69,55 @@ function getSubCategoriasFromCat($mysqli, $cat) {
   return $resultado;
 }
 
+function getSubSubCategoria($mysqli, $id) {
+  $query = "SELECT * FROM subsubcategorias WHERE id =".$id;
+  $resultado = $mysqli->query($query);
+  
+  $row = $resultado->fetch_assoc();
+  
+  if ($resultado) {
+    $resultado->free();
+  }
+  return $row;
+}
+
+function getSubSubCategorias($mysqli, $todas = true) {
+  $query = "SELECT * FROM subsubcategorias WHERE 1 = 1";
+  if (!$todas) {
+    $query .= " and habilitada = 1";
+  }
+  $query .= " ORDER BY id desc";
+  $resultado = $mysqli->query($query);
+  $subsubcategorias = array();
+  while ($respuesta = $resultado->fetch_assoc()) {
+    $subsubcategorias[] = $respuesta;
+  }
+  if ($resultado) {
+    $resultado->free();
+  }
+  return $subsubcategorias;
+}
+
+function getSubSubCategoriasFromSubCat($mysqli, $subcat) {   
+  $query = "SELECT * FROM subsubcategorias WHERE sub_cat_id = " . $subcat;
+  $query .= " ORDER BY id desc";
+  
+  $resultado = $mysqli->query($query);
+ 
+  return $resultado;
+}
+
 function getApunte($mysqli, $id)
 {
-  $query = "SELECT * FROM apuntes ";
+  $query = "SELECT * FROM apuntes WHERE id = $id";
 
-  if (is_numeric($id)) {
-    $query .= "WHERE id = $id ";
-  } else {
-    return array();
-  }
-  $query .= " and habilitada = 1";
   $resultado = $mysqli->query($query);
-
+  
   $respuesta = $resultado->fetch_assoc();
-
-  if($resultado)$resultado->free();
+  
+  if ($resultado) {
+    $resultado->free();
+  }
 
   return $respuesta;
 }
@@ -106,6 +139,15 @@ function getApuntes($mysqli, $todas = true) {
   return $apuntes;
 }
 
+function getSubSubFromSubCategoria($mysqli, $id)
+{
+  $query = "SELECT * FROM subsubcategorias WHERE sub_cat_id = $id";
+
+  $resultado = $mysqli->query($query);
+
+  return $resultado;
+}
+
 function getApuntesFromCategoria($mysqli, $id)
 {
   $query = "SELECT * FROM apuntes WHERE cat_id = $id";
@@ -113,6 +155,24 @@ function getApuntesFromCategoria($mysqli, $id)
   $resultado = $mysqli->query($query);
 
   return $resultado;
+}
+
+function getApuntesFromSubSubCategoria($mysqli, $id)
+{
+  $query = "SELECT * FROM apuntes WHERE subsub_cat_id = $id";
+
+  $resultado = $mysqli->query($query);
+
+  return $resultado;
+}
+
+function getPrecios($mysqli) {
+  $query = "SELECT * FROM configuracion;";
+  
+  $resultado = $mysqli->query($query); 
+  
+  return $resultado;  
+      
 }
 
 function sec_session_start() {
@@ -176,6 +236,12 @@ function sec_session_start() {
       case 11:
       $mensaje = "Usuario No encontrado";
       break;
+      case 12:
+      $mensaje = "Bienvenido ". $user ." aún no has validado tu correo. Revisa tu bandeja de span si no lo encuentras en tu bandeja de entrada";
+      break;
+      case 13:
+      $mensaje = "Error";
+      break;
       default:
       $mensaje = "Bienvenido...";
       break;
@@ -183,7 +249,7 @@ function sec_session_start() {
     return $mensaje;
   }
 
-function uploadFile($file, $cat, $subcat) {
+function uploadFile($file, $cat, $subcat, $subsubcat) {
   if ($file['error'] !== UPLOAD_ERR_OK) {
     $message = "Upload failed with error " . $file['error'];
     return array("message"=>$message, "ok"=>false);
@@ -200,7 +266,8 @@ function uploadFile($file, $cat, $subcat) {
          break;
   }
 
-  $ruta = '../uploads/'. $cat . '/' . $subcat;
+  $ruta = '../uploads/'. $cat . '/' . $subcat. '/' . $subsubcat;
+  
   if (!file_exists($ruta)) {
     mkdir($ruta, 0777, true);
   }
@@ -264,7 +331,15 @@ function getSaldo($mysqli, $id) {
 }
 
 function getHistorial($mysqli) {
-  $query = "SELECT * FROM historial";
+  $query = "SELECT * FROM historial order by id desc";
+
+  $resultado = $mysqli->query($query);
+  
+  return $resultado;
+}
+
+function getHistorialDeCarga($mysqli) {
+  $query = "SELECT * FROM historial WHERE id_pedido = 0 order by id desc";
 
   $resultado = $mysqli->query($query);
   
@@ -272,15 +347,23 @@ function getHistorial($mysqli) {
 }
 
 function getPedidos($mysqli) {
-  $query = "SELECT * FROM pedidos";
+  $query = "SELECT * FROM pedidos ORDER BY id DESC";
 
   $resultado = $mysqli->query($query);
   
   return $resultado;
 }
+function getPedido($mysqli, $id) {
+  $query = "SELECT * FROM pedidos WHERE id=$id";
+
+  $resultado = $mysqli->query($query);
+  
+  return $resultado->fetch_assoc();
+}
+
 
 function getHistorialForUser($mysqli, $id) {
-  $query = "SELECT * FROM historial WHERE id_usuario = $id";
+  $query = "SELECT * FROM historial WHERE id_usuario = $id order by id desc";
 
   $resultado = $mysqli->query($query);
   

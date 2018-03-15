@@ -19,7 +19,7 @@ $mensaje = '';
 if(isset($_GET['status'])) {
   switch ($_GET['status']) {
     case '0':
-    $mensaje = 'Apunte agregada/editada correctamente';
+    $mensaje = 'Apunte agregado/editado correctamente';
     break;
     case '1':
     $mensaje = 'Error preparando la carga. Intente de nuevo';
@@ -28,7 +28,7 @@ if(isset($_GET['status'])) {
     $mensaje = 'Error ejecuntando la consulta. Intente de nuevo';
     break; 
     case '3':
-    $mensaje = 'Apunte borrada correctamente';
+    $mensaje = 'Apunte borrado correctamente';
     break; 
     case '4':
     $mensaje = 'No se pudo subir el archivo, intente de nuevo más tarde';
@@ -41,6 +41,7 @@ if(isset($_GET['status'])) {
 
 $categorias = getCategorias($mysqli, true);
 $subCategorias = getSubCategorias($mysqli, true);
+$subsubCategorias = getSubSubCategorias($mysqli, true);
 $apuntes = getApuntes($mysqli, true);
 
 ?>
@@ -93,6 +94,20 @@ $apuntes = getApuntes($mysqli, true);
                   </select>
                 </div>
               </div>
+              <div class="col-md-4 multi-horizontal" data-for="subsubcat">
+                <div class="form-group">
+                  <label class="form-control-label mbr-fonts-style display-7" for="subsubcat">Sub-Sub-Categoría</label>
+                  <select class="form-control" name="subsubcat" required="true" id="subsubcat">
+                    <option value="">Sub-Sub-Categorías</option>
+                  </select>
+                </div>
+              </div>  
+              <div class="col-md-4 multi-horizontal" data-for="pages">
+                <div class="form-group">
+                  <label class="form-control-label mbr-fonts-style display-7" for="pages">Cantidad de Páginas</label>
+                  <input type="number" class="form-control" name="pages" required="" id="pages">
+                </div>
+              </div>  
             </div>
             <div class="form-group" data-for="message">
               <label class="form-control-label mbr-fonts-style display-7" for="message-form1-5m">Apunte .PDF</label>
@@ -115,24 +130,42 @@ $apuntes = getApuntes($mysqli, true);
             <div class="line"></div>
           </div>
 
+
+          <div class="table-wrapper pt-5" style="width: 88%;">
+            <div class="container-fluid">
+              <div class="row search">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                  <div class="dataTables_filter">
+                    <label class="searchInfo mbr-fonts-style display-7">Search:</label>
+                    <input class="form-control input-sm" disabled="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
           <div class="">
           
             <div class="scroll">
-              <table class="table table-striped" cellspacing="0">
+              <table class="table table-striped isSearch" cellspacing="0">
                 <thead>
                   <tr class="table-heads">
+                    <th class="head-item mbr-fonts-style display-4" hidden="true"></th>
                     <th class="head-item mbr-fonts-style display-4">
-                      <strong>NOMBRE DEL APUNTE</strong>
+                      <strong>NOMBRE</strong>
                     </th>
-                    <th class="head-item mbr-fonts-style display-4">Categoría</th>
-                    <th class="head-item mbr-fonts-style display-4">Sub-Categoría</th>
-                    <th class="head-item mbr-fonts-style display-4">Archivo</th>
+                    <th class="head-item mbr-fonts-style display-4">Cat</th>
+                    <th class="head-item mbr-fonts-style display-4">Sub-Cat</th>
+                    <th class="head-item mbr-fonts-style display-4">Sub-Sub-Cat</th>
+                    <th class="head-item mbr-fonts-style display-4">Páginas</th>
+                    <th class="head-item mbr-fonts-style display-4">File</th>
                     <th class="head-item mbr-fonts-style display-4"></th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php foreach ($apuntes as $apunte) { ?>
                     <tr id="form-apunte-<?=$apunte['id']?>">
+                      <td class="body-item mbr-fonts-style display-7" hidden="true"><?= $apunte['name'] ?></td>
                       <td class="body-item mbr-fonts-style display-7">
                         <input type="text" name="name" id="name-<?=$apunte['id']?>" value="<?= $apunte['name'] ?>" class="ab" disabled="true">
                       </td>
@@ -145,14 +178,25 @@ $apuntes = getApuntes($mysqli, true);
                         </select>
                       </td>
                       <td class="body-item mbr-fonts-style display-7">
-                        <select id="sub-categoria-<?=$apunte['id'] ?>" class="ab" disabled="true">
+                        <select id="sub-categoria-<?=$apunte['id'] ?>" class="ab selectSubCategorias" disabled="true" data-apunte-id="<?=$apunte['id']?>">
                           <option value="0">sin sub categoria</option>
                           <?php foreach (getSubCategoriasFromCat($mysqli, $apunte['cat_id']) as $subcat) { ?>
                             <option value="<?=$subcat['id']?>" <?=($subcat['id'] == $apunte['sub_cat_id']) ? 'selected' : ''?>><?=$subcat['name']?></option>
                           <?php } ?>
                         </select>
                       </td>
+                      <td class="body-item mbr-fonts-style display-7">
+                        <select id="sub-sub-categoria-<?=$apunte['id'] ?>" class="ab" disabled="true">
+                          <option value="0">sin sub sub categoria</option>
+                          <?php foreach (getSubSubCategoriasFromSubCat($mysqli, $apunte['sub_cat_id']) as $subsubcat) { ?>
+                            <option value="<?=$subsubcat['id']?>" <?=($subsubcat['id'] == $apunte['subsub_cat_id']) ? 'selected' : ''?>><?=$subsubcat['name']?></option>
+                          <?php } ?>
+                        </select>
+                      </td>
                       <td class="body-item mbr-fonts-style display-7" >
+                        <input type="number" name="pages" id="pages-<?=$apunte['id']?>" value="<?= $apunte['pages'] ?>" class="ab" disabled="true">
+                      </td>
+                      <td class="body-item mbr-fonts-style display-9" >
                         <input type="file" name="fileToUpload" required="true" id="file-apunte-<?=$apunte['id']?>" value="" class="ab" disabled="true">
                       </td>
                       <td class="body-item mbr-fonts-style display-7">
@@ -170,18 +214,18 @@ $apuntes = getApuntes($mysqli, true);
                 </table>
               </div>
               <div class="container-fluid table-info-container">
-
+                <div class="row info mbr-fonts-style display-7">
+                <div class="dataTables_info">
+                  <span class="infoBefore">Mostrando</span>
+                  <span class="inactive infoRows"></span>
+                  <span class="infoAfter">entradas</span>
+                  <span class="infoFilteredBefore">(filtradas de un total de:</span>
+                  <span class="inactive infoRows"></span>
+                  <span class="infoFilteredAfter">)</span>
+                </div>
+              </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section once="" class="cid-qGqK6Ooxfc" id="footer6-64" data-rv-view="3380">
-      <div class="container">
-        <div class="media-container-row align-center mbr-white">
-          <div class="col-12">
-            <p class="mbr-text mb-0 mbr-fonts-style display-7">© Copyright 2018 Team Builder - contacto@teambuilder.com.ar</p>
           </div>
         </div>
       </div>

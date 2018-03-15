@@ -19,7 +19,7 @@ $mensaje = '';
 if(isset($_GET['status'])) {
   switch ($_GET['status']) {
     case '0':
-    $mensaje = 'Sub Categoria agregada/editada correctamente';
+    $mensaje = 'Sub sub Categoria agregada/editada correctamente';
     break;
     case '1':
     $mensaje = 'Error preparando la carga. Intente de nuevo';
@@ -28,7 +28,7 @@ if(isset($_GET['status'])) {
     $mensaje = 'Error ejecuntando la consulta. Intente de nuevo';
     break; 
     case '3':
-    $mensaje = 'Sub Categoria borrada correctamente';
+    $mensaje = 'Sub sub Categoria borrada correctamente';
     break; 
     default:
 
@@ -38,6 +38,7 @@ if(isset($_GET['status'])) {
 
 $categorias = getCategorias($mysqli, true);
 $subCategorias = getSubCategorias($mysqli, true);
+$subsubCategorias = getSubSubCategorias($mysqli, true);
 
 ?>
 
@@ -62,7 +63,7 @@ $subCategorias = getSubCategorias($mysqli, true);
     <div class="container">
       <div class="row justify-content-center">
         <div class="title col-12 col-lg-8">
-          <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">AGREGAR SUB-CATEGORÍA</h2>
+          <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">AGREGAR SUB-SUB-CATEGORÍA</h2>
           <p><?= $mensaje ?></p>
         </div>
       </div>
@@ -71,7 +72,7 @@ $subCategorias = getSubCategorias($mysqli, true);
       <div class="row justify-content-center">
         <div class="media-container-column col-lg-8">
           <form class="mbr-form" action="controllers/categorias_controller.php" method="post" >
-            <input name="action" type="hidden" value="agragarSubCategoria">
+            <input name="action" type="hidden" value="agragarSubSubCategoria">
             <div class="row row-sm-offset">
               <div class="col-md-4 multi-horizontal" data-for="name">
                 <div class="form-group">
@@ -82,13 +83,22 @@ $subCategorias = getSubCategorias($mysqli, true);
               <div class="col-md-4 multi-horizontal" data-for="email">
                 <div class="form-group">
                   <label class="form-control-label mbr-fonts-style display-7" for="email-form1-59">Categoría</label>
-                  <select class="form-control" name="catId" required id="catId">
+                  <select class="form-control" name="catId" required id="categoria">
+                    <option value="0">Categorías</option>
                     <?php foreach ($categorias as $cat) { ?>
                     <option value="<?=$cat['id']?>"><?=$cat['name']?></option>
                     <?php } ?>
                   </select>
                 </div>
               </div>
+              <div class="col-md-4 multi-horizontal" data-for="email">
+                <div class="form-group">
+                  <label class="form-control-label mbr-fonts-style display-7" for="email-form1-59">Sub Categoría</label>
+                  <select class="form-control" name="subcatId" required id="subcat">
+                    <option value="">Sub-Categorías</option>
+                  </select>
+                </div>
+              </div>  
             </div>
             <span class="input-group-btn">
               <button href="" type="submit" class="btn btn-primary btn-form display-4">Agregar</button>
@@ -107,7 +117,7 @@ $subCategorias = getSubCategorias($mysqli, true);
     <div class="">
       <div class="media-container-row align-center">
         <div class="col-12 col-md-12">
-          <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">SUB CATEGORÍAS</h2>
+          <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">SUB SUB CATEGORÍAS</h2>
           <div class="underline align-center pb-3">
             <div class="line"></div>
           </div>
@@ -134,31 +144,42 @@ $subCategorias = getSubCategorias($mysqli, true);
                     <th class="head-item mbr-fonts-style display-4">
                       <strong>CATEGORIA</strong>
                     </th>
+                    <th class="head-item mbr-fonts-style display-4">
+                      <strong>SUB CATEGORIA</strong>  
+                    </th>
                     <th class="head-item mbr-fonts-style display-4"></th>
                     <th class="head-item mbr-fonts-style display-4"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($subCategorias as $subCat) { ?>
+                  <?php foreach ($subsubCategorias as $subsubCat) { ?>
                   <tr>
-                    <td class="body-item mbr-fonts-style display-7" id="cat-<?=$subCat['id']?>">
-                      <?= $subCat['name'] ?>
+                    <td class="body-item mbr-fonts-style display-7" id="cat-<?=$subsubCat['id']?>">
+                      <?= $subsubCat['name'] ?>
                     </td>
-                    <td class="body-item mbr-fonts-style display-7" id="cat-<?=$subCat['id']?>">
-                      <select id="selectedCatId-cat-<?=$subCat['id']?>" disabled="true">
+                    <td class="body-item mbr-fonts-style display-7" id="cat-<?=$subsubCat['id']?>">
+                      <select id="selectedCatId-cat-<?=$subsubCat['id']?>" disabled="true" class="selectCat" data-subsub-id="<?=$subsubCat['id']?>">
                         <option>sin categoria</option>
                         <?php foreach ($categorias as $cat) { ?>
-                          <option value="<?=$cat['id']?>" <?=($cat['id'] == $subCat['cat_id']) ? 'selected' : ''?>><?=$cat['name']?></option>
+                          <option value="<?=$cat['id']?>" <?=($cat['id'] == $subsubCat['cat_id']) ? 'selected' : ''?>><?=$cat['name']?></option>
+                        <?php } ?>
+                      </select>
+                    </td>
+                    <td class="body-item mbr-fonts-style display-7" id="cat-<?=$subsubCat['id']?>">
+                      <select id="selectedSubCatId-cat-<?=$subsubCat['id']?>" disabled="true" class="selectSubCat">
+                        <option>sin sub categoria</option>
+                        <?php foreach ($subCategorias as $sub) { ?>
+                          <option value="<?=$sub['id']?>" <?=($sub['id'] == $subsubCat['sub_cat_id']) ? 'selected' : ''?>><?=$sub['name']?></option>
                         <?php } ?>
                       </select>
                     </td>
                     <td class="body-item mbr-fonts-style display-7">
-                      <button type="button" class="btn btn-default btn-sm editar" data-cat-id="cat-<?=$subCat['id']?>" data-is-subcat="si" data-do="e">
+                      <button type="button" class="btn btn-default btn-sm editar" data-cat-id="cat-<?=$subsubCat['id']?>" data-is-subcat="si2" data-do="e">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                       </button>
                     </td>
                     <td class="body-item mbr-fonts-style display-7">
-                      <button type="button" class="btn btn-default btn-sm borrarSub" data-is-subcat="si" data-cat-id="cat-<?=$subCat['id']?>">
+                      <button type="button" class="btn btn-default btn-sm borrarSubsub" data-is-subcat="si2" data-cat-id="cat-<?=$subsubCat['id']?>">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                       </button>
                     </td>

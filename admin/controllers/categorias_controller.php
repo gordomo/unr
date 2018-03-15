@@ -100,5 +100,60 @@ switch ($_REQUEST["action"]) {
 			header('Location: ../sub.php?mensaje='.$message);
 		}
 	break;
+        
+        case "agragarSubSubCategoria":
+		$name = $_POST['name'];
+		$catId = $_POST['catId'];
+                $subcatId = $_POST['subcatId'];
+                
+                //die("name: ".$name. " catId: ".$catId." subcatId: ".$subcatId);
+
+		if ($stmt = $mysqli->prepare("INSERT INTO subsubcategorias (`name`, `cat_id`, `sub_cat_id`) VALUES (?, ?, ?)")) {
+			$stmt->bind_param('sii', $name, $catId, $subcatId);
+			if (!$stmt->execute()) {
+				header('Location: ../subsub.php?status=2');        	
+			}
+			$stmt->close();
+			header('Location: ../subsub.php?status=0');
+		} else {
+			header('Location: ../subsub.php?status=1');
+		}
+	break;
+        
+        case "editarSubSubCategoria":
+		$name = $_GET['name'];
+		$catId = $_GET['catId'];
+                $subcatId = $_GET['subcatId'];
+		$id = str_replace("cat-", '', $_GET['id']);
+                
+                //die("name: ".$name. " catId: ".$catId." subcatId: ".$subcatId. " id: ".$id);
+		
+		if ($stmt = $mysqli->prepare("UPDATE subsubcategorias set `name` = ? , `cat_id` = ? , `sub_cat_id` = ? WHERE `id` = ?")) {
+			$stmt->bind_param('siii', $name, $catId, $subcatId, $id);
+			if (!$stmt->execute()) {
+				header('Location: ../subsub.php?status=2');        	
+			}
+			$stmt->close();
+			header('Location: ../subsub.php?status=0');
+		} else {
+			header('Location: ../subsub.php?status=1');
+		}
+	break;
+        
+        case "borrarSubSubCategoria":
+		$id = str_replace("cat-", '', $_GET['id']);
+		
+		if ($stmt = $mysqli->prepare("DELETE FROM subsubcategorias WHERE `id` = ?")) {
+			$stmt->bind_param('i', $id);
+			if (!$stmt->execute()) {
+				header('Location: ../subsub.php?status=2');        	
+			}
+			$stmt->close();
+			header('Location: ../subsub.php?status=3');
+		} else {
+			$message = "Falló la ejecución: (" . $stmt->errno . ") " . $stmt->error;
+			header('Location: ../subsub.php?mensaje='.$message);
+		}
+	break;
 	
 }

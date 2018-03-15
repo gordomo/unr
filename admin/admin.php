@@ -135,6 +135,7 @@ if(isset($_GET['status'])) {
                 <table class="table table-striped isSearch" cellspacing="0">
                   <thead>
                     <tr class="table-heads">
+                      <th class="head-item mbr-fonts-style display-4" hidden="true"></th>
                       <th class="head-item mbr-fonts-style display-4">
                         <strong>NOMBRE</strong>
                       </th>
@@ -151,6 +152,7 @@ if(isset($_GET['status'])) {
                   <tbody>
                     <?php foreach ($users as $usr) { ?>
                     <tr>
+                      <td class="body-item mbr-fonts-style display-7" hidden="true"><?= $usr['email'] ?></td>
                       <td class="body-item mbr-fonts-style display-7" id="usr-<?=$usr['id']?>">
                         <input type="text" name="email" id="email-<?=$usr['id']?>" value="<?= $usr['email'] ?>" disabled="true">
                       </td>
@@ -182,12 +184,12 @@ if(isset($_GET['status'])) {
               <div class="container-fluid table-info-container">
                 <div class="row info mbr-fonts-style display-7">
                   <div class="dataTables_info">
-                    <span class="infoBefore">Showing</span>
+                    <span class="infoBefore">Mostrando</span>
                     <span class="inactive infoRows"></span>
-                    <span class="infoAfter">entries</span>
-                    <span class="infoFilteredBefore">(filtered from</span>
+                    <span class="infoAfter">entradas</span>
+                    <span class="infoFilteredBefore">(filtradas de un total de:</span>
                     <span class="inactive infoRows"></span>
-                    <span class="infoFilteredAfter">total entries)</span>
+                    <span class="infoFilteredAfter">)</span>
                   </div>
                 </div>
               </div>
