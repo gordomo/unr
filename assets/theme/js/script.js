@@ -1402,11 +1402,12 @@ $(".estado").change(function(){
     var pedidoId = $(this).data("id-pedido");
     var usrId = $(this).data("id-usuario");
     var user = $(this).data("user");
+    var emailUsuario = $(this).data("email-usuario");
 
     $.ajax({
       method: "POST",
       url: "controllers/pedidos_controller.php",
-      data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, action: "cambiarEstado" },
+      data: { nuevoEstado: nuevoEstado, pedidoId: pedidoId, usrId: usrId, admin: user, emailUsuario: emailUsuario, action: "cambiarEstado" },
       dataType: "json"
     })
     .done(function( msg ) {
