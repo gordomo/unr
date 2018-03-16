@@ -2,6 +2,8 @@
 include_once 'db_connect.php';
 include_once 'funciones.php';
 
+require_once('phpmailer/class.phpmailer.php');
+
 sec_session_start(); // Our custom secure way of starting a PHP session.
 
 switch ($_REQUEST["action"]) {
@@ -57,37 +59,11 @@ switch ($_REQUEST["action"]) {
                     $_SESSION['user_login_checked'] = true;
                     $_SESSION['user'] = $email;
 
-                    require_once('phpmailer/class.phpmailer.php');
-
-                    $mail = new PHPMailer();
-                    $mail->IsSMTP();
-                    $mail->SMTPAuth = true;
-                    $mail->Port = 587;
-                    $mail->IsHTML(true);
-                    $mail->CharSet = "utf-8";
-                    //TODO cambiar esto
-                    $smtpHost = "mail.tusapuntes.net";  // Dominio alternativo brindado en el email de alta 
-                    $smtpUsuario = "confirmation@tusapuntes.net";  // Mi cuenta de correo
-                    $smtpClave = "Aoi12Jjio92";  // Mi contraseña
-
-                    // VALORES A MODIFICAR //
-                    $mail->Host = $smtpHost;
-                    $mail->Username = $smtpUsuario;
-                    $mail->Password = $smtpClave;
-
-                    $subject = 'Validar Email para TusApuntes.net';
-                    $toemail = $email;
-                    $toname = 'Nuevo Usuario'; 
-
-                    $mail->SetFrom($smtpUsuario, "tusApuntes.net");
-                    $mail->AddAddress($toemail, $toname);
-                    $mail->Subject = $subject;
                     $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" . "/includes/process_login.php?action=validarEmail&validationCode=".$code."&email=".$email;
-
                     $message = "Bienvenido a TusApuntes.com ----- <br><br>Por favor, sigue el link para validar tu correo o copia y pega la dirección en tu navegador <br><a href='".$link."'>".$link."</a>";
-                    $mail->MsgHTML($message);
-                    $sendEmail = $mail->Send();
 
+                    $sendEmail = enviarMail($message, $email);
+                    
                     if ($sendEmail == true) {
                         $_SESSION['state'] = 1;
                         header('Location: ../index.php');
@@ -134,7 +110,7 @@ switch ($_REQUEST["action"]) {
                     } 
                     else {                       
                         if(!$valid){    
-                        $_SESSION['state'] = 12;                        
+                            $_SESSION['state'] = 12;                        
                         }
                         header('Location: ../index.php');
                     }    
@@ -234,11 +210,39 @@ switch ($_REQUEST["action"]) {
             }
         }
         break;
-        case "recordarContrasena":
+        case "olvideMiContrasena":
+        $emailUsuario = (isset($_POST['emailUsuario'])) ? $_POST['emailUsuario'] : '';
+
+        $stmt = $mysqli->prepare("SELECT pass FROM usuarios WHERE email = ? LIMIT 1");
+
+        $stmt->bind_param('s', $emailUsuario);
+
+        $stmt->execute();   // Execute the prepared query.
+        $stmt->store_result();
+
+        if ($stmt->num_rows == 1) { //usuario encontrado
+
+            //If the user exists get variables from result.
+            $stmt->bind_result($pass);
+            $stmt->fetch();
+
+            $message = "Recuperar contraseña de TusApuntes.com ----- <br><br>Hola ".$emailUsuario." <br> Según lo solicitado, te enviamos este correo para recordarte tu contraseña.<br>La misma es: <br>".$pass."<br>Esperamos que sigas utilizando nuestro sistema. Muchas gracias. Saludos";
+
+            $sendEmail = enviarMail($message, $emailUsuario);
+            if ($sendEmail == true) {
+                header("Location: ../olvideMiContrasena.php?status=0");
+            } else {
+                header("Location: ../olvideMiContrasena.php?status=2");
+            }
+
+
+        } else { //usuario no encontrado
+            header("Location: ../olvideMiContrasena.php?status=1");
+        }
 
         break;
     }
-    
+
 
     function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!$[]';
@@ -249,3 +253,33 @@ switch ($_REQUEST["action"]) {
         }
         return $randomString;
     }
+
+    function enviarMail($message, $email) {
+
+        $mail = new PHPMailer();
+        $mail->IsSMTP();
+        $mail->SMTPAuth = true;
+        $mail->Port = 587;
+        $mail->IsHTML(true);
+        $mail->CharSet = "utf-8";
+
+            $smtpHost = "mail.tusapuntes.net";  // Dominio alternativo brindado en el email de alta 
+            $smtpUsuario = "confirmation@tusapuntes.net";  // Mi cuenta de correo
+            $smtpClave = "Aoi12Jjio92";  // Mi contraseña
+
+            // VALORES A MODIFICAR //
+            $mail->Host = $smtpHost;
+            $mail->Username = $smtpUsuario;
+            $mail->Password = $smtpClave;
+
+            $subject = 'Validar Email para TusApuntes.net';
+            $toemail = $email;
+            $toname = 'Nuevo Usuario'; 
+
+            $mail->SetFrom($smtpUsuario, "tusApuntes.net");
+            $mail->AddAddress($toemail, $toname);
+            $mail->Subject = $subject;
+
+            $mail->MsgHTML($message);
+            return $mail->Send();
+        }

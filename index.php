@@ -27,29 +27,10 @@ $mensaje = getMensaje($state, $user);
 <!DOCTYPE html>
 <html >
 <head>
-  <!-- Site made with Mobirise Website Builder v4.5.1, https://mobirise.com -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v4.5.1, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <meta name="description" content="">
   <title>TusApuntes.net</title>
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
-  <link rel="stylesheet" href="assets/tether/tether.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/animatecss/animate.min.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-
+  <?php include_once("includes/headerlinks.html"); ?>
 </head>
 <body>
-
   <?php 
   include_once("includes/navbar.php");
   ?>
@@ -66,7 +47,7 @@ $mensaje = getMensaje($state, $user);
     <div class="container align-center">
       <div class="row justify-content-md-center">
         <div class="mbr-white col-md-10">
-          <h1><?=$mensaje?>
+          <h1><?=$mensaje?></h1>
             <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">TusApuntes.net</h1>
             <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">&nbsp;"La librería online de la Facultad de Ciencias Económicas y Estadística"&nbsp;</h3>
 
