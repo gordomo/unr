@@ -100,7 +100,7 @@ if(isset($_GET['status'])) {
                                     <button href="" type="submit" class="btn btn-md btn-primary display-4" style="width: 100%;">Agregar a la cola de impresión</button> 
                                 </div>
                                 <div class="col-md-6">    
-                                    <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>" style="border-radius: 0; width: 100%;">voler atras&nbsp;</a>
+                                    <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>" style="border-radius: 0; width: 100%;">volver atrás&nbsp;</a>
                                 </div>
                                 <div class="col-md-6">    
                                     <a class="btn btn-md btn-black display-4" href="<?= str_replace("..", "admin", $apunte['file'])?>" target="_BLANK" style="border-radius: 0; width: 100%;">ver apunte</a>
