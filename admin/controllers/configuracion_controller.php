@@ -8,10 +8,11 @@ switch ($_REQUEST["action"]) {
 	$pricePage = $_POST['price-pages'];
 	$doubleFas = $_POST['double-fas'];    
 	$ringed = $_POST['ringed'];
+	$demora = $_POST['demora'];
 	$id = 1;
 
-	if ($stmt = $mysqli->prepare("INSERT INTO configuracion (`id`, `price_pages`, `ringed` , `double_fas`) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE `price_pages` = VALUES(price_pages), `ringed` = VALUES(ringed)")) {
-		$stmt->bind_param('iddd', $id, $pricePage, $ringed,$doubleFas);
+	if ($stmt = $mysqli->prepare("INSERT INTO configuracion (`id`, `price_pages`, `ringed` , `double_fas`, `demora`) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE `price_pages` = VALUES(price_pages), `ringed` = VALUES(ringed) , `double_fas` = VALUES(double_fas) , `demora` = VALUES(demora)")) {
+		$stmt->bind_param('idddd', $id, $pricePage, $ringed, $doubleFas, $demora);
 		if (!$stmt->execute()) {
 			die(var_dump($stmt));
 			header('Location: ../configuracion.php?status=2');        	
@@ -30,9 +31,10 @@ switch ($_REQUEST["action"]) {
 	$pricePage = $_GET['pricePage'];
 	$doubleFas = $_GET['doubleFas'];
 	$ringed = $_GET['ringed'];
+	$demora = $_GET['demora'];
 
-	if ($stmt = $mysqli->prepare("UPDATE configuracion set `price_pages` = ? , `ringed`  = ? , `double_fas`  = ? WHERE `id` = ?")) {
-		$stmt->bind_param('dddi', $pricePage, $ringed, $doubleFas, $id);
+	if ($stmt = $mysqli->prepare("UPDATE configuracion set `price_pages` = ? , `ringed`  = ? , `double_fas`  = ?, `demora` = ? WHERE `id` = ?")) {
+		$stmt->bind_param('ddddi', $pricePage, $ringed, $doubleFas, $demora, $id);
 		if (!$stmt->execute()) {
 			die(var_dump($stmt));
 			header('Location: ../configuracion.php?status=2');        	
