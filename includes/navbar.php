@@ -97,7 +97,7 @@
                             <div class="form-group">
                               <div class="row">
 
-                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Iniciar sesión">
+                                <input type="submit" name="login-submit" id="login-submit" tabindex="3" class="form-control btn btn-login" value="Iniciar sesión">
 
                               </div>
                             </div>
@@ -105,7 +105,7 @@
                               <div class="row">
                                 <div class="col-lg-12">
                                   <div class="text-center">
-                                    <a href="javascript:olvideMiContraseña();" tabindex="5" class="forgot-password">¿Has olvidado tu contraseña?</a>
+                                    <a href="javascript:olvideMiContraseña();" tabindex="4" class="forgot-password">¿Has olvidado tu contraseña?</a>
                                   </div>
                                 </div>
                               </div>
@@ -114,33 +114,33 @@
                           <form id="register-form" action="includes/process_login.php" method="post" role="form" style="display: none;">
                             <input type="hidden" name="action" value="register">
                             <div class="form-group">
-                              <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Correo electronico" value="" required="true">
+                              <input type="email" name="email" id="email" tabindex="5" class="form-control" placeholder="Correo electronico" value="" required="true">
                             </div>
                             <div class="form-group">
-                              <input type="password" name="password" id="password" tabindex="2" class="form-control pass" placeholder="Contraseña" required="true">
+                              <input type="password" name="password" id="password" tabindex="6" class="form-control pass" placeholder="Contraseña" required="true">
                             </div>
                             <div class="form-group">
                               <a href="javascript:verPass();" id="verPass" class="link" style="color: #686b7b;">ver contraseña</a>
                             </div>
                             <div class="form-group">
-                              <input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Nombre" value="" required="true">
+                              <input type="text" name="name" id="name" tabindex="7" class="form-control" placeholder="Nombre" value="" required="true">
                             </div>
                             <div class="form-group">
-                              <input type="text" name="lastName" id="lastName" tabindex="1" class="form-control" placeholder="Apellido" value="" required="true">
+                              <input type="text" name="lastName" id="lastName" tabindex="8" class="form-control" placeholder="Apellido" value="" required="true">
                             </div>
                             <div class="form-group">
-                              <input type="number" name="tel" id="tel" tabindex="1" class="form-control" placeholder="Teléfono" value="" required="true">
+                              <input type="number" name="tel" id="tel" tabindex="9" class="form-control" placeholder="Teléfono" value="" required="true">
                             </div>
                             <div class="form-group">
-                              <input type="number" name="dni" id="dni" tabindex="1" class="form-control" placeholder="Documento" value="" required="true">
+                              <input type="number" name="dni" id="dni" tabindex="10" class="form-control" placeholder="Documento" value="" required="true">
                             </div>
                             <div class="form-group">
-                              <input type="text" name="dir" id="dir" tabindex="1" class="form-control" placeholder="Dirección" value="" required="true">
+                              <input type="text" name="dir" id="dir" tabindex="11" class="form-control" placeholder="Dirección" value="" required="true">
                             </div>
 
                              
                             <div class="form-group">
-                              <input type="submit" style="margin:0;" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Crear cuenta">
+                              <input type="submit" style="margin:0;" name="register-submit" id="register-submit" tabindex="12" class="form-control btn btn-register" value="Crear cuenta">
                             </div>
                           </form>
                         </div>

@@ -1415,3 +1415,11 @@ $(".estado").change(function(){
     });
 
 });
+
+function olvideMiContraseña() {
+    location.href = "olvideMiContrasena.php"
+}
+
+$('form').submit(function() {
+  $(this).find("input[type='submit']").prop('disabled',true);
+});

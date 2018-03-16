@@ -36,7 +36,7 @@ if(isset($_GET['status'])) {
 <html >
 <head>
   <?php include_once("includes/headerlinks.html"); ?>
-  <title>mispedidos</title>
+  <title>Mis Pedidos</title>
 </head>
 <body>
   <?php include_once("includes/navbar.php");?>
