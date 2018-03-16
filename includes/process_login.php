@@ -61,8 +61,8 @@ switch ($_REQUEST["action"]) {
 
                     $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" . "/includes/process_login.php?action=validarEmail&validationCode=".$code."&email=".$email;
                     $message = "Bienvenido a TusApuntes.com ----- <br><br>Por favor, sigue el link para validar tu correo o copia y pega la dirección en tu navegador <br><a href='".$link."'>".$link."</a>";
-
-                    $sendEmail = enviarMail($message, $email);
+                    $asunto = 'Validar Email para TusApuntes.net';
+                    $sendEmail = enviarMail($asunto, $message, $email);
                     
                     if ($sendEmail == true) {
                         $_SESSION['state'] = 1;
@@ -227,8 +227,8 @@ switch ($_REQUEST["action"]) {
             $stmt->fetch();
 
             $message = "Recuperar contraseña de TusApuntes.com ----- <br><br>Hola ".$emailUsuario." <br> Según lo solicitado, te enviamos este correo para recordarte tu contraseña.<br>La misma es: <br>".$pass."<br>Esperamos que sigas utilizando nuestro sistema. Muchas gracias. Saludos";
-
-            $sendEmail = enviarMail($message, $emailUsuario);
+            $asunto = "Recuperar contraseña";
+            $sendEmail = enviarMail($asunto, $message, $emailUsuario);
             if ($sendEmail == true) {
                 header("Location: ../olvideMiContrasena.php?status=0");
             } else {
@@ -254,7 +254,7 @@ switch ($_REQUEST["action"]) {
         return $randomString;
     }
 
-    function enviarMail($message, $email) {
+    function enviarMail($asunto, $message, $email) {
 
         $mail = new PHPMailer();
         $mail->IsSMTP();
@@ -272,7 +272,7 @@ switch ($_REQUEST["action"]) {
             $mail->Username = $smtpUsuario;
             $mail->Password = $smtpClave;
 
-            $subject = 'Validar Email para TusApuntes.net';
+            $subject = $asunto;
             $toemail = $email;
             $toname = 'Nuevo Usuario'; 
 

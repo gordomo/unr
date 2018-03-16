@@ -1116,6 +1116,7 @@ $(".editar-precio").on("click", function(){
 
     if($(this).data("do") == "e") {
         var precioPaginaAeditar = document.createElement("input");     
+        $(precioPaginaAeditar).css("maxWidth", "70px");
         var td = $("#price-page");
         var txt = td.html();
         td.html('');
@@ -1126,6 +1127,7 @@ $(".editar-precio").on("click", function(){
         td.append(precioPaginaAeditar);
         
         var dobleFasAeditar = document.createElement("input");     
+        $(dobleFasAeditar).css("maxWidth", "70px");
         var td = $("#double-fas");
         var txt = td.html();
         td.html('');
@@ -1136,6 +1138,7 @@ $(".editar-precio").on("click", function(){
         td.append(dobleFasAeditar);
         
         var anilladoAeditar = document.createElement("input");
+        $(anilladoAeditar).css("maxWidth", "70px");
         var td = $("#ringed");
         var txt = td.html();
         td.html('');
@@ -1145,6 +1148,17 @@ $(".editar-precio").on("click", function(){
         anilladoAeditar.id = "ringed-edited";
         td.append(anilladoAeditar);
 
+        var demoraAeditar = document.createElement("input");
+        $(demoraAeditar).css("maxWidth", "70px");
+        var td = $("#demora");
+        var txt = td.html();
+        td.html('');
+        demoraAeditar.value = $.trim(txt);
+        demoraAeditar.type = 'number';
+        demoraAeditar.min = 0;
+        demoraAeditar.id = "demora-edited";
+        td.append(demoraAeditar);
+
         $(this).html('<i class="fa fa-check" aria-hidden="true"></i>');
         $(this).data("do", "s");
 
@@ -1153,7 +1167,8 @@ $(".editar-precio").on("click", function(){
             var pricePage = $("#price-page-edited").val();
             var doubleFas = $("#double-fas-edited").val();
             var ringed = $("#ringed-edited").val();
-            location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&doubleFas="+doubleFas+"&ringed="+ringed;
+            var demora = $("#demora-edited").val();
+            location.href = "../admin/controllers/configuracion_controller.php?action=editarPrecios&pricePage="+pricePage+"&doubleFas="+doubleFas+"&ringed="+ringed+"&demora="+demora;
       
     }
 
