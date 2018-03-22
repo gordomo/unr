@@ -22,7 +22,7 @@ $pedidos = getPedidos($mysqli);
 <html >
 <head>
   <?php include_once("includes/headerlinks.html"); ?>
-  <title>historialcarga</title>
+  <title>Pedidos</title>
 </head>
 <body>
   <?php include_once("includes/navbar.php") ?>
