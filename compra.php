@@ -70,6 +70,10 @@ if(isset($_GET['status'])) {
                             <p class="mbr-text mbr-fonts-style display-5">
                                 <strong><?= $subCategoria['name'] ?></strong> - <strong><?= $subSubCategoria['name'] ?></strong><br>
                                 <strong>Nombre</strong>: &nbsp;<?= $apunte['name'] ?><br>
+                                <?php if($precios['demora']) { ?>
+                                    <strong>Demora Promedio</strong>: &nbsp;<?= $precios['demora'] ?> días<br>
+                                <?php } ?>    
+
                             </p>    
                             <p class="mbr-text mbr-fonts-style display-5">
                                 <div style="font-size: 25px;">
@@ -91,9 +95,17 @@ if(isset($_GET['status'])) {
                             </p>
                         </div>
                         <div class="mbr-section-btn">
-                            <button href="" type="submit" class="btn btn-md btn-primary display-4" >Agregar a la cola de impresión</button> 
-                            <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>">voler atras&nbsp;</a>
-                            <a class="btn btn-md btn-black display-4" href="<?= str_replace("..", "admin", $apunte['file'])?>" target="_BLANK">ver apunte</a>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button href="" type="submit" class="btn btn-md btn-primary display-4" style="width: 100%;">Agregar a la cola de impresión</button> 
+                                </div>
+                                <div class="col-md-6">    
+                                    <a class="btn btn-md btn-black display-4" href="apuntes.php?id=<?=$categoria['id'] ?>" style="border-radius: 0; width: 100%;">volver atrás&nbsp;</a>
+                                </div>
+                                <div class="col-md-6">    
+                                    <a class="btn btn-md btn-black display-4" href="<?= str_replace("..", "admin", $apunte['file'])?>" target="_BLANK" style="border-radius: 0; width: 100%;">ver apunte</a>
+                                </div>    
+                            </div>    
                         </div>
                     </form>    
                 </div>   

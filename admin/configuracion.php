@@ -87,6 +87,12 @@ $precios = getPrecios($mysqli);
                   <input type="number" class="form-control" name="ringed" data-form-field="ringed" required="true" id="ringed" step=".01">
                 </div>
               </div>  
+              <div class="col-md-4 multi-horizontal" data-for="demora">
+                <div class="form-group">
+                  <label class="form-control-label mbr-fonts-style display-7" min="0" for="name-form1-56">Demora Promedio</label>
+                  <input type="number" class="form-control" name="demora" data-form-field="demora" required="true" id="demora" step=".01">
+                </div>
+              </div>
             </div>
             <span class="input-group-btn">
               <button href="" type="submit" class="btn btn-primary btn-form display-4">Agregar</button>
@@ -110,17 +116,16 @@ $precios = getPrecios($mysqli);
             <div class="line"></div>
           </div>
 
-          <div class="table-wrapper pt-5" style="width: 88%;">
+          <div class="">
             
             <div class="container-fluid scroll">
               <table class="table table-striped isSearch" cellspacing="0">
                 <thead>
                   <tr class="table-heads">
-                    <th class="head-item mbr-fonts-style display-4">
-                      <strong>Simple Faz</strong>
-                    </th>
+                    <th class="head-item mbr-fonts-style display-4">Simple Faz</th>
                     <th class="head-item mbr-fonts-style display-4">Doble Faz</th>
                     <th class="head-item mbr-fonts-style display-4">Anillado</th>
+                    <th class="head-item mbr-fonts-style display-4">Demora promedio</th>
                     <th class="head-item mbr-fonts-style display-4"></th>
                     <th class="head-item mbr-fonts-style display-4"></th>
                   </tr>
@@ -136,6 +141,9 @@ $precios = getPrecios($mysqli);
                     </td>
                     <td class="body-item mbr-fonts-style display-7" id="ringed">
                       <?= $pre['ringed'] ?>
+                    </td>
+                    <td class="body-item mbr-fonts-style display-7" id="demora">
+                      <?= $pre['demora'] ?>
                     </td>
                     <td class="body-item mbr-fonts-style display-7">
                       <button type="button" class="btn btn-default btn-sm editar-precio" data-do="e">
