@@ -22,7 +22,7 @@ $pedidos = getPedidos($mysqli);
 <html >
 <head>
   <?php include_once("includes/headerlinks.html"); ?>
-  <title>historialcarga</title>
+  <title>Pedidos</title>
 </head>
 <body>
   <?php include_once("includes/navbar.php") ?>
@@ -91,6 +91,15 @@ $pedidos = getPedidos($mysqli);
                       <td class="body-item mbr-fonts-style display-7">$<?=$row['total']?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
                       <td class="body-item mbr-fonts-style display-7">
+                        <div hidden="true">
+                          <?php if($row['estado'] == 1) {?>
+                            Pendiente
+                          <?php } else if($row['estado'] == 2) { ?>
+                            En proceso
+                          <?php } else if($row['estado'] == 3) { ?>
+                            Finalizado
+                          <?php } ?>
+                        </div>
                         <select class="estado" data-id-pedido="<?=$row['id']?>" data-id-usuario="<?=$row['usr_id']?>" data-user="<?=$user?>" data-email-usuario="<?=$emailUsuario?>">
                             <option value="1" <?=($row['estado'] == 1) ? 'selected' : ''?>>Pendiente</option>
                             <option value="2" <?=($row['estado'] == 2) ? 'selected' : ''?>>En proceso</option>
