@@ -64,8 +64,22 @@ if (is_numeric($id)) {
                   <label class="form-control-label" >Usuario validado: <?=($usuario['valid'] == 1) ? 'SI' : 'NO'?></label> <br>
                 </div>
               </div>
+              <?php if(($usuario['valid'] != 1)) { ?>
+                <div class="row">
+                  <div class="col-md-6">
+                    <button class="btn" id="reenviarMailDeConfirmacion" data-mail="<?=$usuario['email']?>">Reenviar email de confirmacíón</button>
+                  </div>
+                  <div class="col-md-6" style="text-align: right;">
+                    <button class="btn" onclick="window.history.go(-1); return false;">volver</button>
+                  </div>
+                </div>
+              <?php } ?> 
+
           </div>
         </div>
+      </div>
+      <div class="col-md-12">
+        <span class="response alert alert-danger hidden"></span>
       </div>
     </div>
   </section>

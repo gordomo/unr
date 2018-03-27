@@ -7,8 +7,8 @@ switch ($_REQUEST["action"]) {
 	$name = $_POST['name'];
 	$cat_id = $_POST['categoria'];
 	$sub_cat_id = $_POST['subcat'];
-        $subsub_cat_id = $_POST['subsubcat'];
-        $pages = $_POST['pages'];
+    $subsub_cat_id = $_POST['subsubcat'];
+    $pages = $_POST['pages'];
 	$file = $_FILES['fileToUpload'];
 	$cat_name = limpiarString(getCategoria($mysqli, $cat_id)["name"]);
 	$sub_cat_name = limpiarString(getSubCategoria($mysqli, $sub_cat_id)["name"]);

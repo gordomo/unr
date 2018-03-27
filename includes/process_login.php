@@ -241,6 +241,42 @@ switch ($_REQUEST["action"]) {
         }
 
         break;
+
+        case "reenviarMailDeConfirmacion":
+
+            $email = (isset($_POST['mail'])) ? $_POST['mail'] : '';
+
+            $stmt = $mysqli->prepare("SELECT pass, code FROM usuarios WHERE email = ? LIMIT 1");
+            $stmt->bind_param('s', $email);
+            $stmt->execute();   // Execute the prepared query.
+            $stmt->store_result();
+
+            if ($stmt->num_rows == 1) { //usuario encontrado
+
+                //If the user exists get variables from result.
+                $stmt->bind_result($pass, $code);
+                $stmt->fetch();
+
+                $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" . "/includes/process_login.php?action=validarEmail&validationCode=".$code."&email=".$email;
+                $message = "Bienvenido a TusApuntes.com ----- <br><br>Por favor, sigue el link para validar tu correo o copia y pega la dirección en tu navegador <br><a href='".$link."'>".$link."</a>";
+                $asunto = 'Validar Email para TusApuntes.net';
+                $sendEmail = enviarMail($asunto, $message, $email);
+                
+                if ($sendEmail == true) {
+                    echo json_encode(array("status"=>0, "msg"=>"mail reenviado"));
+                    exit();
+                } else {
+                    echo json_encode(array("status"=>2, "msg"=>"error al intentar reenviar el mail, intente de nuevo más tarde"));
+                    exit();
+                }
+
+
+            } else { //usuario no encontrado
+                echo json_encode(array("status"=>1, "msg"=>"usuario no encontrado"));
+                exit();
+            }
+
+        break;
     }
 
 

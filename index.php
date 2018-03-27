@@ -79,7 +79,7 @@ $mensaje = getMensaje($state, $user);
             <div class="icons-media-container mbr-white">
               <div class="card col-12 col-md-6 col-lg-3">
                 <div class="icon-block">
-                  <a href="https://mobirise.com/">
+                  <a href="">
                     <span class="mbr-iconfont mbri-user" media-simple="true"></span>
                   </a>
                 </div>
@@ -88,7 +88,7 @@ $mensaje = getMensaje($state, $user);
 
               <div class="card col-12 col-md-6 col-lg-3">
                 <div class="icon-block">
-                  <a href="https://mobirise.com/">
+                  <a href="">
                     <span class="mbr-iconfont mbri-cash" media-simple="true"></span>
                   </a>
                 </div>
@@ -97,7 +97,7 @@ $mensaje = getMensaje($state, $user);
 
               <div class="card col-12 col-md-6 col-lg-3">
                 <div class="icon-block">
-                  <a href="https://mobirise.com/">
+                  <a href="">
                     <span class="mbr-iconfont mbri-touch" media-simple="true"></span>
                   </a>
                 </div>
@@ -106,7 +106,7 @@ $mensaje = getMensaje($state, $user);
 
               <div class="card col-12 col-md-6 col-lg-3">
                 <div class="icon-block">
-                  <a href="https://mobirise.com/">
+                  <a href="">
                     <span class="mbr-iconfont mbri-smile-face" media-simple="true"></span>
                   </a>
                 </div>
@@ -136,16 +136,7 @@ $mensaje = getMensaje($state, $user);
     </section>
 
 
-    <script src="assets/web/assets/jquery/jquery.min.js"></script>
-    <script src="assets/popper/popper.min.js"></script>
-    <script src="assets/tether/tether.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/smoothscroll/smooth-scroll.js"></script>
-    <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
-    <script src="assets/viewportchecker/jquery.viewportchecker.js"></script>
-    <script src="assets/parallax/jarallax.min.js"></script>
-    <script src="assets/dropdown/js/script.min.js"></script>
-    <script src="assets/theme/js/script.js"></script>
+    <?php include_once("includes/footer.html"); ?>
 
 
     <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i></i></a></div>

@@ -5,10 +5,16 @@ require_once('../../includes/phpmailer/class.phpmailer.php');
 
 switch ($_REQUEST["action"]) {
     case 'nuevoPedido':
+    case 'nuevoPedidoDesdeForm':
     sec_session_start();
     if (login_check($mysqli) == true) {
-        $idApunte = $_POST['apunte'];
-
+        
+        if($_REQUEST["action"] == "nuevoPedidoDesdeForm") {
+            $idApunte = 0;
+        } else {
+            $idApunte = isset($_POST['apunte']) ? $_POST['apunte'] : "a";
+        }
+        
         if (is_numeric($idApunte)) {
             $simpleFaz = (isset($_POST['simpleFaz'])) ? "1" : "0";
             $anillado = (isset($_POST['anillado'])) ? "1" : "0";
@@ -18,11 +24,31 @@ switch ($_REQUEST["action"]) {
             $user = getUsuarioByEmail($mysqli, $user_mail)['id'];
             $saldo = getSaldo($mysqli, $user);
 
-            $apunte = getApunte($mysqli, $idApunte);
+            if($_REQUEST["action"] == "nuevoPedidoDesdeForm") {
+                $apunte["id"] = 0;
+                $apunte["name"] = $_POST['ApunteName'];
+                $apunte["cat_id"] = 0;
+                $apunte["sub_cat_id"] = 0;
+                $apunte["subsub_cat_id"] = 0;
+                
+                if ($_FILES['fileToUpload']['size'] > 58483400) {
+                    header('Location: ../../pedidoparticular.php?status=15');
+                }
+                $uploadStatus = uploadFile($_FILES['fileToUpload'], "custom", "custom", "custom");
+                if(!$uploadStatus["ok"]) {
+                    header('Location: ../../pedidoparticular.php?status=14');
+                }
+                $apunte["file"] = $uploadStatus["ruta"];
+                $apunte["pages"] = $_POST['cantidadDepaginas'];
+                
+            } else {
+                $apunte = getApunte($mysqli, $idApunte);
+            }    
+
             $configuracion = getPrecios($mysqli);
             $precios = $configuracion->fetch_assoc();
 
-            $cantidad = (isset($_POST['cantidad']) && $_POST['cantidad'] >= 1) ? $_POST['cantidad'] : 1;
+            $cantidad = (isset($_POST['cantidad']) && $_POST['cantidad'] >= 1) ? $_POST['cantidad'] : $_POST['cantidadDeApuntes'];
 
             $precio = ($apunte['pages'] * $precios['double_fas']) * $cantidad;
 
@@ -35,9 +61,9 @@ switch ($_REQUEST["action"]) {
             }
 
             $precioFinal = round($precio + $precioAnilladoTotal, 2);
-            
+
             if($saldo < $precioFinal) {
-                header('Location: ../../compra.php?id='.$apunte['id'] . "&status=5");
+                header('Location: ../../pedidoparticular.php?status=15');
             }
             else {
                 $file = $apunte['file'];
