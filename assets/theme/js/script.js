@@ -1438,3 +1438,54 @@ function olvideMiContraseña() {
 $('form').submit(function() {
   $(this).find("input[type='submit']").prop('disabled',true);
 });
+
+$("#reenviarMailDeConfirmacion").click(function() {
+    $("#reenviarMailDeConfirmacion").attr("disabled", true);
+    var mail = $(this).data("mail");
+    
+    $.ajax({
+      method: "POST",
+      url: "../includes/process_login.php",
+      data: { mail: mail, action: "reenviarMailDeConfirmacion" },
+      dataType: "json"
+    })
+    .done(function( msg ) {
+        $(".response").removeClass("hidden");
+        $(".response").html(msg.msg);
+    });
+});
+
+$("#cantidadDepaginas, #cantidadDeApuntes").on("input", function(){
+
+    var cantidad = $("#cantidadDeApuntes").val();
+    var cantidadPaginas = $("#cantidadDepaginas").val();
+    var precioAnillado = cantidad * precioAnillados;
+    var precioFinal = (cantidadPaginas  * precioDobleFaz) * cantidad;
+    
+    if ($('#simpleFaz').is(':checked')) {
+        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
+    }
+
+    if ($('#anilladoCustom').is(':checked')) {
+        precioFinal = precioFinal + precioAnillado;
+    }
+    
+    $('#precio-final').html(precioFinal.toFixed(2));
+});
+
+$("#simpleFaz, #anilladoCustom").change(function() {
+    var cantidad = $("#cantidadDeApuntes").val();
+    var cantidadPaginas = $("#cantidadDepaginas").val();
+    var precioAnillado = cantidad * precioAnillados;
+    var precioFinal = (cantidadPaginas * precioDobleFaz) * cantidad;
+    
+    if ($('#simpleFaz').is(':checked')) {
+        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
+    }
+
+    if ($('#anilladoCustom').is(':checked')) {
+        precioFinal = precioFinal + precioAnillado;
+    }
+    
+    $('#precio-final').html(precioFinal.toFixed(2));
+});

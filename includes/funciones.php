@@ -242,6 +242,15 @@ function sec_session_start() {
       case 13:
       $mensaje = "Error";
       break;
+      case 14:
+      $mensaje = "Error, archivo con formato incorrecto";
+      break;
+      case 15:
+      $mensaje = "Error, archivo demasiado pesado";
+      break;
+      case 16:
+      $mensaje = "Error, saldo insuficiente";
+      break;
       default:
       $mensaje = "Bienvenido...";
       break;

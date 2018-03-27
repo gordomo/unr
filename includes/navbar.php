@@ -43,8 +43,13 @@
           <?php } ?>
           <?php if($logged) { ?>
           <li class="nav-item">
+            <a class="nav-link link text-secondary display-4" href="pedidoparticular.php">
+              <span class="mbri-cloud mbr-iconfont mbr-iconfont-btn"></span>Enviar Apunte&nbsp;<br>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link link text-secondary display-4" href="mispedidos.php">
-              <span class="mbri-print mbr-iconfont mbr-iconfont-btn"></span>Mis Pedidos&nbsp;<br>
+              <span class="mbri-cl mbr-iconfont mbr-iconfont-btn"></span>Mis Pedidos&nbsp;<br>
             </a>
           </li>
           <li class="nav-item">

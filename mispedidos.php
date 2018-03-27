@@ -59,7 +59,7 @@ if(isset($_GET['status'])) {
   </section>
 
   <section class="table1 section-table cid-qDOqk1ywwV" id="table1-3f" data-rv-view="3450">
-    <div class="container-fluid">
+    <div class="">
       <div class="media-container-row align-center">
         <div class="col-12 col-md-12">
           <h2 class="mbr-section-title mbr-fonts-style mbr-black display-2">Mis Pedidos</h2>
@@ -68,8 +68,8 @@ if(isset($_GET['status'])) {
             <div class="line"></div>
           </div>
           <h3 class="mbr-section-subtitle mbr-light mbr-fonts-style pb-5 pt-3 display-5">Acá podrás observar tus pedidos y su estado, también ver el historial de tus cargas&nbsp;y llevar un control de tus compras.&nbsp;</h3>
-          <div class="table-wrapper" style="width: 88%;">
-            <div class="container-fluid">
+          <div class="table-wrapper">
+            <div class="">
               <div class="row search">
                 <div class="col-md-6"></div>
                 <div class="col-md-6">
@@ -80,7 +80,7 @@ if(isset($_GET['status'])) {
                 </div>
               </div>
             </div>
-            <div class="container-fluid scroll">
+            <div class="scroll">
               <table class="table table-striped isSearch" cellspacing="0">
                 <thead>
                   <tr class="table-heads">
