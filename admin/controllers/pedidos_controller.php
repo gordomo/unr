@@ -39,7 +39,13 @@ switch ($_REQUEST["action"]) {
                     header('Location: ../../pedidoparticular.php?status=14');
                 }
                 $apunte["file"] = $uploadStatus["ruta"];
-                $apunte["pages"] = $_POST['cantidadDepaginas'];
+                $hasta = isset($_POST['hasta']) ? $_POST['hasta'] : 0;
+                $desde = isset($_POST['desde']) ? $_POST['desde'] : 0;
+                if ($hasta <= $desde) {
+                    $hasta = $desde + 1;
+                }
+                $cantidadDePaginas = $hasta - $desde;
+                $apunte["pages"] = $cantidadDePaginas;
                 
             } else {
                 $apunte = getApunte($mysqli, $idApunte);
@@ -63,7 +69,7 @@ switch ($_REQUEST["action"]) {
             $precioFinal = round($precio + $precioAnilladoTotal, 2);
 
             if($saldo < $precioFinal) {
-                header('Location: ../../pedidoparticular.php?status=15');
+                header('Location: ../../pedidoparticular.php?status=16');
             }
             else {
                 $file = $apunte['file'];
@@ -73,15 +79,15 @@ switch ($_REQUEST["action"]) {
                 $mov = 'pedido';
                 $doblefaz = ($simpleFaz) ? 0 : 1;
 
-                if ($stmt = $mysqli->prepare("INSERT INTO pedidos (`nombre`, `archivo`, `cantidad`, `total`, `estado`, `date`, `usr_id`, `anillado`, `doblefaz`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-                    $stmt->bind_param('ssddisiii', $apunte['name'], $file, $cantidad, $precioFinal, $estado, $date, $user, $anillado, $doblefaz);
+                if ($stmt = $mysqli->prepare("INSERT INTO pedidos (`nombre`, `archivo`, `cantidad`, `total`, `estado`, `date`, `usr_id`, `anillado`, `doblefaz`, `desde`, `hasta`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                    $stmt->bind_param('ssddisiiiii', $apunte['name'], $file, $cantidad, $precioFinal, $estado, $date, $user, $anillado, $doblefaz, $desde, $hasta);
                     if (!$stmt->execute()) {
                         header('Location: ../../mispedidos.php?status=2');
                     } else {                       
                             //insert en historico si sale bien la primer operacion
                         $pedido_id = $stmt->insert_id;
-                        if ($stmt2 = $mysqli->prepare("INSERT INTO `historial` (`id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`, `id_pedido`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
-                            $stmt2->bind_param('issdsiii', $user, $admin, $mov, $precioFinal, $date, $estado, $cantidad, $pedido_id);
+                        if ($stmt2 = $mysqli->prepare("INSERT INTO `historial` (`id_usuario`, `admin`, `mov`, `amount`, `date`, `estado`, `cantidad`, `id_pedido`, `desde`, `hasta`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+                            $stmt2->bind_param('issdsiiiii', $user, $admin, $mov, $precioFinal, $date, $estado, $cantidad, $pedido_id, $desde, $hasta);
                             if (!$stmt2->execute()) {
                                 header('Location: ../../mispedidos.php?status=2');
                             } else {
