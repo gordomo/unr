@@ -63,6 +63,12 @@ $pedidos = getPedidos($mysqli);
                       <strong>Cant</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
+                      <strong>Desde Pag</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
+                      <strong>Hasta Pag</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
                       <strong>Anillado</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
@@ -86,6 +92,8 @@ $pedidos = getPedidos($mysqli);
                       <td class="body-item mbr-fonts-style display-7"><a href="<?=str_replace("../", "", $row['archivo'])?>" class="table-link"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$emailUsuario?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
+                      <td class="body-item mbr-fonts-style display-7"><?=$row['desde']?></td>
+                      <td class="body-item mbr-fonts-style display-7"><?=$row['hasta']?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=($row['anillado']) ? 'SI' : 'NO'?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=($row['doblefaz']) ? 'SI' : 'NO'?></td>
                       <td class="body-item mbr-fonts-style display-7">$<?=$row['total']?></td>

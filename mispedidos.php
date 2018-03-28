@@ -88,13 +88,19 @@ if(isset($_GET['status'])) {
                       <strong>OPERACIÓN</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
-                      <strong>CÓDIGO</strong>
+                      <strong>COD.</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
-                      <strong>CANTIDAD</strong>
+                      <strong>CANT.</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
                       <strong>TOTAL</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
+                      <strong>DESDE PAG</strong>
+                    </th>
+                    <th class="head-item mbr-fonts-style display-4">
+                      <strong>HASTA PAG</strong>
                     </th>
                     <th class="head-item mbr-fonts-style display-4">
                       <strong>FECHA</strong>
@@ -114,6 +120,8 @@ if(isset($_GET['status'])) {
                     <td class="body-item mbr-fonts-style display-7"><?=($row['mov'] == "pedido") ? $row['id_pedido'] : ""?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['amount']?></td>
+                    <td class="body-item mbr-fonts-style display-7"><?=$row['desde']?></td>
+                    <td class="body-item mbr-fonts-style display-7"><?=$row['hasta']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=$row['date']?></td>
                     <td class="body-item mbr-fonts-style display-7"><?=($row['id_pedido']) ? getPedido($mysqli, $row['id_pedido'])['nombre'] : ''?></td>
                     <td class="body-item mbr-fonts-style display-7">

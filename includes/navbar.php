@@ -49,7 +49,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link link text-secondary display-4" href="mispedidos.php">
-              <span class="mbri-cl mbr-iconfont mbr-iconfont-btn"></span>Mis Pedidos&nbsp;<br>
+              <span class="mbri-file mbr-iconfont mbr-iconfont-btn"></span>Mis Pedidos&nbsp;<br>
             </a>
           </li>
           <li class="nav-item">
