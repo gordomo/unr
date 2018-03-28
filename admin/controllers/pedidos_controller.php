@@ -63,7 +63,7 @@ switch ($_REQUEST["action"]) {
             $precioFinal = round($precio + $precioAnilladoTotal, 2);
 
             if($saldo < $precioFinal) {
-                header('Location: ../../pedidoparticular.php?status=15');
+                header('Location: ../../pedidoparticular.php?status=16');
             }
             else {
                 $file = $apunte['file'];
