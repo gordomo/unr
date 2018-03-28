@@ -23,8 +23,13 @@ $pedidos = getPedidos($mysqli);
 <head>
   <?php include_once("includes/headerlinks.html"); ?>
   <title>Pedidos</title>
+  <style type="text/css">
+    .dataTables_scroll {
+      width: 1700px !important;
+    }
+  </style>
 </head>
-<body>
+<body style="overflow-x: auto; height: 100vh;">
   <?php include_once("includes/navbar.php") ?>
   <section class="table1 section-table cid-qGqMbQ6tUo" id="table1-69" data-rv-view="3496">
     <div class="">
