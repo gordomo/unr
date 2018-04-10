@@ -78,7 +78,7 @@ if(isset($_GET['status'])) {
                             <p class="mbr-text mbr-fonts-style display-5">
                                 <div style="font-size: 25px;">
                                     <strong>Copias:</strong> 
-                                    <input type="number" value="1"  min="1" style="height: 35px;width: 65px;" name="cantidad" id="cantidad"> --->
+                                    <input type="number" value="1"  min="1" style="height: 35px;width: 65px;" name="cantidad" id="cantidadDeApuntes"> --->
                                     <strong>Precio</strong>:&nbsp;$
                                     <span id="precio-final"><?= $precioFinal ?></span>
                                 </div>
@@ -87,11 +87,20 @@ if(isset($_GET['status'])) {
                                     <strong>Paginas:</strong> 
                                     <span><?= $apunte['pages'] ?></span>
                                 </div>
+
+                                <div style="font-size: 25px;">
+                                    <strong>Desde Página:</strong> 
+                                    <input type="number" value="1"  min="1" max="<?= $apunte['pages'] ?>" style="height: 35px;width: 65px;" name="desde" id="desde">
+                                </div>
+                                <div style="font-size: 25px;">
+                                    <strong>Hasta Página:</strong> 
+                                    <input type="number" value="<?= $apunte['pages'] ?>" max="<?= $apunte['pages'] ?>"  min="1" style="height: 35px;width: 65px;" name="hasta" id="hasta">
+                                </div>
                             </p>
                             <p class="mbr-text display-7">
-                                <label class="checkbox-inline"><input type="checkbox" name="simpleFaz" id="simple-faz">Simple Faz</label>
+                                <label class="checkbox-inline"><input type="checkbox" name="simpleFaz" id="simpleFaz">Simple Faz</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <label class="checkbox-inline"><input type="checkbox" name="anillado" id="anillado">Anillado</label>
+                                <label class="checkbox-inline"><input type="checkbox" name="anillado" id="anilladoCustom">Anillado</label>
                             </p>
                         </div>
                         <div class="mbr-section-btn">

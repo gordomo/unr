@@ -19,7 +19,14 @@ switch ($_REQUEST["action"]) {
             $simpleFaz = (isset($_POST['simpleFaz'])) ? "1" : "0";
             $anillado = (isset($_POST['anillado'])) ? "1" : "0";
 
+            $hasta = isset($_POST['hasta']) ? $_POST['hasta'] : 0;
+            $desde = isset($_POST['desde']) ? $_POST['desde'] : 0;
+            if ($hasta <= $desde) {
+                $hasta = $desde + 1;
+            }
 
+            $cantidadDePaginas = $hasta - ($desde - 1);
+            die(var_dump($cantidadDePaginas));
             $user_mail = $_SESSION['user'];
             $user = getUsuarioByEmail($mysqli, $user_mail)['id'];
             $saldo = getSaldo($mysqli, $user);
@@ -39,12 +46,7 @@ switch ($_REQUEST["action"]) {
                     header('Location: ../../pedidoparticular.php?status=14');
                 }
                 $apunte["file"] = $uploadStatus["ruta"];
-                $hasta = isset($_POST['hasta']) ? $_POST['hasta'] : 0;
-                $desde = isset($_POST['desde']) ? $_POST['desde'] : 0;
-                if ($hasta <= $desde) {
-                    $hasta = $desde + 1;
-                }
-                $cantidadDePaginas = $hasta - $desde;
+                
                 $apunte["pages"] = $cantidadDePaginas;
                 
             } else {

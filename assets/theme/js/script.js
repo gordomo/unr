@@ -1368,40 +1368,6 @@ $(".selectCat").change(function(){
 
 });
 
-
-$("#cantidad").on("input", function(){
-
-    var cantidad = $("#cantidad").val();
-    var precioAnillado = cantidad * precioAnillados;
-    var precioFinal = (cantidadPaginas  * precioDobleFaz) * cantidad;
-    
-    if ($('#simple-faz').is(':checked')) {
-        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
-    }
-
-    if ($('#anillado').is(':checked')) {
-        precioFinal = precioFinal + precioAnillado;
-    }
-    
-    $('#precio-final').html(precioFinal.toFixed(2));
-});
-
-$("#simple-faz, #anillado").change(function() {
-    var cantidad = $("#cantidad").val();
-    var precioAnillado = cantidad * precioAnillados;
-    var precioFinal = (cantidadPaginas * precioDobleFaz) * cantidad;
-    
-    if ($('#simple-faz').is(':checked')) {
-        precioFinal = ((precioFinal / precioDobleFaz) * precioSimpleFaz);
-    }
-
-    if ($('#anillado').is(':checked')) {
-        precioFinal = precioFinal + precioAnillado;
-    }
-    
-    $('#precio-final').html(precioFinal.toFixed(2));
-});
-
 $('#sumar').on("input", function() {
     var saldoActual = parseFloat($("#saldoActual").html().replace("$", ""));
     var agregado = ($(this).val()) ? parseFloat($(this).val()) : 0;
@@ -1462,11 +1428,11 @@ function calcularPrecio() {
     var desde = parseInt($("#desde").val());
     var hasta = parseInt($("#hasta").val());
     
-    if(hasta <= desde){
+    if(hasta <= desde) {
         $("#hasta").val(desde + 1);
     }
 
-    var cantidadPaginas = $("#hasta").val() - $("#desde").val();
+    var cantidadPaginas = hasta - (desde -1);
     var precioAnillado = cantidad * precioAnillados;
     var precioFinal = (cantidadPaginas  * precioDobleFaz) * cantidad;
     
@@ -1481,7 +1447,7 @@ function calcularPrecio() {
     $('#precio-final').html(precioFinal.toFixed(2));
 };
 
-$("#cantidadDepaginas, #desde, #hasta", ).on("input", function(e){
+$("#cantidadDeApuntes, #cantidadDepaginas, #desde, #hasta", ).on("input", function(e){
     if (timer) {
         clearTimeout(timer);
     }
