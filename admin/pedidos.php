@@ -94,7 +94,11 @@ $pedidos = getPedidos($mysqli);
                   <?php foreach ($pedidos as $row) { $emailUsuario = getUsuario($mysqli, $row['usr_id'])['email'];?>
                     <tr> 
                       <td class="body-item mbr-fonts-style display-7"><?=$row['id']?></td>
-                      <td class="body-item mbr-fonts-style display-7"><a href="<?=str_replace("../", "", $row['archivo'])?>" class="table-link"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+                      <td class="body-item mbr-fonts-style display-7">
+                        <a href="<?=str_replace("../", "", $row['archivo'])?>" class="table-link nohidden">
+                          <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
                       <td class="body-item mbr-fonts-style display-7"><?=$emailUsuario?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$row['cantidad']?></td>
                       <td class="body-item mbr-fonts-style display-7"><?=$row['desde']?></td>
@@ -143,5 +147,10 @@ $pedidos = getPedidos($mysqli);
           </div>
     </section>
         <?php include_once("includes/footer.html") ?>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $(".nohidden").removeClass("hidden");
+          });
+        </script>
   </body>
 </html>
