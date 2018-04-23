@@ -26,7 +26,7 @@ switch ($_REQUEST["action"]) {
             }
 
             $cantidadDePaginas = $hasta - ($desde - 1);
-            die(var_dump($cantidadDePaginas));
+            
             $user_mail = $_SESSION['user'];
             $user = getUsuarioByEmail($mysqli, $user_mail)['id'];
             $saldo = getSaldo($mysqli, $user);
